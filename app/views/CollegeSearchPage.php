@@ -14,7 +14,6 @@
 					<?php echo $row -> Name;?>
 				</div>
 				<?php endforeach;?>
-				
 			</div>
 		</div>
 	</div>
