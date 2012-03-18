@@ -4,7 +4,7 @@
 		<h1>Welcome!</h1>
 		<p>
 			ProfessorVote.com is a new and unique way of rating your College professors and getting a quick and easy view of the best professors at your school. We are currently under development
-			so please stand by as we will be fully operational in two months.
+			so please stand by as we will be fully operational in two months. Test
 		</p>
 	</div>
 </div>
