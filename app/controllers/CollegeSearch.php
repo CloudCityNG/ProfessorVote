@@ -1,8 +1,9 @@
 <?php
 
 class CollegeSearch extends CI_Controller {
-
-	function index() {
+	
+	function index() { 
+		$this->load->library('Pulse');
 		$this -> load -> model('College_model');
 		$data['records'] = $this -> College_model -> getAll();
 		$data['main_content'] = 'CollegeSearchPage';

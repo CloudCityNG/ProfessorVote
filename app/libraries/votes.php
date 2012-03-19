@@ -5,8 +5,8 @@ http://s.technabled.com/PulseVote
 **/
 if(!$_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		die("No direct access to files is allowed");  
-	}
-include("Pulse.vote.class.php");
+$this->load->library('Pulse');	}
+//include("Pulse.vote.class.php");
 $item_id = $_POST['item_id'];
 $action = $_POST['action'];
 $format = urldecode($_POST['format']);

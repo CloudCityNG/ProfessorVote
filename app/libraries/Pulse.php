@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 Pulse Lite Voting Script
 http://s.technabled.com/PulseVote
@@ -37,7 +37,7 @@ class Pulse {
 	@scope public
 	**/
 	public static function javascript(){
-		return "<script type=\"text/javascript\" src='".PULSE_DIR."/scripts/jquery-1.4.2.min.js'></script>\n<script type=\"text/javascript\" src='".PULSE_DIR."/scripts/pulse.core.js'></script>";
+		return "<script type=\"text/javascript\" src='".PULSE_DIR."/scripts/jquery-1.7.1.min.js'></script>\n<script type=\"text/javascript\" src='".PULSE_DIR."/scripts/pulse.core.js'></script>";
 	}
 	
 	/**
