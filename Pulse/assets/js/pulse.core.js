@@ -3,7 +3,7 @@ Pulse Lite Voting Script
 http://s.technabled.com/PulseVote
 **/
 $(function(){
-	var u = ""; // NO trailing slash; Same as PULSE_DIR in pulse.config.php
+	var u = "/Pulse"; // NO trailing slash; Same as PULSE_DIR in pulse.config.php
 	$("input.pulse_vote_button").live('click', function(){
 		var item_id = $(this).attr("data-itemId"); // id of the item to vote
 		var format = $(this).attr("data-format"); // result format
@@ -18,7 +18,7 @@ $(function(){
 		$.ajax({
 			type: "POST",
 			data: "action="+dir+"&item_id="+item_id+"&format="+format,
-			url: u+"/assets/js/votes.php",
+			url: u+"/votes.php",
 			dataType: 'json',
 			error: function(a,b){
 				alert("Cannot connect to database. Please try again.");

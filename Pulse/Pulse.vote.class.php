@@ -3,7 +3,7 @@
 Pulse Lite Voting Script
 http://s.technabled.com/PulseVote
 **/
-include("app/pulse/pulse.config.php");
+include("pulse.config.php");
 class Pulse {
 	private $style;
 	private $votes_table;
