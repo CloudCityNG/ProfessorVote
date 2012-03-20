@@ -8,8 +8,8 @@
 <!-- Le javascript
 =============================s===================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="../scripts/jquery-1.7.1.min.js"></script>
-<script src="../scripts/bootstrap.min.js"></script>
+<script src="/assets/js/jquery-1.7.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
 <?php echo Pulse::css(); ?>  
 <?php echo Pulse::javascript(); ?>  
 </body> </html>

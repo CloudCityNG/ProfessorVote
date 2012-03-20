@@ -1,12 +1,10 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
 Pulse Lite Voting Script
 http://s.technabled.com/PulseVote
 **/
-//include("pulse.config.php");
-define('PULSE_DIR', '../');
+include("app/pulse/pulse.config.php");
 class Pulse {
-	
 	private $style;
 	private $votes_table;
 	private $format = "%7Bup%7D+upvotes%2C+%7Bdown%7D+downvotes"; // encoded value of '{up} upvotes, {down} downvotes'
@@ -27,7 +25,7 @@ class Pulse {
 	@scope public
 	**/
 	public static function css(){
-		return '<link href="../css/bootstrap-responsive.css" rel="stylesheet">';
+		return "<link rel='stylesheet' href='".PULSE_DIR."/assets/css/pulse.css'></link>";
 	}
 
 	/**
@@ -37,7 +35,7 @@ class Pulse {
 	@scope public
 	**/
 	public static function javascript(){
-		return "<script type=\"text/javascript\" src='".PULSE_DIR."/scripts/jquery-1.7.1.min.js'></script>\n<script type=\"text/javascript\" src='".PULSE_DIR."/scripts/pulse.core.js'></script>";
+		return "<script type=\"text/javascript\" src='".PULSE_DIR."/assets/js/jquery-1.7.1.min.js'></script>\n<script type=\"text/javascript\" src='".PULSE_DIR."/assets/js/pulse.core.js'></script>";
 	}
 	
 	/**

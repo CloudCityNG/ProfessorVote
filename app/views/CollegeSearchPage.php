@@ -9,12 +9,11 @@
 				<?php foreach ($records as $row):
 				?>
 				<?php
-				$test = $row -> id;
+                $test = $row -> id;
 				?>
-
-				<div class="ex" id='<?php echo $row -> Name;?>'>
+				<?php echo $pulse -> voteHTML($test);?>
+				<div class="ex" id='<?php echo $row -> id;?>'>
 					<?php echo $row -> Name;?>
-					<?php echo $pulse -> voteHTML($test);?>
 				</div>
 				<?php endforeach;?>
 			</div>
