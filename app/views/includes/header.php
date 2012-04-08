@@ -6,7 +6,7 @@
 		<!-- Le styles -->
 		<link href="/css/bootstrap.css" rel="stylesheet">
 		<link href="/css/bootstrap-responsive.css" rel="stylesheet">
-		<link href="/Pulse/assets/css/pulse.css" rel="stylesheet">
+		<link href="/CoursePulse/assets/css/pulse.css" rel="stylesheet">
 		<style>
 			body {
 				padding-top: 60px;

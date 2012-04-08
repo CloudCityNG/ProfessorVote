@@ -6,14 +6,14 @@ http://s.technabled.com/PulseVote
 if(!$_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
 		die("No direct access to files is allowed");  
 	}
-include("Pulse.vote.class.php");
+include('Pulse.vote.class.php');
 $item_id = $_POST['item_id'];
 $action = $_POST['action'];
 $format = urldecode($_POST['format']);
 if(empty($item_id) || empty($action)) {
 	$result['error'] = 'invalid_params';
 }
-$pulse = new Pulse();
+$pulse = new CoursePulse();
 if($action=='up'){
 		if($pulse->votedBefore($item_id)){
 			$result['error'] = 'already_voted';

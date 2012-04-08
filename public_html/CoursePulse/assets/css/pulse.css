@@ -72,62 +72,6 @@ input.pulse_vote_button.disabled {
 }
 
 /**
-YouTube Style Buttons
-**/
-.pulse_votes_container.youtube {
-	background: #ffffff; /* old browsers */
-	background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* webkit */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* ie */
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border:1px solid #cccccc;
-	width:60px;
-	text-align:center;
-	padding:3px;
-}
-
-.youtube  .pulse_vote_buttons{
-	padding:2px;
-}
-
-.youtube  input.vote_up {
-	width:20px;
-	display:inline-block;
-	text-indent:-100000%;
-	background:url("../images/youtube_thumb_up.png") no-repeat center center;
-}
-
-.youtube  input[disabled='disabled'].vote_up, .youtube  input.vote_up.disabled{
-	width:20px;
-	display:inline-block;
-	text-indent:-100000%;
-	background:url("../images/youtube_thumb_up_disabled.png") no-repeat center center;
-}
-
-.youtube  input.vote_down{
-	width:20px;
-	display:inline-block;
-	text-indent:-100000%;
-	background:url("../images/youtube_thumb_down.png") no-repeat center center;
-}
-
-.youtube  input[disabled='disabled'].vote_down, .youtube  input.vote_down.disabled {
-	width:20px;
-	display:inline-block;
-	text-indent:-100000%;
-	background:url("../images/youtube_thumb_down_disabled.png") no-repeat center center;
-}
-
-.youtube .pulse_result_format {
-	display:block;
-	font-family:verdana,arial,helvetica,sans-serif;
-	margin-top:4px;
-	font-size:11px;
-	text-align:center;
-}
-
-/**
 Reddit Style Buttons
 **/
 .pulse_votes_container.reddit {

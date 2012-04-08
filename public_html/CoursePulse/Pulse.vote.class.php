@@ -4,15 +4,15 @@
  http://s.technabled.com/PulseVote
  **/
 include ("pulse.config.php");
-class Pulse {
+class CoursePulse {
 	private $style;
 	private $votes_table;
 	private $format = "%7Bup%7D+upvotes%2C+%7Bdown%7D+downvotes";
 	// encoded value of '{up} upvotes, {down} downvotes'
 
-	function __construct($style = '') {
+	function __construct($style = "") {
 		$this -> style = empty($style) ? 'thumb1' : $style;
-		$this -> votes_table = 'pulse_votes';
+		$this -> votes_table = 'Course_pulse_votes';
 	}
 
 	function setFormat($tpl) {

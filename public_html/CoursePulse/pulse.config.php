@@ -6,7 +6,7 @@ http://s.technabled.com/PulseVote
 session_start();
 ob_start();
 error_reporting(E_ALL-E_NOTICE);
-define('PULSE_DIR', '/pulse'); // absolute path of the dir where Pulse is; WITHOUT trailing slash
+define('PULSE_DIR', '/CoursePulse'); // absolute path of the dir where Pulse is; WITHOUT trailing slash
 /** DATABASE CONNECTION CONFIGURATION **/
 define('HOSTNAME', 'localhost'); // hostname of your database; it is localhost in most cases
 define('USERNAME', 'root'); // username of the database

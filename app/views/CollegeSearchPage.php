@@ -5,7 +5,7 @@
 		</div>
 		<div class="row">
 			<div class="span10">
-				<?php $pulse = new Pulse();?>
+				<?php $pulse = new CoursePulse();?>
 				<?php foreach ($records as $row):
 				?>
 				<?php
