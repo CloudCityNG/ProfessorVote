@@ -1,7 +1,7 @@
 <?php
 
 class College_model extends CI_Model {
-    
+
     function getAll() {
         $q = $this -> db -> get('College');
         if ($q -> num_rows() > 0) {
@@ -11,28 +11,29 @@ class College_model extends CI_Model {
             return $data;
         }
     }
-	function collegeExists($college){
-		$q = $this -> db -> get('College');
+
+    function collegeExists($college) {
+        $q = $this -> db -> get('College');
         if ($q -> num_rows() > 0) {
             foreach ($q->result() as $row) {
-                if($row->Name==$college){
-                return TRUE;	
+                if ($row -> Name == $college) {
+                    return TRUE;
                 }
             }
-			return FALSE;
+            return FALSE;
         }
-	}
-	function loadCollegeList($letter){
-		//make sure $letter is a letter
-		$this->load->library('Util');
-		$fields = array(0=>'Name',1=>'State',2=>'City');
-		
+    }
 
-		$q= $this->db->like('Name', $letter,'after');
-		$q= $this->db->get('College');
-		$html = $this->util->make_table($fields,$q);
-		return $html;
+    function loadCollegeList($letter) {
+        //make sure $letter is a letter
+        $this -> load -> library('Util');
+        $fields = array(0 => 'Name', 1 => 'State', 2 => 'City');
 
-	}
+        $q = $this -> db -> like('Name', $letter, 'after');
+        $q = $this -> db -> get('College');
+        $html = $this -> util -> make_table($fields, $q);
+        return $html;
+
+    }
 
 }
