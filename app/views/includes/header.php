@@ -48,7 +48,8 @@
 						<?php } else {?>
 						<ul class="nav">
 							<li>
-								<small class="navbar-text">User: <?php echo anchor('profile', $this->session->userdata('username'))?>
+								<small class="navbar-text">User: <?php $username = $this -> session -> userdata('username'); 
+								echo anchor('profile/view_profile/'.$username, $username)?>
 							</li>
 						</ul>
 						<ul class="nav">
