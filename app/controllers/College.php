@@ -1,5 +1,5 @@
 <?php
-include ('Pulse/Pulse.vote.class.php');
+include ('CoursePulse/Pulse.vote.class.php');
 class College extends CI_Controller {
 
 	function index() {
