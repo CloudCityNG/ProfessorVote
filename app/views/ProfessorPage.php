@@ -1,61 +1,30 @@
 <div class="container">
 	<div class="content">
-		<div class="page-header">
-			<h1> Professors Name <small>Masters in dragon fighting</small></h1>
+		<div class ="hero-unit">
+			<h1><?php
+			if (isset($firstName)) {
+				echo $firstName;
+			}
+			if (isset($lastName)) {
+				echo " " . $lastName;
+			}
+			?>
+
+			<small><?php
+			if (isset($department)) {
+				echo $department;
+			}
+				?></small></h1>
 		</div>
-		<div class="row">
-			<div class="span10">
-				<h2>Classes</h2>
-				<div class="ex">
-					CS 4500000
-				</div>
-				<div class="ex">
-					CS 4500000
-				</div>
-				<div class="ex">
-					CS 4500000
-				</div>
-				<div class="ex">
-					CS 4500000
-				</div>
-				<div class="ex">
-					CS 4500000
-				</div>
-				<div class="ex">
-					CS 4500000
-				</div>
-				<div class="ex">
-					CS 4500000
-				</div>
-				<div class="ex">
-					CS 4500000
-				</div>
-				<div id="footer" class="pagination">
-					<ul>
-						<li class="prev disabled">
-							<a href="#">&larr; Previous</a>
-						</li>
-						<li class="active">
-							<a href="#">1</a>
-						</li>
-						<li>
-							<a href="#">2</a>
-						</li>
-						<li>
-							<a href="#">3</a>
-						</li>
-						<li>
-							<a href="#">4</a>
-						</li>
-						<li>
-							<a href="#">5</a>
-						</li>
-						<li class="next">
-							<a href="#">Next &rarr;</a>
-						</li>
-					</ul>
-				</div>
-			</div>
+		<a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary">Add Course</a>
+		<div class="modal hide fade" id="addCourseModal">
+			<div class="modal-header">
+                <a class="close" data-dismiss="modal" id="loginModalClose">X</a>
+                <h3>Add a Course</h3>
+            </div>
+            <div class="modal-body">
+            	<?php echo $addCourse; ?>
+            	
+            </div>
 		</div>
 	</div>
-</div>

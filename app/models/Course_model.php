@@ -1,41 +1,33 @@
 <?php
 class Course_model extends CI_Model {
-	function validate() {
+	
 
-		$this -> db -> where('college_name', $this -> input -> post('college_name'));
-		$this -> db -> where('course_name', $this -> input -> post('course_name'));
-		$query = $this -> db -> get('Course');
-		if ($query -> num_rows() == 1) {
-			return TRUE;
-		}
+	function create_course($catalog_number,$course_name, $collegeID) {
 
-	}
+		$new_course_insert_data = array('CourseName' => $course_name,'CatalogNumber'=>$catalog_number, 'CollegeID' => $collegeID);
 
-	function create_course($course_name, $college_name) {
-
-		$new_course_insert_data = array('course' => $course_name, 'college' => $college_name);
-
-		$insert = $this -> db -> insert('Course', $new_course_insert_data);
+		$insert = $this -> db -> insert('course', $new_course_insert_data);
 		return $insert;
 	}
 
-	function courseExists($course,$college) 
+	function courseExists($catalog_number,$college_ID) 
 	{
-	
-		$this->db->where('course',$course);
-		$this->db->where('college',$college);
+		$this ->db ->select('*');
+		$this->db->where('CollegeID',$college_ID);
+		$this->db->where('CatalogNumber',$catalog_number);
+		
 		$q = $this -> db -> get('Course');
-		//where college is the same
+
 		if ($q -> num_rows() > 0) {
 			return TRUE;
 		} else {
 			return FALSE;
 		}
 	}
-	function getID($course_name, $college_name){
-		$this->db->where('course',$course_name);
-		$this->db->where('college',$college_name);
-		$q = $this -> db -> get('Course');
+	function getID($catalog_numner, $college_ID){
+		$this->db->where('CatalogNumber',$catalog_number);
+		$this->db->where('CollegeID',$college_ID);
+		$q = $this -> db -> get('course');
 		//where college is the same
 		if ($q -> num_rows() == 0) {
 			return NULL;
@@ -44,6 +36,19 @@ class Course_model extends CI_Model {
 		}else{
 			return 'error';
 		}
+	}
+	function getCoursesByProfessor($professorID){
+		$this->db->where('ProfessorID',$professorID);
+		$this->db-> join('courselist','courselist.CourseID=course.courseID');
+		$q = $this -> db -> get('course');
+		if($q->num_rows()<1){
+			return NULL;
+		}
+		else{
+			return $q;
+		}
+		
+		
 	}
 
 }
