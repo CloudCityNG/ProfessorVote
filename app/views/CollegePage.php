@@ -9,7 +9,7 @@
 		</li>
 	</ul>
 	<div class="well">
-		<h1><?php echo urldecode($this -> uri -> segment(3));?></h1>
+		<h1><?php echo $collegeINFO -> Name;?></h1>
 		<table width="100%">
 			<tr>
 				<td width="20%">
@@ -31,13 +31,13 @@
 					<br />
 					<br />
 					<tr>
-						<strong>Location:</strong>
+						<h2>Location:</h2>
 					</tr>
-					<br />
-					<br />
 					<tr>
-						Kennesaw, GA
+						<h3><?php echo $collegeINFO->State;?></h3>
 					</tr>
+					<br />
+					<br />
 				</table></td>
 				<td width="15%">
 				<table>
@@ -157,61 +157,6 @@
 		<br />
 		<tr>
 			This is my comment about this course. Sucks!
-		</tr></td>
-		<td align="right">LIKE</td>
-	</div>
-	<div class="well">
-		<td>
-		<tr>
-			<strong><h4><a class="btn-large" href="">Professor2</a></h4></strong>
-		</tr>
-		<br />
-		<tr>
-			This is description of the professor. Sucks!
-		</tr></td>
-		<td align="right">LIKE</td>
-	</div>
-	<div class="well">
-		<td>
-		<tr>
-			<strong><h4><a class="btn-large" href="">Professor3</a></h4></strong>
-		</tr>
-		<br />
-		<tr>
-			This is description of the professor.
-		</tr></td>
-		<td align="right">LIKE</td>
-	</div>
-	<div class="well">
-		<td>
-		<tr>
-			<strong><h4><a class="btn-large" href="">Professor4</a></h4></strong>
-		</tr>
-		<br />
-		<tr>
-			This is description of the professor.
-		</tr></td>
-		<td align="right">LIKE</td>
-	</div>
-	<div class="well">
-		<td>
-		<tr>
-			<strong><h4><a class="btn-large" href="">Professor5</a></h4></strong>
-		</tr>
-		<br />
-		<tr>
-			This is description of the professor.
-		</tr></td>
-		<td align="right">LIKE</td>
-	</div>
-	<div class="well">
-		<td>
-		<tr>
-			<strong><h4><a class="btn-large" href="">Professor6</a></h4></strong>
-		</tr>
-		<br />
-		<tr>
-			This is description of the professor.
 		</tr></td>
 		<td align="right">LIKE</td>
 	</div>
