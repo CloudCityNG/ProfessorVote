@@ -1,60 +1,98 @@
 <script type="text/javascript" language="JavaScript">
-function validateFields(){
-	//show validating GIF
-	//var catalogNumber = $('#catalog_number');
-	//var courseName = $('#course_name');
-	//var fields = new Array('catalog_number','course_name');
-	//if(fieldsNotEmpty(fields));
+
+function addCourse(){
+	//TODO:add in code to hide server side validation messages
 $.ajax({
             type: "POST",
-            url: "<?php echo base_url();?>index.php/course/course_check",
-            data: "catalog_number="+$("#catalog_number").val()+"&college_name="+$("#college_name").val(),
+            url: "<?php echo base_url();?>index.php/course/add",
+            data: "catalog_number="+$("#catalog_number").val()+"&college_name="+$("#college_name").val()
+            +'&course_name='+$("#course_name").val()+'&professor_first_name='+$("#professor_first_name").val()+
+            '&professor_last_name='+$("#professor_last_name").val()+'&professor_department='+$("#professor_department").val(),
             success: function(msg){
-                if(msg=="true")
+            	if(msg=='success'){
+					//hide modal
+					javascript:$('#addCourseModal').modal('hide');		
+					$('#modal_success_msg').text("Course successfully added!");
+					javascript:$('#successModal').modal('show');
+					//clear addCourse panel
+					$('#catalog_number').val('');
+					$('#course_name').val('');
+					$('.alert-error').hide();
+					
+					//TODO:repopulate page , highlight and scroll to new course
+				}
+				else if(msg =='error'){
+					javascript:$('#addCourseModal').modal('hide');					
+					$('#modal_error_msg').text("System error adding course.");
+					javascript:$('#errorModal').modal('show');
+				}
+				else if(msg=='college_error'){
+					javascript:$('#addCourseModal').modal('hide');					
+					$('#modal_error_msg').text("System error when obtaining college data.  Course not added.");
+					javascript:$('#errorModal').modal('show');
+				} else if(msg=="true")//comment out true
                 {
-                    alert("ajax valiation true");
+                    document.getElementById('catalog_number_err').style.display='none';
+                    document.getElementById('course_name_err').style.display='none';
+                    document.getElementById('error_msg').style.display='none';
+                    addCourse();
                     
-                }
-                else
+                    
+                }else
                 {
-                	document.getElementById('catalog_number_err').style.display='block';
-                	document.getElementById('catalog_number_err').innerText=msg;
-                   
+                	document.getElementById('catalog_number_err').style.display='none';
+                    document.getElementById('course_name_err').style.display='none';
+                    document.getElementById('error_msg').style.display='none';
+                    
+                	var messages = msg.split("|");
+                	if(messages.length==1){
+                		var m = messages[0];
+                			var m2 = m.split('#')
+                			if(m2.length==2){
+                				var field = m2[0];
+                				var err = m2[1];
+                				document.getElementById(field).style.display='block';
+                				document.getElementById(field).innerText=err;
+
+                			}
+                	}
+                	else if(messages.length ==2){
+                		for(x in messages){
+                			var m = messages[x];
+                			var m2 = m.split('#')
+                			if(m2.length==2){
+                				var field = m2[0];
+                				var err = m2[1];
+                				document.getElementById(field).style.display='block';
+                				document.getElementById(field).innerText=err;
+                			}
+                		}
+                	}                   
                 }
+				//else{
+				//	javascript:$('#addCourseModal').modal('hide');					
+				//	$('#modal_error_msg').text("Unknown response from system while adding course.");
+				//	javascript:$('#errorModal').modal('show');
+			//	}
+
+
+            	
+                
             
         },
         error:function(xhr,err,ex){
-        	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-    alert("responseText: "+xhr.responseText);
-    alert("exception: "+err);
-    alert("exception: "+ex);
+     //   	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+  //  alert("responseText: "+xhr.responseText);
+  //  alert("exception: "+err);
+  //  alert("exception: "+ex);
+
+    document.getElementById('error_msg').innerText='Unknown error sending AJAX request.';
+     document.getElementById('error_msg').style.display='block';
         }
-        });
-      
-        return false;
-	
+        });	
 }
-	//remove validating GIF
 
-function addCourse(){
-	if(validateFields()){
-		return true;
-	}
-	else{
-		return false;
-	}
-}	
 
-function fieldsNotEmpty(fieldsArray){
-	for(var i =0; i<fieldsArray.length;i++){
-		if($(fieldsArray[i]).value==''||$(fieldsArray[i]).value==null){
-			alert($(fieldsArray[i]).name + ' is empty.' );
-			return false;
-		}
-		return true;
-	}
-}
-	
 	
 </script>
 <div class="container" >
@@ -104,8 +142,20 @@ function fieldsNotEmpty(fieldsArray){
 					}
 	
 					echo form_input($courseNameAttributes);
+					?>
+					<div class="alert alert-error" id='error_msg' style='display:none'></div>
+					<?php
+					
 					$collegeNameAttributes = array('id'=>'college_name','name'=>'college_name','value'=>$collegeName,'type'=>'hidden');
 					echo form_input($collegeNameAttributes);
+					
+					$professorFirstNameAttributes = array('id'=>'professor_first_name','name'=>'professor_first_name','value'=>$professorFirstName,'type'=>'hidden');
+					echo form_input($professorFirstNameAttributes);
+					$professorLastNameAttributes = array('id'=>'professor_last_name','name'=>'professor_last_name','value'=>$professorLastName,'type'=>'hidden');
+					echo form_input($professorLastNameAttributes);
+					$professorDepartmentAttributes = array('id'=>'professor_department','name'=>'professor_department','value'=>$professorDepartment,'type'=>'hidden');
+					echo form_input($professorDepartmentAttributes);
+				//TODO:ADD bootstrap.typehead markup to input to auto populate
 					?>
 				</div>
 				
@@ -113,15 +163,8 @@ function fieldsNotEmpty(fieldsArray){
 			</div>
 			<div class="form-actions">
 				<div>
-					<?php
-					//$submitAttributes = array('id' => 'submit', 'class' => 'btn btn-large btn-primary', 'value' => 'Add Course', 'type' => 'submit');
-					//echo form_submit($submitAttributes);
-					?>
-					<?php
-					$submitAttributes = array('id' => 'submit', 'class' => 'btn btn-large btn-primary', 'value' => 'Add Course', 'type' => 'submit', 'onClick'=>"javascript:addCourse();");
-					echo form_submit($submitAttributes);
-					?>
-					<a href=javascript:addCourse();>validate</a>
+					<a href="javascript:addCourse();" class="btn btn-large btn-primary">Add Course</a>
+					
 				</div>
 			</div>
 		</fieldset>
