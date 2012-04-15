@@ -8,11 +8,8 @@
 		</p>
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<button class="btn btn-large">
-					Select A State
-				</button>
 				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">
-					<span class="caret"></span>
+					Select A State <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
 					<?php foreach ($states as $row):
@@ -23,6 +20,7 @@
 					</li>
 					<?php endforeach;?>
 				</ul>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -33,8 +31,18 @@
 
 	<div class="hero-unit raised">
 		<h1><?php echo urldecode($selectedState);?></h1>
+		
+		<button class="bt btn-large btn-primary pull-right" data-toggle="modal" href="#createCollegeModal">
+                Add that shit!
+            </button>
+            <p class="pull-right" style="margin-right: 1em">
+            Don't see your School below?
+        </p>
 		<p>
 			Pick a school below!
+		</p>
+		<p>
+			
 		</p>
 		<ul class="nav nav-list">
 			<li class="nav-header">
@@ -57,3 +65,42 @@
 	<?php }?>
 </div>
 <!-- /container -->
+
+
+
+<!--Start of the create college model-->     
+        <div class="modal hide fade" id="createCollegeModal">
+            <?php
+            echo form_open('Creat school or something');
+            ?>
+
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal" id="loginModalClose">X</a>
+                <h3>Header</h3>
+            </div>
+            <div class="hero-unit">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="control-group">
+                            <div class="modal-body">
+                                <div>
+                                body
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-actions">
+                                <div>
+                                    Footer
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <?php
+                form_close();
+                ?>
+            </div>
+        </div>
+<!--End of the create college model-->     
+        
