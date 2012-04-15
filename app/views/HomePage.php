@@ -14,8 +14,8 @@
 						<?php foreach ($states as $row):
 						?>
 						<div class="ex" id='<?php echo $row -> id;?>'>
-						    <?php $state = $row -> state;?>
-							<a href=<?php echo "home/showCollegesFromState/".$state;?>><?php echo $state;?></a>
+							<?php $state = $row -> state;?>
+							<a href=<?php echo "home/showCollegesFromState/" . $state;?>><?php echo $state;?></a>
 						</div>
 						<?php endforeach;?>
 					</ul>
@@ -23,6 +23,34 @@
 			</ul>
 		</div>
 	</div>
+	<?php $selectedState = $this -> session -> flashdata('state');?>
+	<?php $colleges = $this -> College_model -> getCollegeByState($selectedState);?>;
+	<?php if($selectedState || !$colleges == NULL){
+	?>
+	
+	<div class="hero-unit raised">
+		<h1><?php echo $selectedState
+		?></h1>
+		<p>
+			Pick a school below!
+		</p>
+		<ul class="nav nav-list">
+			<li class="nav-header">
+				College
+			</li>
+			<?php if($colleges != NULL){?>
+			<?php foreach ($colleges as $row):
+			?>
+			<div class="ex" id='<?php echo $row -> id;?>'>
+				<?php $college = $row -> Name;?>
+				<li>
+					<a href="#"><?php echo $college;?></a>
+				</li>
+			</div>
+			<?php endforeach;?>
+			<?php }?>
+		</ul>
+	</div>
+	<?php }?>
 </div>
 <!-- /container -->
-<?php echo $this->session->flashdata('state');; ?>

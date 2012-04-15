@@ -6,6 +6,7 @@ class home extends CI_Controller {
 
     public function index() {
         $this -> load -> model('State_model');
+        $this -> load -> model('College_model');
         $data['states'] = $this -> State_model -> getAllStates();
         $data['main_content'] = 'HomePage';
         $this -> load -> view('includes/template', $data);
@@ -20,7 +21,7 @@ class home extends CI_Controller {
             redirect('home');
             
         } else {
-            echo "ERROR";
+            echo "TODO ERROR page redirect";
         }
     }
 

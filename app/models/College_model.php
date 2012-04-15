@@ -11,6 +11,19 @@ class College_model extends CI_Model {
             return $data;
         }
     }
+    
+    function getCollegeByState($state){
+        $q = $this -> db -> query("SELECT * FROM College WHERE State='$state'");
+        if($q ->num_rows() > 0){
+            foreach ($q->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        else{
+            return NULL;
+        }
+    }
 
     function collegeExists($college) {
         $q = $this -> db -> get('College');
