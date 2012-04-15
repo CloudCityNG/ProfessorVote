@@ -25,3 +25,4 @@
 	</div>
 </div>
 <!-- /container -->
+<?php echo $this->session->flashdata('state');; ?>

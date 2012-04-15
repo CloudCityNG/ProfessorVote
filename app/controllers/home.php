@@ -16,8 +16,9 @@ class home extends CI_Controller {
         url_title($urlName);
         $state = $this -> uri -> segment(3);
         if ($state != NULL) {
-            echo $state;
-            $this -> index();
+            $this->session->set_flashdata('state', $state);
+            redirect('home');
+            
         } else {
             echo "ERROR";
         }
