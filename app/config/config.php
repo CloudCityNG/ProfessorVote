@@ -182,6 +182,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 */
 $config['log_threshold'] = 2;
 
+
 /*
 |--------------------------------------------------------------------------
 | Error Logging Directory Path
