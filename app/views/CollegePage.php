@@ -1,7 +1,4 @@
 <div class="container">
-	<?php
-    echo form_open('HeaderTest');
-	?>
 	<!-- this is the about us page for ProfessorVote -->
 	<ul class="breadcrumb">
 		<li>
@@ -12,7 +9,7 @@
 		</li>
 	</ul>
 	<div class="well">
-		<h1><?php echo urldecode($this -> uri -> segment(2));?></h1>
+		<h1><?php echo urldecode($this -> uri -> segment(3));?></h1>
 		<table width="100%">
 			<tr>
 				<td width="20%">
