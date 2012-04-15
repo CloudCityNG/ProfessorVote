@@ -13,11 +13,10 @@ class home extends CI_Controller {
     }
 
     function showCollegesFromState() {
-        $urlName = "home";
-        url_title($urlName);
         $state = $this -> uri -> segment(3);
+        
         if ($state != NULL) {
-            $this->session->set_flashdata('state', $state);
+            $this->session->set_flashdata('state', urldecode($state));
             redirect('home');
             
         } else {

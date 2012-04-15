@@ -15,7 +15,7 @@
 						?>
 						<div class="ex" id='<?php echo $row -> id;?>'>
 							<?php $state = $row -> state;?>
-							<a href=<?php echo "home/showCollegesFromState/" . $state;?>><?php echo $state;?></a>
+							<a href="<?php echo htmlentities("home/showCollegesFromState/" . $state);?>"><?php echo $state;?></a>
 						</div>
 						<?php endforeach;?>
 					</ul>
@@ -24,12 +24,12 @@
 		</div>
 	</div>
 	<?php $selectedState = $this -> session -> flashdata('state');?>
-	<?php $colleges = $this -> College_model -> getCollegeByState($selectedState);?>;
-	<?php if($selectedState || !$colleges == NULL){
+	<?php $colleges = $this -> College_model -> getCollegeByState($selectedState);?>
+	<?php if($selectedState){
 	?>
-	
+
 	<div class="hero-unit raised">
-		<h1><?php echo $selectedState
+		<h1><?php echo urldecode($selectedState);
 		?></h1>
 		<p>
 			Pick a school below!
@@ -38,13 +38,14 @@
 			<li class="nav-header">
 				College
 			</li>
-			<?php if($colleges != NULL){?>
+			<?php if($colleges != NULL){
+			?>
 			<?php foreach ($colleges as $row):
 			?>
 			<div class="ex" id='<?php echo $row -> id;?>'>
 				<?php $college = $row -> Name;?>
 				<li>
-					<a href="#"><?php echo $college;?></a>
+					<a href='<?php echo "/CollegePage/".$college;?>'><?php echo $college;?></a>
 				</li>
 			</div>
 			<?php endforeach;?>
