@@ -149,6 +149,9 @@
 	</div>
 	</div>
 	-->
+	<?php print_r($professors);?>
+	<?php echo $professors?>
+	<?php //foreach($professors as $professor):?>
 	<div class="well">
 		<td>
 		<tr>
@@ -160,6 +163,7 @@
 		</tr></td>
 		<td align="right">LIKE</td>
 	</div>
+	<?php //endforeach; ?>
 </div>
 <div class="pagination" align="center">
 	<ul>

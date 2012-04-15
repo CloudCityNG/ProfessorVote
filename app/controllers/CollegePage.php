@@ -18,9 +18,10 @@ class CollegePage extends CI_Controller {
         $this -> load -> model('College_model');
         $exist = $this -> College_model -> collegeByStateAndName($method,$params[0]);
         if ($exist == NULL) {
-            show_404();
+            show_404(); // for testing purposes
         } else {
             $data['collegeINFO'] = $this -> College_model -> collegeByStateAndName($method,$params[0]);
+            $data['professors'] = $this -> College_model -> loadProfessorByCollege(urldecode($method),urldecode($params[0]));
             $data['main_content'] = 'CollegePage';
             $this -> load -> view('includes/template', $data);
         }
