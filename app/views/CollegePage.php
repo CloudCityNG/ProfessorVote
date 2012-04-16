@@ -59,7 +59,7 @@
 		</table>
 	</div>
 	<button class="bt btn-large btn-primary pull-right" data-toggle="modal" href="#createCollegeModal">
-		Add that shit!
+		<i class="icon-plus icon-white"></i> Add that shit!
 	</button>
 	<p class="pull-right" style="margin-right: 1em">
 		Don't see your Professor below?
