@@ -49,7 +49,6 @@ class College_model extends CI_Model {
             $CollegeIDRow = $q1 -> row();
             $collegeID = $CollegeIDRow -> ID;
         }
-        print_r($collegeID);
         // end of First part
 
         // Second part. we will need to $collegeID from the first part
@@ -65,7 +64,8 @@ class College_model extends CI_Model {
             }
         }
         foreach ($ProfessorIDs as $ID) {
-            $professorRows[] = $this -> db -> query("SELECT * FROM Professor WHERE ProfesssorID='$ID'");
+            $q3 = $this -> db -> query("SELECT * FROM Professor WHERE ProfessorID='$ID'");
+            $professorRows[] = $q3->row();
             // Adds the Professor object to an array of professors
         }
         return $professorRows;

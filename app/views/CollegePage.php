@@ -34,7 +34,7 @@
 						<h2>Location:</h2>
 					</tr>
 					<tr>
-						<h3><?php echo $collegeINFO->State;?></h3>
+						<h3><?php echo $collegeINFO -> State;?></h3>
 					</tr>
 					<br />
 					<br />
@@ -149,42 +149,50 @@
 	</div>
 	</div>
 	-->
-	<?php print_r($professors);?>
-	<?php echo $professors?>
-	<?php //foreach($professors as $professor):?>
+	<?php
+if ($professors == NULL) {
+echo 'No professors found';
+} else {
+
+	?>
+	<?php foreach($professors as $professor): // for each professor print out a well unit
+	?>
 	<div class="well">
 		<td>
 		<tr>
-			<strong><h4><a class="btn-large" href="">Professor1</a></h4></strong>
+			<td align="right">DEPARTMENT</td>
+			<?php echo $professor -> Department;?>
+		</tr>
+		<tr>
+			<strong><h4><a class="btn-large" href=""><?php echo $professor->FirstName." ".$professor->LastName
+			?></a></h4></strong>
 		</tr>
 		<br />
-		<tr>
-			This is my comment about this course. Sucks!
-		</tr></td>
-		<td align="right">LIKE</td>
+		</td>
 	</div>
-	<?php //endforeach; ?>
+	<?php endforeach;?>
+	<?php }?>
+	<div class="pagination" align="center">
+		<ul>
+			<li>
+				<a href="#">Prev</a>
+			</li>
+			<li class="active">
+				<a href="#">1</a>
+			</li>
+			<li>
+				<a href="#">2</a>
+			</li>
+			<li>
+				<a href="#">3</a>
+			</li>
+			<li>
+				<a href="#">4</a>
+			</li>
+			<li>
+				<a href="#">Next</a>
+			</li>
+		</ul>
+	</div>
 </div>
-<div class="pagination" align="center">
-	<ul>
-		<li>
-			<a href="#">Prev</a>
-		</li>
-		<li class="active">
-			<a href="#">1</a>
-		</li>
-		<li>
-			<a href="#">2</a>
-		</li>
-		<li>
-			<a href="#">3</a>
-		</li>
-		<li>
-			<a href="#">4</a>
-		</li>
-		<li>
-			<a href="#">Next</a>
-		</li>
-	</ul>
-</div>
-</div> <!-- /container -->
+<!-- /container -->
