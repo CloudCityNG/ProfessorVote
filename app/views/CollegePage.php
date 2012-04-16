@@ -58,6 +58,12 @@
 			</tr>
 		</table>
 	</div>
+	<button class="bt btn-large btn-primary pull-right" data-toggle="modal" href="#createCollegeModal">
+		Add that shit!
+	</button>
+	<p class="pull-right" style="margin-right: 1em">
+		Don't see your Professor below?
+	</p>
 	<div class="btn-toolbar" align="center">
 		<div class="btn-group">
 			<button class="btn">
@@ -150,9 +156,9 @@
 	</div>
 	-->
 	<?php
-if ($professors == NULL) {
-echo 'No professors found';
-} else {
+	if ($professors == NULL) {
+	echo 'No professors found';
+	} else {
 
 	?>
 	<?php foreach($professors as $professor): // for each professor print out a well unit
@@ -160,7 +166,7 @@ echo 'No professors found';
 	<div class="well">
 		<td>
 		<tr>
-			<td align="right">DEPARTMENT</td>
+			<td align="right">DEPARTMENT:</td>
 			<?php echo $professor -> Department;?>
 		</tr>
 		<tr>
@@ -196,3 +202,37 @@ echo 'No professors found';
 	</div>
 </div>
 <!-- /container -->
+<!--Start of the create professor model-->
+<div class="modal hide fade" id="createCollegeModal">
+	<?php
+    echo form_open('Creat school or something');
+	?>
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal" id="loginModalClose">X</a>
+		<h3>Header</h3>
+	</div>
+	<div class="hero-unit">
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="control-group">
+					<div class="modal-body">
+						<div>
+							body
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="form-actions">
+						<div>
+							Footer
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<?php
+        form_close();
+		?>
+	</div>
+</div>
+<!--End of the create professor model-->
