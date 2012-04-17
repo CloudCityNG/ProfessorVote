@@ -13,22 +13,22 @@ class Course_model extends CI_Model {
 		$continue = TRUE;
 		if ($this -> courseExists($catalog_number, $collegeID) != TRUE) {
 			if (!$this -> create_course($catalog_number, $course_name, $collegeID)) {
-				$continue = FALSE;				
+				$continue = FALSE;
 			}
 		}
-		if (!$continue) {			
+		if (!$continue) {
 			return FALSE;
 		}
 
 		$courseID = $this -> getID($catalog_number, $collegeID);
 		if ($courseID == 'error' || $courseID == null) {
-			
+
 			return false;
 		}
 		$new_course_insert_data = array('CourseID' => $courseID, 'ProfessorID' => $professorID);
-		
+
 		$insert = $this -> db -> insert('courselist', $new_course_insert_data);
-		
+
 		return $insert;
 
 	}
@@ -91,6 +91,59 @@ class Course_model extends CI_Model {
 			return $q;
 		}
 
+	}
+	function getCatalogNumbersArray($collegeID = null) {
+		if ($collegeID != null) {
+			$this -> db -> where('CollegeID', $collegeID);
+			$q = $this -> db -> get('course');
+			if ($q -> num_rows() < 1) {
+				return NULL;
+			} else {
+				foreach ($q->result() as $row) {
+					$data[] = $row -> CatalogNumber;
+				}
+				return $data;
+
+			}
+		} else {
+			$q = $this -> db -> get('course');
+			if ($q -> num_rows() < 1) {
+				return NULL;
+			} else {
+				foreach ($q->result() as $row) {
+					$data[] = $row -> CatalogNumber;
+				}
+				return $data;
+
+			}
+		}
+	}
+
+	function getCourseNameArray($collegeID = null) {
+		if ($collegeID != null) {
+			$this -> db -> where('CollegeID', $collegeID);
+			$q = $this -> db -> get('course');
+			if ($q -> num_rows() < 1) {
+				return NULL;
+			} else {
+				foreach ($q->result() as $row) {
+					$data[] = $row -> CourseName;
+				}
+				return $data;
+
+			}
+		} else {
+			$q = $this -> db -> get('course');
+			if ($q -> num_rows() < 1) {
+				return NULL;
+			} else {
+				foreach ($q->result() as $row) {
+					$data[] = $row -> CourseName;
+				}
+				return $data;
+
+			}
+		}
 	}
 
 }

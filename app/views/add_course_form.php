@@ -1,5 +1,12 @@
 <script type="text/javascript" language="JavaScript">
-
+$('document').ready({
+	<?php if (isset($courseNames)){ ?>
+	$('#course_name').typeahead({
+		source:[<?php echo implode(",",$courseNames)?>],
+		items:6
+	});
+	<?php } ?>
+});
 function addCourse(){
 	//TODO:add in code to hide server side validation messages
 $.ajax({
@@ -136,9 +143,9 @@ $.ajax({
 					?>
 					<div class="alert alert-error" id='course_name_err' style='display:none'></div>
 					<?php
-					$courseNameAttributes = array('id' => 'course_name', 'class' => 'input-xlarge', 'placeholder' => 'Introduction to College Mathematics', 'type' => 'text', 'name' => 'course_name');
+					$courseNameAttributes = array('id' => 'course_name', 'class' => 'input-xlarge', 'placeholder' => 'Introduction to College Mathematics', 'type' => 'text', 'name' => 'course_name','data-provide'=>'typeahead');
 					if (isset($course_name)) {
-						$courseNameAttributes = array('id' => 'course_name', 'value' => $course_name, 'class' => 'input-xlarge', 'placeholder' => $course_name, 'type' => 'text', 'name' => 'course_name');
+						$courseNameAttributes = array('id' => 'course_name', 'value' => $course_name, 'class' => 'input-xlarge', 'placeholder' => $course_name, 'type' => 'text', 'name' => 'course_name','data-provide'=>'typeahead');
 					}
 	
 					echo form_input($courseNameAttributes);

@@ -72,7 +72,7 @@ class course extends CI_Controller {
 		$collegeID = $this -> College_model -> getID($collegeName);
 
 		if ($collegeID == null || $collegeID == 'error' || $collegeID == '') {
-			echo "error_msg#Error pulling Professor's College";
+			echo "error_msg#Error pulling Professor's College data";
 			return;
 		}
 		if ($professorID == null || $professorID == 'error' || $professorID == '') {

@@ -32,7 +32,6 @@ class Professor_model extends CI_Model {
 		$this->db->where('Department',$department);
 		$q = $this -> db -> get('professor');
 
-		
 		if ($q -> num_rows() == 0) {
 			return NULL;
 		} else if ($q -> num_rows() == 1){

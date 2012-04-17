@@ -100,12 +100,14 @@ class College_model extends CI_Model {
 		$this->db->where('Name',$collegeName);
 		$q = $this -> db -> get('college');
 		//where college is the same
+		log_message("debug","num rows are " .$q -> num_rows());
 		if ($q -> num_rows() == 0) {
 			return NULL;
 		} else if ($q -> num_rows() == 1){
-			return $q->row()->id;
+			return $q->row()->CourseID;
 		}else{
 			return 'error';
+			//TODO WHY IS IT RETURNING MRE THAN ONE ID? NLY ONE IN DB
 		}
 	}
 

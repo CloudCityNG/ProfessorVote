@@ -22,7 +22,7 @@
 			}
 				?></small></h1>
 		</div>
-		<a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary">Add Course</a>
+		<p>Don't see your course?</p><a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary">Add that shit!</a>
 		<div class="modal hide fade" id="addCourseModal">
 			<div class="modal-header">
                 <a class="close" data-dismiss="modal" id="addCourseModalClose">X</a>
