@@ -3,73 +3,167 @@
 class course extends CI_Controller {
 
 	function index() {
-		$data['main_content'] = 'add_course_form';
-
+		$data['main_content'] = 'CourseView';
+//TODO:make this an error page or redirect home or something.  no data pased
 		$this -> load -> view('includes/template', $data);
 	}
-
-
-	function add() {
-		$this -> load -> library('form_validation');
-		$this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
-		// field name, error message, validation rules
-		//look into creating global variables for max and min length, and use those instead of constants
-		$this -> form_validation -> set_rules('course_name', 'Course Name', 'trim|required|min_length[4]|max_length[32]|callback_course_check');
-		$this -> form_validation -> set_rules('college_name', 'College Name', 'trim|required|min_length[4]|max_length[32]|callback_college_check');
-		//look into createing customer validator Valid_coolge_name in the set_rules method
-		//$this -> form_validation -> set_rules('college_name', 'College', 'trim|required|valid_college_name');
-
-		if ($this -> form_validation -> run() == FALSE) {
-			//reload page with error msg and populate fields.
-			$data['main_content'] = 'add_course_form';
-			$data['college_name'] = $this -> input -> post('college_name');
-			$data['course_name'] = $this -> input -> post('course_name');
-			$this -> load -> view('includes/template', $data);
-		} else {
-			//insert into DB
-			$this -> load -> model('Course_model');
-			$course_name = $this -> input -> post('course_name');
-			$college_name = $this -> input -> post('college_name');
-
-			if ($this -> Course_model -> create_course($course_name, $college_name)) {
-				$courseID = $this -> Course_model ->getID($course_name, $college_name);
-				$data['main_content'] = 'CourseView';
-				$data['courseID'] = $courseID;
-				$data['isConfirm'] = TRUE;
-				$this -> load -> view('includes/template', $data);
-			} else {
-				//reload page and show error message
-				$data['college_name'] = $this -> input -> post('college_name');
-				$data['course_name'] = $this -> input -> post('course_name');
-				$data['error_msg'] = 'Unknown Error.  Course could not be added.' . 'Course: ' . $course_name . ' College: ' . $college_name;
+	function view($state,$collegeName,$professorFirstName,$professorLastName,$department,$catalogNumber){
+		$this->load->model("College_model");
+		$this->load->model("Course_model");
+		$this->load->model("Professor_model");
+		$this->load->model("State_model");
+		$courseID;
+		$professorID;
+		
+		if($collegeName!=null&&$professorFirstName!=null&&$professorLastName!=null&&$department!=null&&$catalogNumber!=null){
+			$collegeName = str_replace("%20", " ", $collegeName);
+			if($this->State_model->stateExists($state)==FALSE){
+				$data['main_content'] = 'HomePage';
 				$this -> load -> view('includes/template', $data);
 			}
+			else if($this->College_model->collegeExists($collegeName, $state)==FALSE){
+				$data['main_content'] = 'HomePage';
+				$this -> load -> view('includes/template', $data);
+				//TODO:select state
+			}
+			else if($this->Professor_model->professorExists($professorFirstName,$professorLastName,$department)==FALSE){
+				redirect(base_url("CollegePage/" . $state . "/" . $collegeName));
+				//$courseID=$this->Course_model->getID();
+				//$professorID = $this->Professor_model->getID($professorFirstName,$professorLastName,$department);
+			}
+			else if($this->Course_model->courseProfessorExists($this->Course_model->getID($catalogNumber, $this->College_model->getID($collegeName,$state)), $this->Professor_model->getID($professorFirstName,$professorLastName,$department))==FALSE){
+				redirect(base_url("Professor/view/" . $state . "/" . $collegeName."/".$professorFirstName."/".$professorLastName."/".$department));
+			}
+			else{
+				$data['professorFirstName']=$professorFirstName;
+				$data['professorLastName']=$professorLastName;
+				$data['department']=$department;
+				$data['state']=$state;
+				$data['catalogNumber']=$catalogNumber;
+				$data['collegeName']=$collegeName;
+				$data['main_content'] = 'CourseView';
+			$this -> load -> view('includes/template', $data);
+			}			
 		}
+		else{
+			$data['main_content'] = 'HomePage';
+			$this -> load -> view('includes/template', $data);
+		}
+		
 	}
 
-	public function course_check($str) {
+	public function add() {
 		$this -> load -> model('Course_model');
-		$result = $this->Course_model ->courseExists($str,$this -> input -> post('college_name'));
-		if($result==TRUE){
-			$this->form_validation->set_message('course_check', 'The course and college combination you entered already exists.');
-			return FALSE;
-		}
-		else{
-			return TRUE;
-		}
-
-	}
-
-	public function college_check($str) {
 		$this -> load -> model('College_model');
-		$result = $this->College_model ->collegeExists($str);
-		if($result==TRUE){
-			$this->form_validation->set_message('college_check', 'The college you entered was not found.  If the college does not yet exist, the college must be created first.');
-			return FALSE;
+		$this -> load -> model('Professor_model');
+		$catalogNumber = $this -> input -> post('catalog_number');
+		$response = "";
+
+		if ($catalogNumber === "" or $catalogNumber == null) {
+			if ($response === "" or $response == null) {
+				$response = "catalog_number_err#Please provide a course catalog number.";
+			} else {
+				$response .= ('|' . "catalog_number_err#Please provide a course catalog number.");
+			}
+
+		} elseif (strlen($catalogNumber) < 6) {
+			if ($response === "" or $response == null) {
+				$response = "catalog_number_err#The course catalog number must be atleast 6 characters.";
+			} else {
+				$response .= ('|' . "catalog_number_err#The course catalog number must be atleast 6 characters.");
+			}
+		} elseif (strlen($catalogNumber) > 12) {
+			if ($response === "" or $response == null) {
+				$response = "catalog_number_err#The course catalog number must not exceed 12 characters.";
+			} else {
+				$response .= ('|' . "catalog_number_err#The course catalog number must not exceed 12 characters.");
+			}
 		}
-		else{
-			return TRUE;
+
+		//log_message('debug',"catalog_number: " . $catalogNumber);
+		$collegeName = $this -> input -> post('college_name');
+		$courseName = $this -> input -> post('course_name');
+		$firstName=$this -> input -> post('professor_first_name');
+		$lastName=$this -> input -> post('professor_last_name');
+		$department=$this -> input -> post('professor_department');
+		$professorID = $this -> Professor_model-> getID($firstName,$lastName,$department);
+		
+		if ($courseName === "" or $courseName == null) {
+			if ($response === "" or $response == null) {
+				$response = $response . "course_name_err#Please provide a course name.";
+			} else {
+				$response .= ('|' . "course_name_err#Please provide a course name.");
+			}
+
+		} elseif (strlen($courseName) < 4) {
+			if ($response === "" or $response == null) {
+				$response = $response . "course_name_err#The course name must be atleast 4 characters.";
+			} else {
+				$response .= ('|' . "course_name_err#The course name must be atleast 4 characters.");
+			}
+		} elseif (strlen($courseName) > 64) {
+			if ($response === "" or $response == null) {
+				$response = $response . "course_name_err#The course name must not exceed 64 characters.";
+			} else {
+				$response .= ('|' . "course_name_err#The course name must not exceed 64 characters.");
+			}
 		}
+		if ($response != "") {
+			echo $response;
+			return;
+		}
+
+		$collegeID = $this -> College_model -> getID($collegeName);
+
+		if ($collegeID == null || $collegeID == 'error' || $collegeID == '') {
+			echo "error_msg#Error pulling Professor's College data";
+			return;
+		}
+		if ($professorID == null || $professorID == 'error' || $professorID == '') {
+			echo "error_msg#Error pulling Professor's data";
+			return;
+		}
+		//need to check if course exists. if it does, see if course/professor exists
+		$result = $this -> Course_model -> courseExists($catalogNumber, $collegeID);
+		if ($result == TRUE) {
+			//$this -> form_validation -> set_message('course_check', 'The course and college combination you entered already exists.');
+			//handle error where there already exists that combo
+			
+			$courseID=$this -> Course_model ->getID($catalogNumber,$collegeID);
+			$result2 = $this -> Course_model -> courseProfessorExists($courseID, $professorID);
+			if($result2 == TRUE){
+			echo "error_msg#This professor already teaches this class.";
+			return;	
+			}
+
+		}// else {
+		//echo "true";
+		//	return;
+		//}
+
+		//no error, add course
+		//insert into DB
+		$course_name = $this -> input -> post('course_name');
+		$catalog_number = $this -> input -> post('catalog_number');
+		$college_name = $this -> input -> post('college_name');
+		$college_id = $this -> College_model -> getID($college_name);
+
+		if ($college_id == 'error' || $college_id == '' || $college_id == null) {
+			echo 'college_error';
+			return;
+
+		}
+
+		if ($this -> Course_model -> add_course($catalog_number, $course_name, $college_id,$professorID)) {
+			//success
+			echo 'success';
+			return;
+		} else {
+			echo 'error';
+			log_message("debug", "Error creating course for catalog number: '" . $catalog_number . "' course name: '" . $course_name . "' college name: '" . $college_name);
+			return;
+		}
+
 	}
 
 }
