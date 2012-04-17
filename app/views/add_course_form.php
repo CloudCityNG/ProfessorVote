@@ -1,12 +1,19 @@
-<script type="text/javascript" language="JavaScript">
-$('document').ready({
-	<?php if (isset($courseNames)){ ?>
+<script type="text/javascript">
+//$('document').ready(function(){
+	function initAutoComplete(){
 	$('#course_name').typeahead({
-		source:[<?php echo implode(",",$courseNames)?>],
+		source:[<?php echo "'".implode("','",$courseNames)."'"?>].sort(),
 		items:6
 	});
-	<?php } ?>
-});
+	$('#catalog_number').typeahead({
+		source:[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort(),
+		items:6
+	});
+	//alert('testing 123');
+	}
+//});
+
+
 function addCourse(){
 	//TODO:add in code to hide server side validation messages
 $.ajax({
@@ -109,6 +116,9 @@ $.ajax({
 	?>
 
 		<fieldset>
+			<legend>
+					Course Information
+				</legend>
 			<div class="control-group">
 
 				
@@ -118,19 +128,18 @@ $.ajax({
 					<?php } ?>
 				
 				
-				<legend>
-					Course Information
-				</legend>
+				
 				<div class="controls" style="margin-bottom: 1em">
 					<?php
+					//TODO: MAKE dropdown selection autopopulate the other text box field based on its input
 					echo form_label('Catalog Number','catalog_number');
 					echo form_error('catalog_number');
 					?>
 					<div class="alert alert-error" id='catalog_number_err' style='display:none'></div>
 					<?php
-					$catalogNumberAttributes = array('id' => 'catalog_number', 'class' => 'input-xlarge required', 'placeholder' => 'MATH1101', 'type' => 'text', 'name' => 'catalog_number');
+					$catalogNumberAttributes = array('id' => 'catalog_number', 'class' => 'input-xlarge required', 'placeholder' => 'MATH1101', 'type' => 'text', 'name' => 'catalog_number','data-provide'=>'typeahead','autocomplete'=>'off');
 					if (isset($catalog_number)) {
-						$catalogNumberAttributes = array('id' => 'catalog_number', 'value' => $catalog_number, 'class' => 'input-xlarge required', 'placeholder' => $catalog_number, 'type' => 'text', 'name' => 'catalog_number');
+						$catalogNumberAttributes = array('id' => 'catalog_number', 'value' => $catalog_number, 'class' => 'input-xlarge required', 'placeholder' => $catalog_number, 'type' => 'text', 'name' => 'catalog_number','data-provide'=>'typeahead','autocomplete'=>'off');
 					}
 
 					echo form_input($catalogNumberAttributes);
@@ -143,9 +152,9 @@ $.ajax({
 					?>
 					<div class="alert alert-error" id='course_name_err' style='display:none'></div>
 					<?php
-					$courseNameAttributes = array('id' => 'course_name', 'class' => 'input-xlarge', 'placeholder' => 'Introduction to College Mathematics', 'type' => 'text', 'name' => 'course_name','data-provide'=>'typeahead');
+					$courseNameAttributes = array('id' => 'course_name', 'class' => 'input-xlarge', 'placeholder' => 'Introduction to College Mathematics', 'type' => 'text', 'name' => 'course_name','data-provide'=>'typeahead','autocomplete'=>'off');
 					if (isset($course_name)) {
-						$courseNameAttributes = array('id' => 'course_name', 'value' => $course_name, 'class' => 'input-xlarge', 'placeholder' => $course_name, 'type' => 'text', 'name' => 'course_name','data-provide'=>'typeahead');
+						$courseNameAttributes = array('id' => 'course_name', 'value' => $course_name, 'class' => 'input-xlarge', 'placeholder' => $course_name, 'type' => 'text', 'name' => 'course_name','data-provide'=>'typeahead','autocomplete'=>'off');
 					}
 	
 					echo form_input($courseNameAttributes);
@@ -162,7 +171,6 @@ $.ajax({
 					echo form_input($professorLastNameAttributes);
 					$professorDepartmentAttributes = array('id'=>'professor_department','name'=>'professor_department','value'=>$professorDepartment,'type'=>'hidden');
 					echo form_input($professorDepartmentAttributes);
-				//TODO:ADD bootstrap.typehead markup to input to auto populate
 					?>
 				</div>
 				

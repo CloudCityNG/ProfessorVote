@@ -5,7 +5,6 @@
 			echo "<script type='text/javascript'>\$(document).ready(function(){\$('#addCourseModal').modal('show');});</script>";
 		}
 		?>
-		<script type="text/javascript"></script>
 		<div class ="hero-unit">
 			<h1><?php
 			if (isset($firstName)) {
@@ -22,7 +21,22 @@
 			}
 				?></small></h1>
 		</div>
-		<p>Don't see your course?</p><a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary">Add that shit!</a>
+		<p>Don't see your course?</p><a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary"onclick="javascript:initAutoComplete();">Add that shit!</a>
+		</br></br>
+		<div class="hero-unit" id="courseContainer" class="courseContainer" >
+			<?php 
+			if(isset($course_list)){
+				
+			}
+			else{
+				echo "No courses found for this professor.  Have you taken a course for this professor? Add one!";
+			}
+			?>
+			
+			
+			
+		</div>
+		
 		<div class="modal hide fade" id="addCourseModal">
 			<div class="modal-header">
                 <a class="close" data-dismiss="modal" id="addCourseModalClose">X</a>
@@ -45,7 +59,7 @@
 		</div>
 		<div class="modal hide fade" id="successModal">
 			<div class="modal-header">
-                <a class="close" data-dismiss="modal" id="errorModalClose">X</a>
+                <a class="close" data-dismiss="modal" id="successModalClose">X</a>
                 <h3>Success!</h3>
             </div>
             <div class="modal-body">
@@ -54,3 +68,4 @@
             </div>
 		</div>
 	</div>
+</div>

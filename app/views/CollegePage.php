@@ -1,3 +1,4 @@
+<?php $this->load->helper('url'); ?>
 <div class="container">
 	<!-- this is the about us page for ProfessorVote -->
 	<ul class="breadcrumb">
@@ -170,7 +171,7 @@
 			<?php echo $professor -> Department;?>
 		</tr>
 		<tr>
-			<strong><h4><a class="btn-large" href=""><?php echo $professor->FirstName." ".$professor->LastName
+			<strong><h4><a class="btn-large" href="<?php echo  base_url("/Professor/view/".$collegeINFO -> State."/".$collegeINFO -> Name."/".$professor->FirstName.'/'.$professor->LastName.'/'.$professor->Department)?>"><?php echo $professor->FirstName." ".$professor->LastName
 			?></a></h4></strong>
 		</tr>
 		<br />
