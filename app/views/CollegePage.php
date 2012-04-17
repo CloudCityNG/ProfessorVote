@@ -34,7 +34,7 @@
 						<h2>Location:</h2>
 					</tr>
 					<tr>
-						<h3><?php echo $collegeINFO->State;?></h3>
+						<h3><?php echo $collegeINFO -> State;?></h3>
 					</tr>
 					<br />
 					<br />
@@ -58,6 +58,12 @@
 			</tr>
 		</table>
 	</div>
+	<button class="bt btn-large btn-primary pull-right" data-toggle="modal" href="#createCollegeModal">
+		<i class="icon-plus icon-white"></i> Add that shit!
+	</button>
+	<p class="pull-right" style="margin-right: 1em">
+		Don't see your Professor below?
+	</p>
 	<div class="btn-toolbar" align="center">
 		<div class="btn-group">
 			<button class="btn">
@@ -149,38 +155,84 @@
 	</div>
 	</div>
 	-->
+	<?php
+	if ($professors == NULL) {
+	echo 'No professors found';
+	} else {
+
+	?>
+	<?php foreach($professors as $professor): // for each professor print out a well unit
+	?>
 	<div class="well">
 		<td>
 		<tr>
-			<strong><h4><a class="btn-large" href="">Professor1</a></h4></strong>
+			<td align="right">DEPARTMENT:</td>
+			<?php echo $professor -> Department;?>
+		</tr>
+		<tr>
+			<strong><h4><a class="btn-large" href=""><?php echo $professor->FirstName." ".$professor->LastName
+			?></a></h4></strong>
 		</tr>
 		<br />
-		<tr>
-			This is my comment about this course. Sucks!
-		</tr></td>
-		<td align="right">LIKE</td>
+		</td>
+	</div>
+	<?php endforeach;?>
+	<?php }?>
+	<div class="pagination" align="center">
+		<ul>
+			<li>
+				<a href="#">Prev</a>
+			</li>
+			<li class="active">
+				<a href="#">1</a>
+			</li>
+			<li>
+				<a href="#">2</a>
+			</li>
+			<li>
+				<a href="#">3</a>
+			</li>
+			<li>
+				<a href="#">4</a>
+			</li>
+			<li>
+				<a href="#">Next</a>
+			</li>
+		</ul>
 	</div>
 </div>
-<div class="pagination" align="center">
-	<ul>
-		<li>
-			<a href="#">Prev</a>
-		</li>
-		<li class="active">
-			<a href="#">1</a>
-		</li>
-		<li>
-			<a href="#">2</a>
-		</li>
-		<li>
-			<a href="#">3</a>
-		</li>
-		<li>
-			<a href="#">4</a>
-		</li>
-		<li>
-			<a href="#">Next</a>
-		</li>
-	</ul>
+<!-- /container -->
+<!--Start of the create professor model-->
+<div class="modal hide fade" id="createCollegeModal">
+	<?php
+    echo form_open('Creat school or something');
+	?>
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal" id="loginModalClose">X</a>
+		<h3>Header</h3>
+	</div>
+	<div class="hero-unit">
+		<form class="form-horizontal">
+			<fieldset>
+				<div class="control-group">
+					<div class="modal-body">
+						<div>
+							body
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="form-actions">
+						<div>
+							Footer
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<?php
+        form_close();
+		?>
+	</div>
 </div>
-</div> <!-- /container -->
+<!--End of the create professor model-->

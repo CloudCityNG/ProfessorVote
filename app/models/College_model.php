@@ -30,7 +30,8 @@ class College_model extends CI_Model {
     public function collegeByStateAndName($state,$college)
     {
         $decodedCollege = urldecode($college);
-        $q = $this->db -> query("SELECT * FROM COLLEGE WHERE State='$state' AND Name='$decodedCollege'");
+        $decodeState = urldecode($state);
+        $q = $this->db -> query("SELECT * FROM COLLEGE WHERE State='$decodeState' AND Name='$decodedCollege'");
         if ($q -> num_rows() == 0 || $q -> num_rows() > 1) {
             return NULL;
             // That college doesn't exist OR there is more than one school with the same name in a State. THIS SHOULD NOT BE POSSIBLE.
@@ -40,12 +41,12 @@ class College_model extends CI_Model {
         }
         
     }
-    function loadProfessorByCollege($college, $state) {
+    function loadProfessorByCollege($state,$college) {
 
         // First part hits the ProfessorList lookup table. We need to find the College ID so we can find all professors ID's that belong to that college
         $q1 = $this -> db -> query("SELECT ID FROM College WHERE Name='$college' AND State='$state'");
         if ($q1 -> num_rows() == 0 || $q1 -> num_rows() > 1) {
-            return NULL;
+            show_404();
             // That college doesn't exist OR there is more than one school with the same name in a State. THIS SHOULD NOT BE POSSIBLE.
         } else {
             $CollegeIDRow = $q1 -> row();
@@ -66,7 +67,8 @@ class College_model extends CI_Model {
             }
         }
         foreach ($ProfessorIDs as $ID) {
-            $professorRows[] = $this -> db -> query("SELECT * FROM Professor WHERE ProfesssorID='$ID");
+            $q3 = $this -> db -> query("SELECT * FROM Professor WHERE ProfessorID='$ID'");
+            $professorRows[] = $q3->row();
             // Adds the Professor object to an array of professors
         }
         return $professorRows;
