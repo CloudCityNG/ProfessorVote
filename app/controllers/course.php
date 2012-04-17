@@ -3,9 +3,53 @@
 class course extends CI_Controller {
 
 	function index() {
-		$data['main_content'] = 'add_course_form';
-
+		$data['main_content'] = 'CourseView';
+//TODO:make this an error page or redirect home or something.  no data pased
 		$this -> load -> view('includes/template', $data);
+	}
+	function view($state,$collegeName,$professorFirstName,$professorLastName,$department,$catalogNumber){
+		$this->load->model("College_model");
+		$this->load->model("Course_model");
+		$this->load->model("Professor_model");
+		$this->load->model("State_model");
+		$courseID;
+		$professorID;
+		
+		if($collegeName!=null&&$professorFirstName!=null&&$professorLastName!=null&&$department!=null&&$catalogNumber!=null){
+			$collegeName = str_replace("%20", " ", $collegeName);
+			if($this->State_model->stateExists($state)==FALSE){
+				$data['main_content'] = 'HomePage';
+				$this -> load -> view('includes/template', $data);
+			}
+			else if($this->College_model->collegeExists($collegeName, $state)==FALSE){
+				$data['main_content'] = 'HomePage';
+				$this -> load -> view('includes/template', $data);
+				//TODO:select state
+			}
+			else if($this->Professor_model->professorExists($professorFirstName,$professorLastName,$department)==FALSE){
+				redirect(base_url("CollegePage/" . $state . "/" . $collegeName));
+				//$courseID=$this->Course_model->getID();
+				//$professorID = $this->Professor_model->getID($professorFirstName,$professorLastName,$department);
+			}
+			else if($this->Course_model->courseProfessorExists($this->Course_model->getID($catalogNumber, $this->College_model->getID($collegeName,$state)), $this->Professor_model->getID($professorFirstName,$professorLastName,$department))==FALSE){
+				redirect(base_url("Professor/view/" . $state . "/" . $collegeName."/".$professorFirstName."/".$professorLastName."/".$department));
+			}
+			else{
+				$data['professorFirstName']=$professorFirstName;
+				$data['professorLastName']=$professorLastName;
+				$data['department']=$department;
+				$data['state']=$state;
+				$data['catalogNumber']=$catalogNumber;
+				$data['collegeName']=$collegeName;
+				$data['main_content'] = 'CourseView';
+			$this -> load -> view('includes/template', $data);
+			}			
+		}
+		else{
+			$data['main_content'] = 'HomePage';
+			$this -> load -> view('includes/template', $data);
+		}
+		
 	}
 
 	public function add() {

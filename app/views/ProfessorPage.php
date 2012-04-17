@@ -23,19 +23,30 @@
 		</div>
 		<p>Don't see your course?</p><a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary"onclick="javascript:initAutoComplete();">Add that shit!</a>
 		</br></br>
-		<div class="hero-unit" id="courseContainer" class="courseContainer" >
-			<?php 
-			if(isset($course_list)){
-				
-			}
-			else{
-				echo "No courses found for this professor.  Have you taken a course for this professor? Add one!";
-			}
-			?>
-			
-			
-			
-		</div>
+		
+		<?php
+	if (isset($courses)==FALSE||$courses == NULL||count($courses)<1) {
+	?>
+	<div class="well">
+	No courses were found for this professor.  Have you taken a course with this professor? Add that shit!
+	</div>
+	<?php
+	} else {
+
+ foreach($courses as $course): 
+	?>
+	<div class="well">
+		<div class='catalogNumber'> <?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CatalogNumber']);?> </div>
+		<div class='CourseName'><?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CourseName']);?></div>
+
+	</div>
+	<?php endforeach;?>
+	<?php }?>
+		
+		
+		
+		
+
 		
 		<div class="modal hide fade" id="addCourseModal">
 			<div class="modal-header">

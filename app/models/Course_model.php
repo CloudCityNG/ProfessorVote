@@ -51,15 +51,15 @@ class Course_model extends CI_Model {
 	}
 
 	function courseProfessorExists($courseID, $professorID) {
-		log_message("debug", "***********");
-		log_message("debug", "ENTERING COURSEPROFESSORXISTS");
-		log_message("debug", "***********");
+		
 		$this -> db -> select('*');
 		$this -> db -> where('CourseID', $courseID);
 		$this -> db -> where('ProfessorID', $professorID);
 
 		$q = $this -> db -> get('courselist');
-
+log_message("debug", "***********");
+		log_message("debug", 'courseid '.$courseID.' prof id '.$professorID ." num rows ".$q->num_rows());
+		log_message("debug", "***********");
 		if ($q -> num_rows() > 0) {
 			return TRUE;
 		} else {
@@ -71,6 +71,10 @@ class Course_model extends CI_Model {
 		$this -> db -> where('CatalogNumber', $catalog_number);
 		$this -> db -> where('CollegeID', $college_ID);
 		$q = $this -> db -> get('course');
+				log_message("debug", "***********");
+		log_message("debug", "cat num ".$catalog_number."collegeID ".$college_ID." num rows ".$q->num_rows());
+		log_message("debug", "***********");
+		
 		//where college is the same
 		if ($q -> num_rows() == 0) {
 			return NULL;
@@ -84,12 +88,18 @@ class Course_model extends CI_Model {
 	function getCoursesByProfessor($professorID) {
 		$this -> db -> where('ProfessorID', $professorID);
 		$this -> db -> join('courselist', 'courselist.CourseID=course.courseID');
+		$this -> db -> order_by('CatalogNumber','asc');
 		$q = $this -> db -> get('course');
 		if ($q -> num_rows() < 1) {
 			return NULL;
 		} else {
-			return $q;
+			foreach ($q->result() as $row) {
+				$info =array('CourseName'=>$row -> CourseName, 'CatalogNumber'=>$row->CatalogNumber);
+				$courses[] = $info;
+				// now we have the list of all the professor ID's. We have to to do one final query to get all the professors.
+			}
 		}
+		return $courses;
 
 	}
 	function getCatalogNumbersArray($collegeID = null) {

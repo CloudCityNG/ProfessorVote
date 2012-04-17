@@ -77,7 +77,6 @@ class College_model extends CI_Model {
 	}
 
 	function collegeExists($college, $state) {
-		log_message("debug",$college);
 		$this -> db -> where('State', $state);
 		$this -> db -> where('Name', $college);
 		$q = $this -> db -> get('College');
@@ -104,12 +103,15 @@ class College_model extends CI_Model {
 
 	}
 
-	function getID($collegeName) {
+	function getID($collegeName,$state) {
 		$this -> db -> where('Name', $collegeName);
+		$this->db->where('State',$state);
 		$q = $this -> db -> get('college');
 		//where college is the same
-		log_message("debug", "num rows are " . $q -> num_rows());
-		if ($q -> num_rows() == 0) {
+		log_message("debug", "***********");
+		log_message("debug", "collegename ".$collegeName." state ".$state . "num rows ".$q->num_rows());
+		log_message("debug", "***********");
+				if ($q -> num_rows() == 0) {
 			return NULL;
 		} else if ($q -> num_rows() == 1) {
 			return $q -> row() -> id;
