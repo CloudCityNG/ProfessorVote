@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--Start of the bar-->     
+<!--Start of the bar-->
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -23,8 +23,8 @@
 			<div class="navbar-inner">
 				<div class="container">
 					<?php
-                    $homeHeaderAttributes = array('id' => 'homeHeader', 'class' => 'brand');
-                    echo anchor('home', 'ProfessorVote.com', $homeHeaderAttributes);
+					$homeHeaderAttributes = array('id' => 'homeHeader', 'class' => 'brand');
+					echo anchor('home', 'ProfessorVote.com', $homeHeaderAttributes);
 					?>
 					<form class="form-inline pull-right" style="display: inline; margin-bottom:
 					0; margin-left: 15px">
@@ -33,8 +33,8 @@
 						<ul class="nav">
 							<li>
 								<?php
-                                $registerHeaderAttributes = array('id' => 'registerHeader');
-                                echo anchor('login/signup', 'Register', $registerHeaderAttributes);
+								$registerHeaderAttributes = array('id' => 'registerHeader');
+								echo anchor('login/signup', 'Register', $registerHeaderAttributes);
 								?>
 							</li>
 						</ul>
@@ -53,69 +53,70 @@
 						<ul class="nav">
 							<li>
 								<?php
-                                $logoutAttributes = array('id' => 'logout', 'class' => 'btn');
-                                echo anchor('login/logout', 'Logout', $logoutAttributes);
+								$logoutAttributes = array('id' => 'logout', 'class' => 'btn');
+								echo anchor('login/logout', 'Logout', $logoutAttributes);
 								?>
-								<?php }?>
 							</li>
 						</ul>
+							<?php }?>
+						
 					</form>
 				</div>
 			</div>
 		</div>
-<!--End of the header bar-->     		
-<!--Start of the login model-->		
+		<!--End of the header bar-->
+		<!--Start of the login model-->
 		<div class="modal hide fade" id="loginModal">
-            <?php
-            echo form_open('login/validate_credentials');
-            ?>
+			<?php
+			echo form_open('login/validate_credentials');
+			?>
 
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal" id="loginModalClose">X</a>
-                <h3>Please Login</h3>
-            </div>
-            <div class="hero-unit">
-                <form class="form-horizontal">
-                    <fieldset>
-                        <div class="control-group">
-                            <div class="modal-body">
-                                <div class="controls" style="margin-bottom: 1em">
-                                    <?php
-                                    echo form_error('username');
-                                    $usernameAttributes = array('id' => 'username', 'class' => 'input-xlarge', 'placeholder' => 'Username', 'type' => 'text', 'name' => 'username');
-                                    echo form_input($usernameAttributes);
-                                    ?>
-                                </div>
-                                <div class="controls">
-                                    <?php
-                                    echo form_error('password');
-                                    $passwordAttributes = array('id' => 'password', 'class' => 'input-xlarge', 'placeholder' => 'Password', 'type' => 'text', 'name' => 'password');
-                                    echo form_password($passwordAttributes);
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="form-actions">
-                                <div>
-                                    <?php
-                                    $submitAttributes = array('id' => 'submit', 'class' => 'btn btn-large btn-primary', 'placeholder' => 'Password', 'value' => 'Login', 'type' => 'submit');
-                                    echo form_submit($submitAttributes);
-                                    ?>
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal" id="loginModalClose">X</a>
+				<h3>Please Login</h3>
+			</div>
+			<div class="hero-unit">
+					<fieldset>
+						<div class="control-group">
+							<div class="modal-body">
+								<div class="controls" style="margin-bottom: 1em">
+									<?php
+									echo form_error('username');
+									$usernameAttributes = array('id' => 'username', 'class' => 'input-xlarge', 'placeholder' => 'Username', 'type' => 'text', 'name' => 'username');
+									echo form_input($usernameAttributes);
+									?>
+								</div>
+								<div class="controls">
+									<?php
+									echo form_error('password');
+									$passwordAttributes = array('id' => 'password', 'class' => 'input-xlarge', 'placeholder' => 'Password', 'type' => 'text', 'name' => 'password');
+									echo form_password($passwordAttributes);
+									?>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="form-actions">
+								<div>
+									<?php
+									$submitAttributes = array('id' => 'submit', 'class' => 'btn btn-large btn-primary', 'value' => 'Login', 'type' => 'submit');
+									echo form_submit($submitAttributes);
+									?>
 
-                                    <?php
-                                    $anchorAttributes = array('id' => 'signup', 'class' => 'btn');
-                                    echo anchor('login/signup', 'or Create Account', $anchorAttributes);
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-                <?php
-                form_close();
-                ?>
-            </div>
-        </div>
-<!--End of the login model-->     
-		
+									<?php
+									$anchorAttributes = array('id' => 'signup', 'class' => 'btn');
+									echo anchor('login/signup', 'or Create Account', $anchorAttributes);
+									?>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+
+				
+					</div>
+						<?php
+						echo form_close();
+						?>
+					</div>
+<!--End of the login model-->
+>>>>>>> upstream/master

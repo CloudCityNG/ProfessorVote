@@ -6,6 +6,6 @@
 					
 					ADD CLASS VIEW AREA
 					
-					<h1>COURSE ID: <?php echo $courseID ?></h1>
+					<h1>COURSE ID: <?php echo $catalogNumber ?></h1>
 				
 </div>
