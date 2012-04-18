@@ -38,8 +38,6 @@
 |
 */
 
-$route['profile/(:any)'] = "profile/view_profile";
-
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 

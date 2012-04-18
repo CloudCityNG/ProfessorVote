@@ -1,17 +1,25 @@
 <div class="container">
-	<div class="hero-unit raised">
-		<div class="page-header">
-			<h1>User Profile for <?=$profile['username']?></h1>
-		</div>
-		
-		<p><?=anchor('/profile/edit/'.$profile['username'], 'EDIT')?></p>
-		<ul>
-			<li>Username: <?=$profile['username']?></li>
-			<li>Email Address: <?=$profile['email_address']?></li>
-			<li>First Name: <?=$profile['first_name']?></li>
-			<li>Last Name: <?=$profile['last_name']?></li>
-		</ul>
-	</div>
+	<div class="content">
+		<div class="control-group">
+			<div class="page-header">
+				<h1>User Profile for <?=$username?></h1>
+			</div>
+			<?php 
+			if($this -> session -> userdata('is_logged_in') == TRUE)
+			{?>
+				<p><?=anchor('profile/edit_profile/'.$username, 'Edit Profile')?></p>
+			<?php }?>
+			<div class="controls" style="margin-bottom: 1em">
+				First Name: <?=$first_name?>
+			</div>
+			
+			<div class="controls" style="margin-bottom: 1em">
+				Last Name: <?=$last_name?>
+			</div>
+			
+			<div class="controls" style="margin-bottom: 1em">
+				Email Address: <?=$email_address?>
+			</div>
+		</div>	
+	</div>	
 </div>
-
-
