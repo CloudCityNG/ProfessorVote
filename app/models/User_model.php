@@ -65,11 +65,20 @@ class User_model extends CI_Model {
 			return false;
 		}
 		
-		
-			
 		else if ($query -> num_rows() == 1)
 		{
-			return $query -> row(0);
+			$row = $query -> row();
+			
+			$data['last_name'] = $row -> last_name;
+			$data['id'] = $row -> id;
+			$data['username'] = $row -> username;
+			$data['password'] = $row -> password;
+			$data['email_address'] = $row -> email_address;
+			$data['first_name'] = $row -> first_name;
+			
+			return $data;
+			
+			//return $query -> row(0);
 		}
 	}
 }

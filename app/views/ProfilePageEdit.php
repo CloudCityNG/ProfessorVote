@@ -1,6 +1,6 @@
 <div class="container">
+	<?php echo form_open('profile/edit_user');?>
 	<div class="hero-unit raised">
-		<?=form_open('profile/edit_profile')?>
 		<form class="form-horizontal">
 			<fieldset>
 				<div class="control-group">
@@ -32,7 +32,7 @@
 						
 					<h4>Email Address:</h4>	
 					<div class="controls" style="margin-bottom: 1em">
-						<h4><?=$email_address?></h4>
+						<h4><?php echo $email_address;?></h4>
 					</div>	
 				</fieldset>
 				
@@ -44,7 +44,7 @@
 						
 						<h4>Username:</h4>
 						<div class="controls" style="margin-bottom: 1em">
-							<h4><?=$username?></h4>
+							<h4><?php echo $username;?></h4>
 						</div>
 						
 						<h4>Password:</h4>

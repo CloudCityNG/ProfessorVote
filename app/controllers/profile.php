@@ -25,29 +25,38 @@ class Profile extends CI_Controller
 			$username = $this -> input -> post('username');
 			$query = $this -> User_model -> fetch_user($username);
 		
-			echo "<pre>";
-			print_r($query);
-			echo "</pre>";
+			//echo "<pre>";
+			//print_r($query);
+			//echo "</pre>";
 			
-			var_dump($query);
+			//var_dump($query);
 			
-			//$row = $query -> row();
-			$data['last_name'] = $query -> last_name;
-			$data['id'] = $query -> id;
-			$data['username'] = $query -> username;
-			$data['password'] = $query -> password;
-			$data['email_address'] = $query -> email_address;
-			$data['first_name'] = $query -> first_name;
+			extract($query);
+			
+			$data['last_name'] = $last_name;
+			$data['id'] = $id;
+			$data['username'] = $username;
+			$data['password'] = $password;
+			$data['email_address'] = $email_address;
+			$data['first_name'] = $first_name;
+			
+			
 			
 			//$query -> free_result();
 		}
 		
-		$data['main_content'] = 'ProfilePageView';
-		//$data['data'] = $query;
+		$data['main_content'] = 'ProfilePageView';	
+		//var_dump($data);
 		$this -> load -> view('includes/template', $data);
 	}
 	
-	function edit_profile($username)
+	function edit_profile()
+	{
+		$data['main_content'] = 'ProfilePageEdit';
+		$this -> load -> view('includes/template', $data);
+	}
+	
+	function edit_user($username)
 	{
 		$username = $this -> uri -> segment(3);
 			
