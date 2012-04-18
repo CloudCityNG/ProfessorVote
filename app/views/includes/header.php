@@ -119,4 +119,3 @@
 						?>
 					</div>
 <!--End of the login model-->
->>>>>>> upstream/master
