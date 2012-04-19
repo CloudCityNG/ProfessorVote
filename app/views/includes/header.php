@@ -32,10 +32,7 @@
 						?>
 						<ul class="nav">
 							<li>
-								<?php
-								$registerHeaderAttributes = array('id' => 'registerHeader');
-								echo anchor('login/signup', 'Register', $registerHeaderAttributes);
-								?>
+								<a data-toggle="modal" href="#registerModal">Register</a>
 							</li>
 						</ul>
 						<ul class="nav">
@@ -58,58 +55,43 @@
 								?>
 							</li>
 						</ul>
-							<?php }?>
-						
+						<?php }?>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!--End of the header bar-->
-		
-		
-		
-		
-		
 		<!--Start of the login model-->
 		<div class="modal hide fade" id="loginModal">
-
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal" id="loginModalClose"><i class="icon-remove"></i></a>
-                <h3>Please Login</h3>
-            </div>
-            <div class="hero-unit">
-                    <fieldset>
-                        <div class="control-group">
-                            <div class="modal-body">
-                                <?php $headerLogin = $this -> load -> view("login_form",TRUE); ?>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                
-            </div>
-
-        </div>
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal" id="loginModalClose"><i class="icon-remove"></i></a>
+				<h3>Please Login</h3>
+			</div>
+			<div class="hero-unit">
+				<fieldset>
+					<div class="control-group">
+						<div class="modal-body">
+							<?php $headerLogin = $this -> load -> view("login_form", TRUE);?>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
 		<!--End of the login model-->
-		
-		      <!--Start of the login model-->
-        <div class="modal hide fade" id="registerModal">
-
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal" id="registerModalClose"><i class="icon-remove"></i></a>
-                <h3>Please Login</h3>
-            </div>
-            <div class="hero-unit">
-                    <fieldset>
-                        <div class="control-group">
-                            <div class="modal-body">
-                                <?php $headerLogin = $this -> load -> view("login_form",TRUE); ?>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                
-            </div>
-
-        </div>
-        <!--End of the login model-->
+		<!--Start of the register model-->
+		<div class="modal hide fade" id="registerModal">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal" id="registerModalClose"><i class="icon-remove"></i></a>
+				<h3>Please Register Below</h3>
+			</div>
+			<div class="hero-unit">
+				<fieldset>
+					<div class="control-group">
+						<div class="modal-body">
+							<?php $headerLogin = $this -> load -> view("signup_form", TRUE);?>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+		<!--End of the register model-->

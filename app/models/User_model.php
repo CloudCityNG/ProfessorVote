@@ -26,6 +26,22 @@ class User_model extends CI_Model {
 		return $insert;
 	}
 	
+	function checkUniqueEmail($email){
+		$this -> db -> where('email_address',$email);
+		$query = $this->db->get('User');
+		if($query -> num_rows() == 1){
+			return TRUE;
+		}
+	}
+	
+	function checkUniqueUser($user){
+		$this -> db -> where('username',$user);
+		$query = $this->db->get('User');
+		if($query -> num_rows() == 1){
+			return TRUE;
+		}
+	}
+	
 	function update_user($username)
 	{
 		if (!$this -> validate($username))

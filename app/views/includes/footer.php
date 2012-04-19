@@ -37,6 +37,33 @@
 			return false;
 		});
 	});
+	$(document).ready(function() {
+		$('#submitRegistration').click(function() {
+			var form_data = {
+				first_name : $('#first_name').val(),
+				last_name : $('#last_name').val(),
+				email_address : $('#email_address').val(),
+				username : $('#registerUsername').val(),
+				password : $('#registerPassword').val(),
+				password2 : $('#registerPassword2').val(),
+				ajax : '1'
+			};
+			$.ajax({
+				url : "<?php echo site_url('login/create_user_ajax'); ?>",
+				type : 'POST',
+				async : false,
+				data : form_data,
+				success : function(msg) {
+					if(msg == 'true') {
+						location.reload(true)
+					} else {
+						$('#registerMessage').html(msg);
+					}
+				}
+			});
+			return false;
+		});
+	});
 
 </script>
 </body> </html>
