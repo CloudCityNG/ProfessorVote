@@ -11,6 +11,6 @@
 <script src="/scripts/jquery-1.7.1.min.js"></script>
 <script src="/scripts/jquery.validate.min.js"></script>
 <script src="/scripts/bootstrap.min.js"></script> 
-<script src="/scripts/template.js"></script>
+<script src="/scripts/header.js"></script>
 <script src="/CoursePulse/assets/js/pulse.core.js"></script> 
 </body> </html>

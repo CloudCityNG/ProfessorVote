@@ -66,7 +66,7 @@
 		</div>
 		<!--End of the header bar-->
 		<!--Start of the login model-->
-		<div class="modal hide fade" id="loginModal">
+		<!-- <div class="modal hide fade" id="loginModal">
 			<?php
 			echo form_open('login/validate_credentials');
 			?>
@@ -117,7 +117,29 @@
 			<?php
 				echo form_close();
 				?>
-		</div>
+		</div> -->
+		
+		<div class="modal hide fade" id="loginModal">
+
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal" id="loginModalClose">X</a>
+                <h3>Please Login</h3>
+            </div>
+            <div class="hero-unit">
+                    <fieldset>
+                        <div class="control-group">
+                            <div class="modal-body">
+                                <?php $headerLogin = $this -> load -> view("login_form",TRUE); ?>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                
+            </div>
+
+        </div>
+		
+		
 		
 
 		<!--End of the login model-->
