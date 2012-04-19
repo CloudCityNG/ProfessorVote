@@ -66,11 +66,15 @@
 		</div>
 		<!--End of the header bar-->
 		
+		
+		
+		
+		
 		<!--Start of the login model-->
 		<div class="modal hide fade" id="loginModal">
 
             <div class="modal-header">
-                <a class="close" data-dismiss="modal" id="loginModalClose">X</a>
+                <a class="close" data-dismiss="modal" id="loginModalClose"><i class="icon-remove"></i></a>
                 <h3>Please Login</h3>
             </div>
             <div class="hero-unit">
@@ -86,8 +90,26 @@
             </div>
 
         </div>
-		
-		
-		
-
 		<!--End of the login model-->
+		
+		      <!--Start of the login model-->
+        <div class="modal hide fade" id="registerModal">
+
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal" id="registerModalClose"><i class="icon-remove"></i></a>
+                <h3>Please Login</h3>
+            </div>
+            <div class="hero-unit">
+                    <fieldset>
+                        <div class="control-group">
+                            <div class="modal-body">
+                                <?php $headerLogin = $this -> load -> view("login_form",TRUE); ?>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                
+            </div>
+
+        </div>
+        <!--End of the login model-->

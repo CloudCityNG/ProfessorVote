@@ -75,7 +75,7 @@
             ?>
 
             <div class="modal-header">
-                <a class="close" data-dismiss="modal" id="loginModalClose">X</a>
+                <a class="close" data-dismiss="modal" id="loginModalClose"><i class="icon-remove"></i></a>
                 <h3>Header</h3>
             </div>
             <div class="hero-unit">
