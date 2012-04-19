@@ -96,10 +96,10 @@ class Login extends CI_Controller {
                 {
                     $data = array('username' => $this -> input -> post('username'), 'is_logged_in' => true);
                     $this -> session -> set_userdata($data);
-                    echo 'login successful';
+                    echo 'true';
                 } else// incorrect username or password
                 {
-                    echo 'unknown user';
+                    echo "<div class=\"alert alert-error\">The Wrong Username or password.</div>";
                 }
             }
         }
