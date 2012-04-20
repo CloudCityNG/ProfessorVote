@@ -9,6 +9,7 @@
 =============================s===================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="/scripts/jquery-1.7.1.min.js"></script>
+<script src="/scripts/jquery.scrollTo-1.4.2-min.js"></script>
 <script src="/scripts/jquery.validate.min.js"></script>
 <script src="/scripts/bootstrap.min.js"></script> 
 <script src="/scripts/template.js"></script>
