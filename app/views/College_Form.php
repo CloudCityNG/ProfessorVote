@@ -1,13 +1,10 @@
-<div class="container" >
+<div class="container-fluid" >
 	<?php
 	echo form_open('college/addCollege');
 	?>
 	<form class="form-horizontal">
 		<fieldset>
 			<div class="control-group">
-				<div class="page-header">
-					<h1>Add a College</h1>
-				</div>
 				
 				<?php    if (isset($error_msg)) {  ?>
 					<div class="alert alert-error"><?php  echo $error_msg ?> </div>
