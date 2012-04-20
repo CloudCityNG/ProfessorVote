@@ -1,16 +1,14 @@
-<div class="container" >
+<div class="container-fluid" >
 	<?php
 	echo form_open('login/create_user');
 	?>
 	<form class="form-horizontal">
 		<fieldset>
 			<div class="control-group">
-				<div class="page-header">
-					<h1>Create an Account</h1>
-				</div>
 				<legend>
 					Personal Information
 				</legend>
+				<div id="registerMessage"></div>
 				<div class="controls" style="margin-bottom: 1em">
 					<?php
 					echo form_error('first_name');
@@ -42,21 +40,21 @@
 				<div class="controls" style="margin-bottom: 1em">
 					<?php
 					echo form_error('username');
-					$usernameAttributes = array('id' => 'username', 'class' => 'input-xlarge', 'placeholder' => 'Username', 'type' => 'text', 'name' => 'username');
+					$usernameAttributes = array('id' => 'registerUsername', 'class' => 'input-xlarge', 'placeholder' => 'Username', 'type' => 'text', 'name' => 'username');
 					echo form_input($usernameAttributes);
 					?>
 				</div>
 				<div class="controls" style="margin-bottom: 1em">
 					<?php
 					echo form_error('password');
-					$passwordAttributes = array('id' => 'password', 'class' => 'input-xlarge', 'placeholder' => 'Password', 'type' => 'text', 'name' => 'password');
+					$passwordAttributes = array('id' => 'registerPassword', 'class' => 'input-xlarge', 'placeholder' => 'Password', 'type' => 'text', 'name' => 'password');
 					echo form_password($passwordAttributes);
 					?>
 				</div>
 				<div class="controls">
 					<?php
 					echo form_error('password2');
-					$passwordAttributes2 = array('id' => 'password2', 'class' => 'input-xlarge', 'placeholder' => 'Password Confirm', 'type' => 'text', 'name' => 'password2');
+					$passwordAttributes2 = array('id' => 'registerPassword2', 'class' => 'input-xlarge', 'placeholder' => 'Password Confirm', 'type' => 'text', 'name' => 'password2');
 					echo form_password($passwordAttributes2);
 					?>
 				</div>
@@ -64,7 +62,7 @@
 			<div class="form-actions">
 				<div>
 					<?php
-					$submitAttributes = array('id' => 'submit', 'class' => 'btn btn-large btn-primary', 'value' => 'Create Account', 'type' => 'submit');
+					$submitAttributes = array('id' => 'submitRegistration', 'class' => 'btn btn-large btn-primary', 'value' => 'Create Account', 'type' => 'submit');
 					echo form_submit($submitAttributes);
 					?>
 				</div>

@@ -75,8 +75,8 @@
             ?>
 
             <div class="modal-header">
-                <a class="close" data-dismiss="modal" id="loginModalClose">X</a>
-                <h3>Header</h3>
+                <a class="close" data-dismiss="modal" id="loginModalClose"><i class="icon-remove"></i></a>
+                <h3>Create College</h3>
             </div>
             <div class="hero-unit">
                 <form class="form-horizontal">
@@ -84,14 +84,7 @@
                         <div class="control-group">
                             <div class="modal-body">
                                 <div>
-                                body
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="form-actions">
-                                <div>
-                                    Footer
+                                <?php $headerLogin = $this -> load -> view("College_Form", TRUE);?>
                                 </div>
                             </div>
                         </div>
