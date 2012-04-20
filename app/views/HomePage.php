@@ -29,15 +29,18 @@
 	<?php if($selectedState){
 	?>
 
-	<div class="hero-unit raised">
+	<div class="well raised">
 		<h1><?php echo urldecode($selectedState);?></h1>
 		
+		<?php if($this->session->userdata('is_logged_in') == TRUE) {?>
 		<button class="bt btn-large btn-primary pull-right" data-toggle="modal" href="#createCollegeModal">
                <i class="icon-plus icon-white"></i> Add that shit!
             </button>
+            <?php } Else{?>
             <p class="pull-right" style="margin-right: 1em">
-            Don't see your School below?
+            Don't see your School below? Login to Add it!
         </p>
+        <?php }?>
 		<p>
 			Pick a school below!
 		</p>

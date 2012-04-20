@@ -5,13 +5,6 @@
 	<form class="form-horizontal">
 		<fieldset>
 			<div class="control-group">
-				
-				<?php    if (isset($error_msg)) {  ?>
-					<div class="alert alert-error"><?php  echo $error_msg ?> </div>
-					
-					<?php } ?>
-				
-				
 				<legend>
 					College Information
 				</legend>
