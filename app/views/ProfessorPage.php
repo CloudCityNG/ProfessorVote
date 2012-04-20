@@ -21,9 +21,11 @@
 			}
 				?></small></h1>
 		</div>
-		<p>Don't see your course?</p><a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary"onclick="javascript:initAutoComplete();">Add that shit!</a>
+		<p>Don't see your course?</p><a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary" onclick="javascript:initAutoComplete();">Add that shit!</a>
 		</br></br>
-		
+
+
+<div id="courseList">
 		<?php
 	if (isset($courses)==FALSE||$courses == NULL||count($courses)<1) {
 	?>
@@ -35,13 +37,14 @@
 
  foreach($courses as $course): 
 	?>
-	<div class="well">
+	<div class="well" id="<?php echo $course['CatalogNumber'] ?>">
 		<div class='catalogNumber'> <?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CatalogNumber']);?> </div>
-		<div class='CourseName'><?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CourseName']);?></div>
+		<div class='courseName'><?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CourseName']);?></div>
 
 	</div>
 	<?php endforeach;?>
 	<?php }?>
+	</div>
 		
 		
 		

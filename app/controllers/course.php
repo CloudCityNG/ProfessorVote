@@ -41,6 +41,13 @@ class course extends CI_Controller {
 				$data['state']=$state;
 				$data['catalogNumber']=$catalogNumber;
 				$data['collegeName']=$collegeName;
+				$collegeID=$this->College_model->getID($collegeName,$state);
+				
+				$courseID=$this->Course_model->getCourseID($collegeID,$catalogNumber);
+				$data['courseName'] = $this->Course_model-> getCourseName($courseID);
+				$professorID = $this->Professor_model->getID($professorFirstName,$professorLastName,$department);
+				$data['comments'] =  $this->Course_model-> getComments($courseID,$professorID);
+				log_message("debug",$this->Course_model-> getComments($courseID,$professorID));
 				$data['main_content'] = 'CourseView';
 			$this -> load -> view('includes/template', $data);
 			}			
@@ -86,6 +93,7 @@ class course extends CI_Controller {
 		$firstName=$this -> input -> post('professor_first_name');
 		$lastName=$this -> input -> post('professor_last_name');
 		$department=$this -> input -> post('professor_department');
+		$state = $this->input->post('state');
 		$professorID = $this -> Professor_model-> getID($firstName,$lastName,$department);
 		
 		if ($courseName === "" or $courseName == null) {
@@ -113,7 +121,7 @@ class course extends CI_Controller {
 			return;
 		}
 
-		$collegeID = $this -> College_model -> getID($collegeName);
+		$collegeID = $this -> College_model -> getID($collegeName,$state);
 
 		if ($collegeID == null || $collegeID == 'error' || $collegeID == '') {
 			echo "error_msg#Error pulling Professor's College data";
@@ -146,12 +154,11 @@ class course extends CI_Controller {
 		$course_name = $this -> input -> post('course_name');
 		$catalog_number = $this -> input -> post('catalog_number');
 		$college_name = $this -> input -> post('college_name');
-		$college_id = $this -> College_model -> getID($college_name);
+		$college_id = $this -> College_model -> getID($college_name,$state);
 
 		if ($college_id == 'error' || $college_id == '' || $college_id == null) {
 			echo 'college_error';
 			return;
-
 		}
 
 		if ($this -> Course_model -> add_course($catalog_number, $course_name, $college_id,$professorID)) {
