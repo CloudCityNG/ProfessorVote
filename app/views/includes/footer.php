@@ -80,10 +80,35 @@
                     data : form_data,
                     success : function(msg) {
                         if(msg == 'true') {
-                            //window.location = <?php echo "/CollegePage/"?> + $('#college_name').val() + "/" $('#stateLable').text();
                             location.reload(true)
                         } else {
                             $('#createCollegeMessage').html(msg);
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+     $(document).ready(function() {
+            $('#submitProfessor').click(function() {
+                var form_data = {
+                    professor_first_name : $('#professor_first_name').val(),
+                    professor_last_name : $('#professor_last_name').val(),
+                    professor_department : $('#selectedDepartment').val(),
+                    state_name: $('#CollegeStateLable').text(),
+                    college_name: $('#CollegeNameLable').text(),
+                    ajax : '1'
+                };
+                $.ajax({
+                    url : "<?php echo site_url('Professor/addProfessor_Ajax'); ?>",
+                    type : 'POST',
+                    async : false,
+                    data : form_data,
+                    success : function(msg) {
+                        if(msg == 'true') {
+                            location.reload(true)
+                        } else {
+                            $('#createProfessorMessage').html(msg);
                         }
                     }
                 });

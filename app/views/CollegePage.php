@@ -106,7 +106,7 @@
 <div class="modal hide fade" id="createCollegeModal">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal" id="loginModalClose"><i class="icon-remove"></i></a>
-		<h3>Add Professor</h3>
+		<h3>Add <?php echo $collegeINFO -> Name;?> Professor</h3>
 	</div>
 	<div class="hero-unit">
 		<div class="modal-body">

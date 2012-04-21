@@ -30,9 +30,9 @@ class Professor_model extends CI_Model {
         $this -> db -> where('LastName', $lastName);
         $this -> db -> where('Department', $department);
         $q = $this -> db -> get('professor');
-        log_message("debug", "***********");
-        log_message("debug", "firstname " . $firstName . " lastname " . $lastName . " department " . $department . " num rows " . $q -> num_rows());
-        log_message("debug", "***********");
+        //log_message("debug", "***********");
+        //log_message("debug", "firstname " . $firstName . " lastname " . $lastName . " department " . $department . " num rows " . $q -> num_rows());
+        //log_message("debug", "***********");
 
         if ($q -> num_rows() == 0) {
             return NULL;
@@ -40,6 +40,16 @@ class Professor_model extends CI_Model {
             return $q -> row() -> ProfessorID;
         } else {
             return 'error';
+        }
+    }
+    
+    function getAllDepartments(){
+        $q = $this -> db -> query("SELECT * FROM departments");
+        if ($q -> num_rows() > 0) {
+            foreach ($q->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
         }
     }
 

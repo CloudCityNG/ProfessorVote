@@ -96,16 +96,22 @@ class Professor extends CI_Controller {
         if ($this -> input -> post('ajax') == '1') {
             $this -> load -> library('form_validation');
             $this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
-            $this -> form_validation -> set_rules('college_name', 'College Name', 'trim|required|min_length[4]|max_length[32]');
-
+            $this -> form_validation -> set_rules('professor_first_name', 'professor_first_name', 'trim|required|max_length[32]');
+            $this -> form_validation -> set_rules('professor_last_name', 'professor_last_name', 'trim|required|max_length[32]');
+            $this -> form_validation -> set_rules('selectedDepartment', 'selectedDepartment', 'trim|required|max_length[32]');
             if ($this -> form_validation -> run() == FALSE) {
                 echo validation_errors();
             } else {
                 //insert into DB
                 $this -> load -> model('College_model');
-                $college_name = $this -> input -> post('college_name');
+                $this -> load -> model('Professor_model');
+                $firstName = $this -> input -> post('professor_first_name');
+                $lastName = $this -> input -> post('professor_last_name');
+                $departmentName = $this -> input -> post('selectedDepartment');
                 $state = $this -> input -> post('state_name');
-                if ($this -> College_model -> collegeExists($college_name, $state)) {
+                $college = $this -> input -> post('college_name');
+                $collegeInfo = $this -> College_model -> collegeByStateAndName($college, $state);
+                if ($this -> College_model -> collegeByStateAndName($college, $state)) {
                     echo "<div class=\"alert alert-error\">College Already Exist.</div>";
                 } else {
 
