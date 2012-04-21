@@ -98,7 +98,7 @@ class Professor extends CI_Controller {
             $this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
             $this -> form_validation -> set_rules('professor_first_name', 'Professor First Name', 'trim|required|max_length[32]');
             $this -> form_validation -> set_rules('professor_last_name', 'Professor Last Name', 'trim|required|max_length[32]');
-            $this -> form_validation -> set_rules('selectedDepartment', 'Selected Department', 'trim|required|max_length[32]');
+            $this -> form_validation -> set_rules('professor_department', 'Selected Department', 'trim|required|max_length[32]');
             if ($this -> form_validation -> run() == FALSE) {
                 echo validation_errors();
             } else {
@@ -107,15 +107,15 @@ class Professor extends CI_Controller {
                 $this -> load -> model('Professor_model');
                 $firstName = $this -> input -> post('professor_first_name');
                 $lastName = $this -> input -> post('professor_last_name');
-                $departmentName = $this -> input -> post('selectedDepartment');
+                $departmentName = $this -> input -> post('professor_department');
                 $state = $this -> input -> post('state_name');
                 $college = $this -> input -> post('college_name');
-                $collegeInfo = $this -> College_model -> collegeByStateAndName($college, $state);
-                $professorIDS = $this -> Proffesor_model -> getProfessorIDs($firstName, $lastName, $departmentName);
-                if ($this -> College_model -> professorExistAtCollege($professorIDS, $collegeInfo -> id)) {
+                $collegeINFO = $this -> College_model -> collegeByStateAndName($state,$college);
+                $professorIDS = $this -> Professor_model -> getProfessorIDs($firstName, $lastName, $departmentName);
+                if ($this -> Professor_model -> professorExistAtCollege($professorIDS, $collegeINFO -> id)) {
                     echo "<div class=\"alert alert-error\">Professor Already Exist.</div>";
                 } else {
-                    if ($this -> College_model -> create_professor($firstName, $lastName, $departmentName,$collegeInfo -> id )) {
+                    if ($this -> Professor_model -> create_professor($firstName, $lastName, $departmentName, $collegeINFO -> id)) {
                         echo 'true';
                     } else {
                         echo "<div class=\"alert alert-error\">Unkown Error occured.</div>";

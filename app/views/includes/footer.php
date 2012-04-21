@@ -106,7 +106,7 @@
                     data : form_data,
                     success : function(msg) {
                         if(msg == 'true') {
-                            location.reload(true)
+                            location.reload(true);
                         } else {
                             $('#createProfessorMessage').html(msg);
                         }

@@ -1,13 +1,13 @@
 <?php
 class Professor_model extends CI_Model {
 
-    function create_professor($firstName, $lastName, $department,$collegeID) {
-        $new_professor_insert_data = array('FirstName' => $firstName, 'LastName' => $LastName, 'Department' => $department);
+    function create_professor($firstName, $lastName, $department, $collegeID) {
+        $new_professor_insert_data = array('FirstName' => $firstName, 'LastName' => $lastName, 'Department' => $department);
         $insertProfessor = $this -> db -> insert('professor', $new_professor_insert_data);
-        $id = $this->db->insert_id();
+        $id = $this -> db -> insert_id();
         $professorLookUP = array('CollegeID' => $collegeID, 'ProfessorID' => $id);
         $insertLookup = $this -> db -> insert('professorlist', $professorLookUP);
-        return $insert;
+        return $insertProfessor;
     }
 
     function professorExists($firstName, $lastName, $department) {
@@ -43,7 +43,7 @@ class Professor_model extends CI_Model {
             return 'error';
         }
     }
-    
+
     function getProfessorIDs($firstName, $lastName, $department) {
 
         $this -> db -> select('*');
@@ -53,17 +53,17 @@ class Professor_model extends CI_Model {
         $q = $this -> db -> get('professor');
         if ($q -> num_rows() == 0) {
             return NULL;
-        } else{
+        } else {
             foreach ($q->result() as $row) {
                 $ProfessorIDs[] = $row -> ProfessorID;
                 // now we have the list of all the professor ID's.
             }
-            return $ProfessorIDS;
+            return $ProfessorIDs;
         }
-        
+
     }
-    
-    function getAllDepartments(){
+
+    function getAllDepartments() {
         $q = $this -> db -> query("SELECT * FROM departments");
         if ($q -> num_rows() > 0) {
             foreach ($q->result() as $row) {
@@ -72,14 +72,21 @@ class Professor_model extends CI_Model {
             return $data;
         }
     }
-    
-    function professorExistAtCollege($ProfessorIDS,$CollegeID){
+
+    function professorExistAtCollege($ProfessorIDS, $CollegeID) {
+        if ($ProfessorIDS == NULL) {
+            return FALSE;
+        }
         foreach ($ProfessorIDS as $profID) {
-            if($q = $this -> db -> query("SELECT * FROM professorlist WHERE CollegeID='$CollegeID' AND ProfessorID='$profID'")){
-                return TRUE;
+            $q = $this -> db -> query("SELECT * FROM professorlist WHERE CollegeID='$CollegeID' AND ProfessorID='$profID'");
+            if ($q -> num_rows() > 0) {
+                foreach ($q->result() as $row) {
+                    if ($row -> CollegeID == $CollegeID && $row -> ProfessorID == $profID) {
+                        return TRUE;
+                    }
+                }
             }
         }
         return FALSE; // That professor doesn't already exist at the college
     }
-
 }
