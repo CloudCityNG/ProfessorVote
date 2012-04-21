@@ -4,59 +4,59 @@ class course extends CI_Controller {
 
 	function index() {
 		$data['main_content'] = 'CourseView';
-//TODO:make this an error page or redirect home or something.  no data pased
+		//TODO:make this an error page or redirect home or something.  no data pased
 		$this -> load -> view('includes/template', $data);
 	}
-	function view($state,$collegeName,$professorFirstName,$professorLastName,$department,$catalogNumber){
-		$this->load->model("College_model");
-		$this->load->model("Course_model");
-		$this->load->model("Professor_model");
-		$this->load->model("State_model");
+
+	function view($state, $collegeName, $professorFirstName, $professorLastName, $department, $catalogNumber) {
+		$this -> load -> model("College_model");
+		$this -> load -> model("Course_model");
+		$this -> load -> model("Professor_model");
+		$this -> load -> model("State_model");
 		$courseID;
 		$professorID;
-		
-		if($collegeName!=null&&$professorFirstName!=null&&$professorLastName!=null&&$department!=null&&$catalogNumber!=null){
+
+		if ($collegeName != null && $professorFirstName != null && $professorLastName != null && $department != null && $catalogNumber != null) {
 			$collegeName = str_replace("%20", " ", $collegeName);
-			if($this->State_model->stateExists($state)==FALSE){
+			if ($this -> State_model -> stateExists($state) == FALSE) {
 				$data['main_content'] = 'HomePage';
 				$this -> load -> view('includes/template', $data);
-			}
-			else if($this->College_model->collegeExists($collegeName, $state)==FALSE){
+			} else if ($this -> College_model -> collegeExists($collegeName, $state) == FALSE) {
 				$data['main_content'] = 'HomePage';
 				$this -> load -> view('includes/template', $data);
 				//TODO:select state
-			}
-			else if($this->Professor_model->professorExists($professorFirstName,$professorLastName,$department)==FALSE){
+			} else if ($this -> Professor_model -> professorExists($professorFirstName, $professorLastName, $department) == FALSE) {
 				redirect(base_url("CollegePage/" . $state . "/" . $collegeName));
 				//$courseID=$this->Course_model->getID();
 				//$professorID = $this->Professor_model->getID($professorFirstName,$professorLastName,$department);
-			}
-			else if($this->Course_model->courseProfessorExists($this->Course_model->getID($catalogNumber, $this->College_model->getID($collegeName,$state)), $this->Professor_model->getID($professorFirstName,$professorLastName,$department))==FALSE){
-				redirect(base_url("Professor/view/" . $state . "/" . $collegeName."/".$professorFirstName."/".$professorLastName."/".$department));
-			}
-			else{
-				$data['professorFirstName']=$professorFirstName;
-				$data['professorLastName']=$professorLastName;
-				$data['department']=$department;
-				$data['state']=$state;
-				$data['catalogNumber']=$catalogNumber;
-				$data['collegeName']=$collegeName;
-				$collegeID=$this->College_model->getID($collegeName,$state);
-				
-				$courseID=$this->Course_model->getCourseID($collegeID,$catalogNumber);
-				$data['courseName'] = $this->Course_model-> getCourseName($courseID);
-				$professorID = $this->Professor_model->getID($professorFirstName,$professorLastName,$department);
-				$data['comments'] =  $this->Course_model-> getComments($courseID,$professorID);
-				log_message("debug",$this->Course_model-> getComments($courseID,$professorID));
+			} else if ($this -> Course_model -> courseProfessorExists($this -> Course_model -> getID($catalogNumber, $this -> College_model -> getID($collegeName, $state)), $this -> Professor_model -> getID($professorFirstName, $professorLastName, $department)) == FALSE) {
+				redirect(base_url("Professor/view/" . $state . "/" . $collegeName . "/" . $professorFirstName . "/" . $professorLastName . "/" . $department));
+			} else {
+				$data['professorFirstName'] = $professorFirstName;
+				$data['professorLastName'] = $professorLastName;
+				$data['department'] = $department;
+				$data['state'] = $state;
+				$data['catalogNumber'] = $catalogNumber;
+				$data['collegeName'] = $collegeName;
+				$collegeID = $this -> College_model -> getID($collegeName, $state);
+				$professorID = $this -> Professor_model -> getID($professorFirstName, $professorLastName, $department);
+				$courseID = $this -> Course_model -> getID($catalogNumber, $collegeID);
+
+				$courseID = $this -> Course_model -> getCourseID($collegeID, $catalogNumber);
+				$data['courseName'] = $this -> Course_model -> getCourseName($courseID);
+				$professorID = $this -> Professor_model -> getID($professorFirstName, $professorLastName, $department);
+				$data['comments'] = $this -> Course_model -> getComments($courseID, $professorID);
+				log_message("debug", $this -> Course_model -> getComments($courseID, $professorID));
+				$data['professorID'] = $professorID;
+				$data['courseID'] = $courseID;
 				$data['main_content'] = 'CourseView';
-			$this -> load -> view('includes/template', $data);
-			}			
-		}
-		else{
+				$this -> load -> view('includes/template', $data);
+			}
+		} else {
 			$data['main_content'] = 'HomePage';
 			$this -> load -> view('includes/template', $data);
 		}
-		
+
 	}
 
 	public function add() {
@@ -90,12 +90,12 @@ class course extends CI_Controller {
 		//log_message('debug',"catalog_number: " . $catalogNumber);
 		$collegeName = $this -> input -> post('college_name');
 		$courseName = $this -> input -> post('course_name');
-		$firstName=$this -> input -> post('professor_first_name');
-		$lastName=$this -> input -> post('professor_last_name');
-		$department=$this -> input -> post('professor_department');
-		$state = $this->input->post('state');
-		$professorID = $this -> Professor_model-> getID($firstName,$lastName,$department);
-		
+		$firstName = $this -> input -> post('professor_first_name');
+		$lastName = $this -> input -> post('professor_last_name');
+		$department = $this -> input -> post('professor_department');
+		$state = $this -> input -> post('state');
+		$professorID = $this -> Professor_model -> getID($firstName, $lastName, $department);
+
 		if ($courseName === "" or $courseName == null) {
 			if ($response === "" or $response == null) {
 				$response = $response . "course_name_err#Please provide a course name.";
@@ -121,7 +121,7 @@ class course extends CI_Controller {
 			return;
 		}
 
-		$collegeID = $this -> College_model -> getID($collegeName,$state);
+		$collegeID = $this -> College_model -> getID($collegeName, $state);
 
 		if ($collegeID == null || $collegeID == 'error' || $collegeID == '') {
 			echo "error_msg#Error pulling Professor's College data";
@@ -136,12 +136,12 @@ class course extends CI_Controller {
 		if ($result == TRUE) {
 			//$this -> form_validation -> set_message('course_check', 'The course and college combination you entered already exists.');
 			//handle error where there already exists that combo
-			
-			$courseID=$this -> Course_model ->getID($catalogNumber,$collegeID);
+
+			$courseID = $this -> Course_model -> getID($catalogNumber, $collegeID);
 			$result2 = $this -> Course_model -> courseProfessorExists($courseID, $professorID);
-			if($result2 == TRUE){
-			echo "error_msg#This professor already teaches this class.";
-			return;	
+			if ($result2 == TRUE) {
+				echo "error_msg#This professor already teaches this class.";
+				return;
 			}
 
 		}// else {
@@ -154,14 +154,14 @@ class course extends CI_Controller {
 		$course_name = $this -> input -> post('course_name');
 		$catalog_number = $this -> input -> post('catalog_number');
 		$college_name = $this -> input -> post('college_name');
-		$college_id = $this -> College_model -> getID($college_name,$state);
+		$college_id = $this -> College_model -> getID($college_name, $state);
 
 		if ($college_id == 'error' || $college_id == '' || $college_id == null) {
 			echo 'college_error';
 			return;
 		}
 
-		if ($this -> Course_model -> add_course($catalog_number, $course_name, $college_id,$professorID)) {
+		if ($this -> Course_model -> add_course($catalog_number, $course_name, $college_id, $professorID)) {
 			//success
 			echo 'success';
 			return;
@@ -171,6 +171,38 @@ class course extends CI_Controller {
 			return;
 		}
 
+	}
+
+	function comment() {
+		$this -> load -> model('Course_model');
+		$comment =trim( $this -> input -> post('comment'));
+		$courseID = $this -> input -> post('courseID');
+		$professorID = $this -> input -> post('professorID');
+		if ($this -> Course_model -> courseProfessorExists($courseID, $professorID) == false) {
+			echo "Course and Professor combination do not exist.";
+			return;
+		}
+		if ($comment == null || $comment =="") {
+			echo "null";
+			return;
+		}
+
+		$result = $this -> Course_model -> addComment($comment, $professorID, $courseID);
+		if ($result) {
+			echo $this -> getCommentHtml($courseID, $professorID);
+		} else {
+			echo "System error adding comment.";
+		}
+
+	}
+
+	private function getCommentHtml($courseID, $professorID) {
+		$comments = $this -> Course_model -> getComments($courseID, $professorID);
+		$result = "";
+		foreach ($comments as $comment) {
+			$result .= '<div class="well">' . '<div class="comment_date"><h6>'.$comment -> DateString . $comment -> Comment .'</h6></div>'. '</div>';
+		}
+		return $result;
 	}
 
 }
