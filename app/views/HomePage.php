@@ -78,17 +78,11 @@
                 <h3>Create <?php echo $this -> session -> flashdata('state')?> College</h3>
             </div>
             <div class="hero-unit">
-                <form class="form-horizontal">
-                    <fieldset>
-                        <div class="control-group">
                             <div class="modal-body">
                                 <div>
                                 <?php $headerLogin = $this -> load -> view("add_College_Form", TRUE);?>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
-                </form>
             </div>
         </div>
 <!--End of the create college model-->     
