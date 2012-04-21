@@ -79,6 +79,20 @@ class Course_model extends CI_Model {
 			return NULL;
 		}
 	}
+	
+	function addComment($comment,$professorID,$courseID){
+		$mysqldate = date( 'Y-m-d H:i:s');
+		$userID = '1'; 
+
+		$commentData=array('Comment'=>$comment,'ProfessorID'=>$professorID,'CourseID'=>$courseID,'`Date`'=>$mysqldate,'UserID'=>$userID
+		);	
+		if($this->db->insert('comments',$commentData)){
+			return "success";
+		}else{
+			return "error";
+		}
+		
+	}
 	function getComments($courseID,$professorID){
 	//	$this->db->select("*,DATE_FORMAT(c.`Date`,'%W, %M %D, %Y') as DateString");
 	//	$this -> db -> where('CourseID', $courseID);
@@ -86,7 +100,7 @@ class Course_model extends CI_Model {
 //log_message("debug","7777777777 profID ".$professorID);
 //log_message("debug","989797 COURSEID ".$courseID);
 		//$q = $this -> db -> get('comments');
-		$q=$this->db->query("SELECT *,DATE_FORMAT(c.`Date`,'%W, %M %D, %Y') as DateString FROM comments c where c.CourseID = '".$courseID."' and c.ProfessorID= '".$professorID."';");
+		$q=$this->db->query("SELECT *,DATE_FORMAT(c.`Date`,'%W, %M %D, %Y') as DateString FROM comments c where c.CourseID = '".$courseID."' and c.ProfessorID= '".$professorID."'order by DateString desc;");
 
 		if ($q -> num_rows() < 1) {
 			return NULL;

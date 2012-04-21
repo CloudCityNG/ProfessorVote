@@ -70,9 +70,9 @@ $.ajax({
             //	alert(msg);
             	if(msg=='success'){
 					//hide modal
-					javascript:$('#addCourseModal').modal('hide');		
+					$('#addCourseModal').modal('hide');		
 					$('#modal_success_msg').text("Course successfully added!");
-					javascript:$('#successModal').modal('show');
+					$('#successModal').modal('show');
 					//clear addCourse panel
 					
 					$('.alert-error').hide();
