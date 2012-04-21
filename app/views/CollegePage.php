@@ -1,4 +1,4 @@
-<?php $this->load->helper('url'); ?>
+<?php $this -> load -> helper('url');?>
 <div class="container">
 	<!-- this is the about us page for ProfessorVote -->
 	<ul class="breadcrumb">
@@ -59,94 +59,15 @@
 			</tr>
 		</table>
 	</div>
-	<button class="bt btn-large btn-primary pull-right" data-toggle="modal" href="#createCollegeModal">
-		<i class="icon-plus icon-white"></i> Add that shit!
-	</button>
-	<p class="pull-right" style="margin-right: 1em">
-		Don't see your Professor below?
-	</p>
-	<div class="btn-toolbar" align="center">
-		<div class="btn-group">
-			<button class="btn">
-				A
-			</button>
-			<button class="btn">
-				B
-			</button>
-			<button class="btn">
-				C
-			</button>
-			<button class="btn">
-				D
-			</button>
-			<button class="btn">
-				E
-			</button>
-			<button class="btn">
-				F
-			</button>
-			<button class="btn">
-				G
-			</button>
-			<button class="btn">
-				H
-			</button>
-			<button class="btn">
-				I
-			</button>
-			<button class="btn">
-				J
-			</button>
-			<button class="btn">
-				K
-			</button>
-			<button class="btn">
-				L
-			</button>
-			<button class="btn">
-				M
-			</button>
-			<button class="btn">
-				N
-			</button>
-			<button class="btn">
-				O
-			</button>
-			<button class="btn">
-				P
-			</button>
-			<button class="btn">
-				Q
-			</button>
-			<button class="btn">
-				R
-			</button>
-			<button class="btn">
-				S
-			</button>
-			<button class="btn">
-				T
-			</button>
-			<button class="btn">
-				U
-			</button>
-			<button class="btn">
-				V
-			</button>
-			<button class="btn">
-				W
-			</button>
-			<button class="btn">
-				X
-			</button>
-			<button class="btn">
-				Y
-			</button>
-			<button class="btn">
-				Z
-			</button>
-		</div>
-	</div>
+	<?php if($this->session->userdata('is_logged_in') == TRUE) {?>
+        <button class="bt btn-large btn-primary pull-right" data-toggle="modal" href="#createCollegeModal">
+               <i class="icon-plus icon-white"></i> Add that shit!
+            </button>
+            <?php } Else{?>
+            <p class="pull-right" style="margin-right: 1em">
+            Don't see your Professor below? Login to Add it!
+        </p>
+        <?php }?>
 	<br />
 	<!--
 	<div class="clearfix">
@@ -179,61 +100,20 @@
 	</div>
 	<?php endforeach;?>
 	<?php }?>
-	<div class="pagination" align="center">
-		<ul>
-			<li>
-				<a href="#">Prev</a>
-			</li>
-			<li class="active">
-				<a href="#">1</a>
-			</li>
-			<li>
-				<a href="#">2</a>
-			</li>
-			<li>
-				<a href="#">3</a>
-			</li>
-			<li>
-				<a href="#">4</a>
-			</li>
-			<li>
-				<a href="#">Next</a>
-			</li>
-		</ul>
-	</div>
 </div>
 <!-- /container -->
 <!--Start of the create professor model-->
 <div class="modal hide fade" id="createCollegeModal">
-	<?php
-    echo form_open('Creat school or something');
-	?>
 	<div class="modal-header">
-		<a class="close" data-dismiss="modal" id="loginModalClose">X</a>
-		<h3>Header</h3>
+		<a class="close" data-dismiss="modal" id="loginModalClose"><i class="icon-remove"></i></a>
+		<h3>Add <?php echo $collegeINFO -> Name;?> Professor</h3>
 	</div>
 	<div class="hero-unit">
-		<form class="form-horizontal">
-			<fieldset>
-				<div class="control-group">
-					<div class="modal-body">
-						<div>
-							body
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<div class="form-actions">
-						<div>
-							Footer
-						</div>
-					</div>
-				</div>
-			</fieldset>
-		</form>
-		<?php
-        form_close();
-		?>
+		<div class="modal-body">
+			<div>
+				<?php $headerLogin = $this -> load -> view("add_professor_form", TRUE);?>
+			</div>
+		</div>
 	</div>
 </div>
 <!--End of the create professor model-->

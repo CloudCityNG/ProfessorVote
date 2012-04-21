@@ -49,6 +49,68 @@ class Course_model extends CI_Model {
 			return FALSE;
 		}
 	}
+	function getCourseName($courseID){
+		$this -> db -> select('*');
+		$this -> db -> where('CourseID', $courseID);	
+		$q = $this -> db -> get('course');
+		log_message("debug","****COURseID:".$courseID);
+	log_message("debug","****COURENAME:".$q->row()->CourseName);
+		if ($q -> num_rows() < 1) {
+			return NULL;
+		} else if ($q->num_rows()>1){
+			return "error";
+		}else
+		{
+			return $q->row()->CourseName;
+		}
+	}
+	function getCourseID($collegeID,$catalogNumber){
+		log_message("debug","****COllegeID:".$collegeID);
+		$this->db->where('CollegeID',$collegeID);
+		$this->db->where('CatalogNumber',$catalogNumber);
+		log_message("debug","****Catnum:".$catalogNumber);
+		$q = $this->db->get('Course');
+		if ($q -> num_rows() == 1) {
+			return $q->row()->CourseID;
+		} else if ($q->num_rows()>1){
+			return "error";
+		}else
+		{
+			return NULL;
+		}
+	}
+	
+	function addComment($comment,$professorID,$courseID){
+		$mysqldate = date( 'Y-m-d H:i:s');
+		$userID = '1'; 
+
+		$commentData=array('Comment'=>$comment,'ProfessorID'=>$professorID,'CourseID'=>$courseID,'`Date`'=>$mysqldate,'UserID'=>$userID
+		);	
+		if($this->db->insert('comments',$commentData)){
+			return "success";
+		}else{
+			return "error";
+		}
+		
+	}
+	function getComments($courseID,$professorID){
+	//	$this->db->select("*,DATE_FORMAT(c.`Date`,'%W, %M %D, %Y') as DateString");
+	//	$this -> db -> where('CourseID', $courseID);
+		//$this -> db -> where('ProfessorID', $professorID);
+//log_message("debug","7777777777 profID ".$professorID);
+//log_message("debug","989797 COURSEID ".$courseID);
+		//$q = $this -> db -> get('comments');
+		$q=$this->db->query("SELECT *,DATE_FORMAT(c.`Date`,'%W, %M %D, %Y') as DateString FROM comments c where c.CourseID = '".$courseID."' and c.ProfessorID= '".$professorID."'order by DateString desc;");
+
+		if ($q -> num_rows() < 1) {
+			return NULL;
+		} else {
+			foreach ($q->result()as $row) {
+				$comments[]=$row;
+			};
+			return $comments;
+		}
+	}
 
 	function courseProfessorExists($courseID, $professorID) {
 		
@@ -57,9 +119,7 @@ class Course_model extends CI_Model {
 		$this -> db -> where('ProfessorID', $professorID);
 
 		$q = $this -> db -> get('courselist');
-log_message("debug", "***********");
-		log_message("debug", 'courseid '.$courseID.' prof id '.$professorID ." num rows ".$q->num_rows());
-		log_message("debug", "***********");
+
 		if ($q -> num_rows() > 0) {
 			return TRUE;
 		} else {

@@ -1,6 +1,16 @@
 <script type="text/javascript">
 //$('document').ready(function(){
-	function initAutoComplete(){
+	var newCourseDiv;
+function initAutoComplete(){
+	<?php if(!isset($courseNames)){ 
+		$courseNames=array('');
+	}
+	 if(!isset($catalogNumbers)){ 
+		$catalogNumbers=array('');
+	}
+	?>
+	var courseNames=[<?php echo "'".implode("','",$courseNames)."'"?>].sort();
+	var catalogNumbers=[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort();
 	$('#course_name').typeahead({
 		source:[<?php echo "'".implode("','",$courseNames)."'"?>].sort(),
 		items:6
@@ -9,9 +19,43 @@
 		source:[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort(),
 		items:6
 	});
-	//alert('testing 123');
-	}
-//});
+	$('#successModal').on('hidden', function () { 
+		
+ 		newCourseDiv='#'+$("#catalog_number").val();
+ 		tempFunct();
+ 		$('#catalog_number').val('');
+		$('#course_name').val('');
+					
+ 	});
+}
+
+function tempFunct(){
+	//TODO:course name exists makes new course ajax fail
+	
+	 $.ajax({
+            type: "POST",
+            data: "collegeName=" + $("#college_name").val() + '&firstName=' + $("#professor_first_name").val() + '&state=<?php echo $state ?>'+
+            '&lastName=' + $("#professor_last_name").val() + '&department=' + $("#professor_department").val()+'&professorID=<?php echo $professorID ?>',
+            url: "<?php echo base_url();?>index.php/Professor/getCourseListHTML",
+          
+            success: function(msg){
+            	//alert(msg);
+            	$('#courseList').html(msg);
+            	$(document.body).animate({scrollTop: $(newCourseDiv).offset().top}, 1200);
+            	//$.scrollTo(newCourseDiv, 800, {easing:'elasout'});            
+        },
+        error:function(xhr,err,ex){
+     //   	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+  //  alert("responseText: "+xhr.responseText);
+  //  alert("exception: "+err);
+  //  alert("exception: "+ex);
+
+    document.getElementById('error_msg').innerText='Unknown error sending AJAX request for courselist.';
+     document.getElementById('error_msg').style.display='block';
+        }
+        });
+	
+}
 
 
 function addCourse(){
@@ -23,15 +67,16 @@ $.ajax({
             +'&course_name='+$("#course_name").val()+'&professor_first_name='+$("#professor_first_name").val()+
             '&professor_last_name='+$("#professor_last_name").val()+'&professor_department='+$("#professor_department").val(),
             success: function(msg){
+            //	alert(msg);
             	if(msg=='success'){
 					//hide modal
-					javascript:$('#addCourseModal').modal('hide');		
+					$('#addCourseModal').modal('hide');		
 					$('#modal_success_msg').text("Course successfully added!");
-					javascript:$('#successModal').modal('show');
+					$('#successModal').modal('show');
 					//clear addCourse panel
-					$('#catalog_number').val('');
-					$('#course_name').val('');
+					
 					$('.alert-error').hide();
+					
 					
 					//TODO:repopulate page , highlight and scroll to new course
 				}
@@ -96,7 +141,7 @@ $.ajax({
         },
         error:function(xhr,err,ex){
      //   	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-  //  alert("responseText: "+xhr.responseText);
+  //alert("responseText: "+xhr.responseText);
   //  alert("exception: "+err);
   //  alert("exception: "+ex);
 
@@ -109,7 +154,7 @@ $.ajax({
 
 	
 </script>
-<div class="container" >
+<div class="container-fluid" >
 	<?php
 	$form_attributes= array('id'=>'addCourseForm', 'class'=>'addCourseForm');
 	echo form_open('course/add',$form_attributes);
