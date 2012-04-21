@@ -30,6 +30,8 @@ class User_model extends CI_Model {
 	{
 		if (isset($username))
 		{
+			$this -> db -> where('username', $username);
+			
 			if (isset($password))
 			{
 				$this -> db -> set('password', md5($password));
@@ -62,7 +64,7 @@ class User_model extends CI_Model {
 		
 		if ($query -> num_rows() == 0)
 		{
-			return false;
+			return NULL;
 		}
 		
 		else if ($query -> num_rows() == 1)

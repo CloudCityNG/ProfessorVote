@@ -17,52 +17,35 @@ class Profile extends CI_Controller
 	
 	function view_profile()
 	{
+		$this -> load -> helper('url');
 		$username = $this -> uri -> segment(3);
 		
-		if ($username == $this -> session -> userdata('username'))
-		{
-			$this -> load -> model('User_model');
-			$username = $this -> input -> post('username');
-			$query = $this -> User_model -> fetch_user($username);
+		$this -> load -> model('User_model');
+		$username = $this -> input -> post('username');
+		$query = $this -> User_model -> fetch_user($username);
 		
-			//echo "<pre>";
-			//print_r($query);
-			//echo "</pre>";
+		extract($query);
+		
+		$data['last_name'] = $last_name;
+		$data['id'] = $id;
+		$data['username'] = $username;
+		$data['password'] = $password;
+		$data['email_address'] = $email_address;
+		$data['first_name'] = $first_name;
 			
-			//var_dump($query);
-			
-			extract($query);
-			
-			$data['last_name'] = $last_name;
-			$data['id'] = $id;
-			$data['username'] = $username;
-			$data['password'] = $password;
-			$data['email_address'] = $email_address;
-			$data['first_name'] = $first_name;
-			
-			
-			
-			//$query -> free_result();
-		}
 		
 		$data['main_content'] = 'ProfilePageView';	
-		//var_dump($data);
 		$this -> load -> view('includes/template', $data);
 	}
 	
-	function edit_profile()
+	function edit_profile($username)
 	{
-		$data['main_content'] = 'ProfilePageEdit';
-		$this -> load -> view('includes/template', $data);
-	}
-	
-	function edit_user($username)
-	{
+		$this -> load -> helper('url');
+		$this -> load -> library('form_validation');
 		$username = $this -> uri -> segment(3);
 			
 		if ($username == $this -> session -> userdata('username'))
 		{
-			$this -> load -> library('form_validation');
 			$this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
 			// field name, error message, validation rules
 			$this -> form_validation -> set_rules('first_name', 'Name', 'trim|required');
@@ -82,21 +65,23 @@ class Profile extends CI_Controller
 		else 
 		{
 			$this -> load -> model('User_model');
-			$first_name = $this->input->post('first_name');
-			$last_name = $this->input->post('last_name');
-			$email_address = $this->input->post('email_address');			
-			$username = $this->input->post('username');
-			$password = $this->input->post('password');	
+			$first_name = $this -> input -> post('first_name');
+			$last_name = $this -> input -> post('last_name');
+			$email_address = $this -> input -> post('email_address');			
+			$username = $this -> input -> post('username');
+			$password = $this -> input -> post('password');	
 				
 			if ($this -> User_model -> update_user($first_name, $last_name, $email_address, $username, $password)) 
 			{
-				//$data = array('username' => $this -> input -> post('username'), 'is_logged_in' => true);
 				$this -> session -> set_userdata($data);
 				redirect('profile/view_profile/'.$username);
+				// need a refresh to show new data
 			} 
 			
 			else 
 			{
+				// throw some error message while the box is still up
+				// do not load a view
 				$data['main_content'] = 'ProfilePageEdit';
 				$this -> load -> view('includes/template', $data);
 			}
