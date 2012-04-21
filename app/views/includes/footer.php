@@ -66,5 +66,30 @@
 		});
 	});
 
+    $(document).ready(function() {
+            $('#submitAddCollege').click(function() {
+                var form_data = {
+                    college_name : $('#college_name').val(),
+                    state_name: $('#stateLable').text(),
+                    ajax : '1'
+                };
+                $.ajax({
+                    url : "<?php echo site_url('college/addCollege_Ajax'); ?>",
+                    type : 'POST',
+                    async : false,
+                    data : form_data,
+                    success : function(msg) {
+                        if(msg == 'true') {
+                            //window.location = <?php echo "/CollegePage/"?> + $('#college_name').val() + "/" $('#stateLable').text();
+                            location.reload(true)
+                        } else {
+                            $('#createCollegeMessage').html(msg);
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+
 </script>
 </body> </html>

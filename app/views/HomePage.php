@@ -73,13 +73,9 @@
 
 <!--Start of the create college model-->     
         <div class="modal hide fade" id="createCollegeModal">
-            <?php
-            echo form_open('Creat school or something');
-            ?>
-
             <div class="modal-header">
                 <a class="close" data-dismiss="modal" id="loginModalClose"><i class="icon-remove"></i></a>
-                <h3>Create College</h3>
+                <h3>Create <?php echo $this -> session -> flashdata('state')?> College</h3>
             </div>
             <div class="hero-unit">
                 <form class="form-horizontal">
@@ -87,15 +83,12 @@
                         <div class="control-group">
                             <div class="modal-body">
                                 <div>
-                                <?php $headerLogin = $this -> load -> view("College_Form", TRUE);?>
+                                <?php $headerLogin = $this -> load -> view("add_College_Form", TRUE);?>
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                 </form>
-                <?php
-                form_close();
-                ?>
             </div>
         </div>
 <!--End of the create college model-->     
