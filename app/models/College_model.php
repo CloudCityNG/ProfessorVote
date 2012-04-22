@@ -25,9 +25,7 @@ class College_model extends CI_Model {
     }
 
     public function collegeByStateAndName($state, $college) {
-        $decodedCollege = urldecode($college);
-        $decodeState = urldecode($state);
-        $q = $this -> db -> query("SELECT * FROM COLLEGE WHERE State='$decodeState' AND Name='$decodedCollege'");
+        $q = $this -> db -> query("SELECT * FROM COLLEGE WHERE State='$state' AND Name='$college'");
         if ($q -> num_rows() == 0 || $q -> num_rows() > 1) {
             return NULL;
             // That college doesn't exist OR there is more than one school with the same name in a State. THIS SHOULD NOT BE POSSIBLE.
