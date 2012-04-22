@@ -42,7 +42,7 @@ class User_model extends CI_Model {
 		}
 	}
 	
-	function update_user($username)
+	function update_user($first_name, $last_name, $username, $password)
 	{
 		if (isset($username))
 		{
@@ -64,19 +64,19 @@ class User_model extends CI_Model {
 			}
 		}
 			
-		$this -> db -> update('User');
+		$this -> db -> update('user');
 		
 		return $this -> db -> affected_rows();
 	}
 	
 	function fetch_user($username)
-	{	
+	{
 		if (isset($username))
 		{
 			$this -> db -> where('username', $username);
-		}
+		}	
 		
-		$query = $this -> db -> get('User');
+		$query = $this -> db -> get('user');
 		
 		if ($query -> num_rows() == 0)
 		{
@@ -86,17 +86,20 @@ class User_model extends CI_Model {
 		else if ($query -> num_rows() == 1)
 		{
 			$row = $query -> row();
-			
+
 			$data['last_name'] = $row -> last_name;
 			$data['id'] = $row -> id;
 			$data['username'] = $row -> username;
 			$data['password'] = $row -> password;
 			$data['email_address'] = $row -> email_address;
 			$data['first_name'] = $row -> first_name;
-			
+
 			return $data;
-			
-			//return $query -> row(0);
+		}
+		
+		else if ($query -> num_rows() > 1)
+		{
+			return $query -> result();
 		}
 	}
 }

@@ -111,7 +111,7 @@ class Professor extends CI_Controller {
                 $state = $this -> input -> post('state_name');
                 $college = $this -> input -> post('college_name');
                 $collegeInfo = $this -> College_model -> collegeByStateAndName($college, $state);
-                $professorIDS = $this -> Proffesor_model -> getProfessorIDs($firstName, $lastName, $departmentName);
+                $professorIDS = $this -> Professor_model -> getProfessorIDs($firstName, $lastName, $departmentName);
                 if ($this -> College_model -> professorExistAtCollege($professorIDS, $collegeInfo -> id)) {
                     echo "<div class=\"alert alert-error\">Professor Already Exist.</div>";
                 } else {

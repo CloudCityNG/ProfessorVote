@@ -1,13 +1,9 @@
-<div class="container">
-	<?php echo form_open('profile/edit_user');?>
-	<div class="hero-unit raised">
+<div class="container-fluid">
+	<?php echo form_open('profile/edit_profile');?>
 		<form class="form-horizontal">
 			<fieldset>
+				<div id="profileEditMessage"></div>
 				<div class="control-group">
-					<div class="page-header">
-						<h1>Edit Profile</h1>
-					</div>
-					
 					<legend>
 						Personal Information
 					</legend>
@@ -16,7 +12,7 @@
 					<div class="controls" style="margin-bottom: 1em">
 						<?php
 						echo form_error('first_name');
-						$firstNameAttributes = array('id' => 'first_name', 'name' => 'first_name', 'class' => 'input-xlarge', 'value'=> (isset($user['first_name'])), 'type' => 'text');
+						$firstNameAttributes = array('id' => 'first_name', 'name' => 'first_name', 'class' => 'input-xlarge', 'placeholder' => $first_name, 'type' => 'text');
 						echo form_input($firstNameAttributes);
 						?>				
 					</div>
@@ -25,14 +21,18 @@
 					<div class="controls" style="margin-bottom: 1em">
 						<?php
 						echo form_error('last_name');
-						$lastNameAttributes = array('id' => 'last_name', 'name' => 'last_name', 'class' => 'input-xlarge', 'value' => (isset($user['last_name'])), 'type' => 'text');
+						$lastNameAttributes = array('id' => 'last_name', 'name' => 'last_name', 'class' => 'input-xlarge', 'placeholder' => $last_name, 'type' => 'text');
 						echo form_input($lastNameAttributes);
 						?>
 					</div>
 						
 					<h4>Email Address:</h4>	
 					<div class="controls" style="margin-bottom: 1em">
-						<h4><?php echo $email_address;?></h4>
+						<?php 
+						echo form_error('email_address');
+						$emailAddressAttributes = array('id' => 'email_address', 'name' => 'email_address', 'class' => 'input-xlarge', 'value' => $email_address, 'readonly' => 'readonly', 'type' => 'text');
+						echo form_input($emailAddressAttributes);
+						?>
 					</div>	
 				</fieldset>
 				
@@ -44,7 +44,11 @@
 						
 						<h4>Username:</h4>
 						<div class="controls" style="margin-bottom: 1em">
-							<h4><?php echo $username;?></h4>
+							<?php 
+							echo form_error('username');
+							$usernameAttributes = array('id' => 'username', 'name' => 'username', 'class' => 'input-xlarge', 'value' => $username, 'readonly' => 'readonly', 'type' => 'text');
+							echo form_input($usernameAttributes);
+							?>
 						</div>
 						
 						<h4>Password:</h4>
@@ -71,18 +75,12 @@
 							<?php
 							$saveAttributes = array('id' => 'save', 'name' => 'save', 'class' => 'btn btn-large btn-primary', 'value' => 'Save', 'type' => 'submit');
 							echo form_submit($saveAttributes);
-							?>
-						
-							<?php
-							$cancelAttributes = (array('id' => 'cancel', 'name' => 'cancel', 'class' => 'btn btn-large btn-primary', 'value' => 'Cancel', 'type' => 'submit')); 
-							echo form_submit($cancelAttributes);
-							redirect('profile/view_profile/'.$username);
-							?>      
+							?>    
 						</div>
 					</div>
 				</fieldset>
 			</form>
-			<?=form_close()?>
+		<?=form_close()?>
 	</div>
 </div>
 

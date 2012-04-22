@@ -138,7 +138,7 @@ class Login extends CI_Controller {
 					if ($this -> User_model -> create_user($first_name, $last_name, $email_address, $username, $password)) {
 						echo 'true';
 					} else {
-						echo "<div class=\"alert alert-error\">Unkown Error occured.</div>";
+						echo "<div class=\"alert alert-error\">Unknown Error occured.</div>";
 					}
 				}
 			}

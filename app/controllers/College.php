@@ -66,7 +66,7 @@ class College extends CI_Controller {
                     if ($this -> College_model -> create_college($college_name, $state)) {
                         echo 'true';
                     } else {
-                        echo "<div class=\"alert alert-error\">Unkown Error occured.</div>";
+                        echo "<div class=\"alert alert-error\">Unknown Error occured.</div>";
                     }
                 }
             }
