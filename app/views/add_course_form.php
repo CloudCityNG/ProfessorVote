@@ -1,7 +1,4 @@
 <script type="text/javascript">
-//$('document').ready(function(){
-	var newCourseDiv;
-function initAutoComplete(){
 	<?php if(!isset($courseNames)){ 
 		$courseNames=array('');
 	}
@@ -9,6 +6,13 @@ function initAutoComplete(){
 		$catalogNumbers=array('');
 	}
 	?>
+//$('document').ready(function(){
+	var newCourseDiv;
+	var courseNames=[<?php echo "'".implode("','",$courseNames)."'"?>].sort();
+	var catalogNumbers=[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort();
+function initAutoComplete(){
+	alert("test");
+
 	var courseNames=[<?php echo "'".implode("','",$courseNames)."'"?>].sort();
 	var catalogNumbers=[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort();
 	$('#course_name').typeahead({
@@ -56,10 +60,19 @@ function tempFunct(){
         });
 	
 }
+function typeahead_catalogNumber(){
+	if($('catalog_number').val()!='' or $('catalog_number').val();!=null){
+var catnum= $('catalog_number').val();
+int index = $.inArray(catnum,catalog_numbers);
+if(index>=0){
+	$('course_name').val(courseNames[index]);
+}
+}
+}
 
 
 function addCourse(){
-	//TODO:add in code to hide server side validation messages
+	alert('test!')
 $.ajax({
             type: "POST",
             url: "<?php echo base_url();?>index.php/course/add",
@@ -182,7 +195,7 @@ $.ajax({
 					?>
 					<div class="alert alert-error" id='catalog_number_err' style='display:none'></div>
 					<?php
-					$catalogNumberAttributes = array('id' => 'catalog_number', 'class' => 'input-xlarge required', 'placeholder' => 'MATH1101', 'type' => 'text', 'name' => 'catalog_number','data-provide'=>'typeahead','autocomplete'=>'off');
+					$catalogNumberAttributes = array('onChange'=>'typeahead_catalogNumber();','id' => 'catalog_number', 'class' => 'input-xlarge required', 'placeholder' => 'MATH1101', 'type' => 'text', 'name' => 'catalog_number','data-provide'=>'typeahead','autocomplete'=>'off');
 					if (isset($catalog_number)) {
 						$catalogNumberAttributes = array('id' => 'catalog_number', 'value' => $catalog_number, 'class' => 'input-xlarge required', 'placeholder' => $catalog_number, 'type' => 'text', 'name' => 'catalog_number','data-provide'=>'typeahead','autocomplete'=>'off');
 					}

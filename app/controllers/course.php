@@ -3,8 +3,7 @@
 class course extends CI_Controller {
 
 	function index() {
-		$data['main_content'] = 'CourseView';
-		//TODO:make this an error page or redirect home or something.  no data pased
+		$data['main_content'] = 'HomePage';		
 		$this -> load -> view('includes/template', $data);
 	}
 
@@ -23,8 +22,8 @@ class course extends CI_Controller {
 				$this -> load -> view('includes/template', $data);
 			} else if ($this -> College_model -> collegeExists($collegeName, $state) == FALSE) {
 				$data['main_content'] = 'HomePage';
+				$this->session->set_flashdata('state', urldecode($state));
 				$this -> load -> view('includes/template', $data);
-				//TODO:select state
 			} else if ($this -> Professor_model -> professorExists($professorFirstName, $professorLastName, $department) == FALSE) {
 				redirect(base_url("CollegePage/" . $state . "/" . $collegeName));
 				//$courseID=$this->Course_model->getID();

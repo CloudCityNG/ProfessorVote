@@ -50,8 +50,9 @@ class Professor extends CI_Controller {
                 $this -> load -> view('includes/template', $data);
             } else if ($this -> College_model -> collegeExists($college, $state) == FALSE) {
                 $data['main_content'] = 'HomePage';
+				$this->session->set_flashdata('state', urldecode($state));
                 $this -> load -> view('includes/template', $data);
-                //TODO:select state
+
             } else if ($this -> Professor_model -> professorExists($firstName, $lastName, $department) == FALSE) {
 
                 redirect(base_url("CollegePage/" . $state . "/" . $college));
@@ -59,7 +60,6 @@ class Professor extends CI_Controller {
                 $data['firstName'] = $firstName;
                 $data['lastName'] = $lastName;
                 $data['department'] = $department;
-                //TODO:get college name from previous page!!!! THIS codfe should be in else block
                 $data2 = array();
                 $data['collegeName'] = $college;
                 $data2['collegeName'] = $college;

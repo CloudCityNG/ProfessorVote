@@ -10,7 +10,7 @@ class State_model extends CI_Model {
 		}
 	}
 
-	function stateExists($state) {
+	function stateExists($state) { 
 		$this -> db -> where('state', $state);
 		$q = $this -> db -> get('State');
 		if ($q -> num_rows() > 0) {
