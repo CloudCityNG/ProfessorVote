@@ -42,82 +42,64 @@ class User_model extends CI_Model {
 		}
 	}
 	
-	function update_user($username)
+	function update_user($first_name, $last_name, $username, $password)
 	{
-		if (!$this -> validate($username))
+		if (isset($username))
 		{
-			return FALSE;
+			$this -> db -> where('username', $username);
+			
+			if (isset($password))
+			{
+				$this -> db -> set('password', md5($password));
+			}
+			
+			if (isset($first))
+			{
+				$this -> db -> set('first_name', $first);
+			}
+			
+			if (isset($last))
+			{
+				$this -> db -> set('last_name', $last);
+			}
 		}
-		
-		if (isset($password))
-		{
-			$this -> db -> set('password', $password);
-		}
-		
-		if (isset($first))
-		{
-			$this -> db -> set('first_name', $first);
-		}
-		
-		if (isset($last))
-		{
-			$this -> db -> set('last_name', $last);
-		}
-		
-		$this -> db -> update('Users');
+			
+		$this -> db -> update('user');
 		
 		return $this -> db -> affected_rows();
 	}
 	
 	function fetch_user($username)
 	{
-		if (!$this -> validate($username))
-		{
-			return FALSE;
-		}
-		
-		if (isset($id))
-		{
-			$this -> db -> where('id', $id);
-		}
-		
 		if (isset($username))
 		{
 			$this -> db -> where('username', $username);
-		}
+		}	
 		
-		if (isset($email))
+		$query = $this -> db -> get('user');
+		
+		if ($query -> num_rows() == 0)
 		{
-			$this -> db -> where('email_address', $email);
+			return NULL;
 		}
 		
-		if (isset($password))
+		else if ($query -> num_rows() == 1)
 		{
-			$this -> db -> where('password', $password);
+			$row = $query -> row();
+
+			$data['last_name'] = $row -> last_name;
+			$data['id'] = $row -> id;
+			$data['username'] = $row -> username;
+			$data['password'] = $row -> password;
+			$data['email_address'] = $row -> email_address;
+			$data['first_name'] = $row -> first_name;
+
+			return $data;
 		}
 		
-		if (isset($limit) && isset($offset))
+		else if ($query -> num_rows() > 1)
 		{
-			$this -> db -> limit($limit, $offset);
+			return $query -> result();
 		}
-		
-		else if (isset($limit))
-		{
-			$this -> db -> limit($limit);
-		}
-		
-		if (isset($sort_by) && isset($sort_direction))
-		{
-			$this -> db -> order_by($sort_by, $sort_direction);
-		}
-		
-		$query = $this -> db -> get('User');
-		
-		if (isset($id) || isset($username) || isset($email))
-		{
-			return $query -> row(0);
-		}
-		
-		return $query -> result();
 	}
 }

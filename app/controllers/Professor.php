@@ -110,6 +110,7 @@ class Professor extends CI_Controller {
                 $departmentName = $this -> input -> post('professor_department');
                 $state = $this -> input -> post('state_name');
                 $college = $this -> input -> post('college_name');
+
                 $collegeINFO = $this -> College_model -> collegeByStateAndName($state,$college);
                 $professorIDS = $this -> Professor_model -> getProfessorIDs($firstName, $lastName, $departmentName);
                 if ($this -> Professor_model -> professorExistAtCollege($professorIDS, $collegeINFO -> id)) {
