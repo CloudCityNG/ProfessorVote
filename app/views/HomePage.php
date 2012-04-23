@@ -1,26 +1,55 @@
-<div class="container">
+<script type="text/javascript">
+	function hideRoot(){
+		$('.root').hide();
+	}
+	function chooseSchool(){
+		var school_tb = $.trim($('#school_name_tb').val());
+		alert(school_tb);
+		if($.inArray(school_tb,window.schoolNames)>=0){
+			alert(school_tb);
+		}
+		else
+		alert('notfound');
+	}
+	
+</script><div="container"></div="container">
 	<!-- Main hero unit for a primary marketing message or call to action -->
-	<div class="hero-unit raised">
+	<div class="hero-unit raised root">
 		<h1>Welcome!</h1>
 		<p>
 			ProfessorVote.com is a new and unique way of rating your College professors and getting a quick and easy view of the best professors at your school.
 			Please Pick Your State in the Drop Down Menu Below to Get Started.
 		</p>
 		<div class="btn-toolbar">
-			<div class="btn-group">
-				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown">
+			<div class="btn-group" style:"style="display:inline-table">
+				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown" style="display:inline">
 					Select A State <span class="caret"></span>
 				</button>
+				<p style="align:left">
+				<?php
+					$typeaheadSchoolNameAttributes = array('id' => 'school_name_tb', 'class' => 'input-xlarge', 'placeholder' => 'or start typing your school name here:', 'type' => 'text', 'name' => 'school_name_tb','data-provide'=>'typeahead','autocomplete'=>'off','style'=>'display:inline;align:right;margin-right:0','onChange'=>'javascript:chooseSchool();');
+
+					echo form_input($typeaheadSchoolNameAttributes);
+					?>	
+					
+				</p>
+				
 				<ul class="dropdown-menu">
-					<?php foreach ($states as $row):
+					<?php 
+					$this -> load -> model('State_model');
+						$states = $this -> State_model -> getAllStates();
+					foreach ($states as $row):
 					?>
-					<li>
-						<?php $state = $row -> state;?>
+					<li onclick="javascript:hideRoot();">
+						<?php
+
+						$state = $row -> state;
+					?>
 						<a href="<?php echo htmlentities("home/showCollegesFromState/" . $state);?>"><?php echo $state;?></a>
 					</li>
 					<?php endforeach;?>
 				</ul>
-				</button>
+				
 			</div>
 		</div>
 	</div>

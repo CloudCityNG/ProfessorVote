@@ -11,6 +11,16 @@ class College_model extends CI_Model {
             return $data;
         }
     }
+	    function getAllNames() {
+        $q = $this -> db -> get('college');
+        if ($q -> num_rows() > 0) {
+            foreach ($q->result() as $row) {
+                $data[] = json_encode( $row->Name);
+            }
+            return $data;
+        }
+    }
+	
 
     function getCollegeByState($state) {
         $q = $this -> db -> query("SELECT * FROM College WHERE State='$state'");
@@ -108,7 +118,7 @@ class College_model extends CI_Model {
             return $q -> row() -> id;
         } else {
             return 'error';
-            //TODO WHY IS IT RETURNING MRE THAN ONE ID? NLY ONE IN DB
+            
         }
     }
 

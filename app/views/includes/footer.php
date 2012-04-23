@@ -15,6 +15,41 @@
 <script src="/scripts/header.js"></script>
 <script src="/CoursePulse/assets/js/pulse.core.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+<?php
+$this->load->model('College_model');
+ $schoolNames=$this->College_model->getAllNames(); ?>
+
+	var schoolNames=[<?php echo implode(",",$schoolNames)?>].sort();
+	$('#school_name_tb').typeahead({
+		source:schoolNames,
+		items:6
+	});
+});
+
+$(document).ready(function() {
+		$('#submitLogin').click(function() {
+			var form_data = {
+				username : $('#username').val(),
+				password : $('#password').val(),
+				ajax : '1'
+			};
+			$.ajax({
+				url : "<?php echo site_url('login/ajax_check'); ?>",
+				type : 'POST',
+				async : false,
+				data : form_data,
+				success : function(msg) {
+					if(msg == 'true') {
+						location.reload(true)
+					} else {
+						$('#message').html(msg);
+					}
+				}
+			});
+			return false;
+		});
+	});
 	$(document).ready(function() {
 		$('#submitLogin').click(function() {
 			var form_data = {
@@ -89,6 +124,7 @@
                 return false;
             });
         });
+        
      $(document).ready(function() {
             $('#submitProfessor').click(function() {
                 var form_data = {
@@ -115,6 +151,7 @@
                 return false;
             });
         });
+       
 
 </script>
 </body> </html>

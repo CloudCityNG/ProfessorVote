@@ -21,7 +21,12 @@
 			}
 				?></small></h1>
 		</div>
+		<?php if($this->session->userdata('is_logged_in') == TRUE) {?>
 		<p>Don't see your course?</p><a data-toggle="modal" href="#addCourseModal" class="btn btn-large btn-primary" onclick="javascript:initAutoComplete();">Add that shit!</a>
+	<?php }else{ ?>
+	 	Don't see your course? Log in to add one!
+	 	<?php }?> 
+	 	
 		</br></br>
 
 
