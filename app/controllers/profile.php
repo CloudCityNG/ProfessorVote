@@ -27,10 +27,12 @@ class Profile extends CI_Controller {
         $username = $this -> session -> userdata('username');
         
         $this -> load -> model('User_model');
-        $query = $this -> User_model -> fetch_user($username);
-        if ($username != $this -> uri -> segment(3)) {
+		if ($username != $this -> uri -> segment(3)) {
             redirect('');
         }
+		
+        $query = $this -> User_model -> fetch_user($username);
+        
         if ($query) {
             extract($query);
 
@@ -48,14 +50,16 @@ class Profile extends CI_Controller {
 
     function edit_profile() {
         $username = $this -> session -> userdata('username');
+		
+		echo $username;
         if ($this -> input -> post('ajax') == '1') {
             $this -> load -> library('form_validation');
             $this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
             // field name, error message, validation rules
-            $this -> form_validation -> set_rules('first_name', 'Name', 'trim|required');
+            $this -> form_validation -> set_rules('first_name', 'First Name', 'trim|required');
             $this -> form_validation -> set_rules('last_name', 'Last Name', 'trim|required');
             //$this -> form_validation -> set_rules('email_address', 'Email Address', 'trim|required|valid_email|is_unique[user.email_address]');
-            //$this -> form_validation -> set_rules('username', 'Username', 'trim|required|min_length[4]|is_unique[user.username]');
+            $this -> form_validation -> set_rules('username', 'Username', 'trim|required|min_length[4]');
             $this -> form_validation -> set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
             $this -> form_validation -> set_rules('password2', 'Password Confirmation', 'trim|required|matches[password]');
 
@@ -71,7 +75,8 @@ class Profile extends CI_Controller {
                 if ($this -> User_model -> update_user($first_name, $last_name, $username, $password)) {
                     echo 'true';
                 } else {
-                    echo "<div class=\"alert alert-error\">Unknown Error occured.</div>";
+                    //echo "<div class=\"alert alert-error\">Unknown Error occured.</div>";
+					echo $this -> User_model -> update_user($first_name, $last_name, $username, $password);
                 }
             }
 

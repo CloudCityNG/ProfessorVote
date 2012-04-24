@@ -44,12 +44,26 @@ class User_model extends CI_Model {
 	
 	function update_user($first_name, $last_name, $username, $password)
 	{
-        $oldUserData = $this -> User_model -> fetch_user($username);
-        $data = array('last_name' => $last_name,'password' => md5($password),'first_name' => $first_name);
-		$this->db->where('id',$oldUserData['id']);
-		$update = $this -> db -> update('user',$data);
-		//echo $this -> db -> affected_rows();
-		return $update;
+        $query = $this -> User_model -> fetch_user($username);
+		
+		if ($query)
+		{
+			extract($query);
+			
+			$oldUserData['username'] = $old_username;
+			
+			$data = array('last_name' => $last_name, 'password' => md5($password), 'first_name' => $first_name);
+			$this -> db -> where('username', $old_username);
+			$update = $this -> db -> update('user', $data);
+			//echo $this -> db -> affected_rows();
+			return $update;
+		}
+		
+		else {
+			return $query;
+		}
+		
+        
 	}
 	
 	function fetch_user($username)
