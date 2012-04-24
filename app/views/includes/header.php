@@ -43,9 +43,6 @@
 							<li>
 								<small class="navbar-text">User: <?php $username = $this -> session -> userdata('username'); 
 								echo anchor('profile/view_profile/'.$username, $username)?>
-							</li>
-						
-							<li>
 								<?php
 								$logoutAttributes = array('id' => 'logout', 'class' => 'btn');
 								echo anchor('login/logout', 'Logout', $logoutAttributes);
