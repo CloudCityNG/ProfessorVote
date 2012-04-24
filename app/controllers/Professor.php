@@ -9,12 +9,12 @@ class Professor extends CI_Controller {
 
     public function getCourseListHTML() {
         $this -> load -> model("Course_model");
-        $professorID = $this -> input -> post('professorID');
-        $state = $this -> input -> post('state');
-        $collegeName = $this -> input -> post('collegeName');
-        $firstName = $this -> input -> post('firstName');
-        $lastName = $this -> input -> post('lastName');
-        $department = $this -> input -> post('department');
+        $professorID = urldecode($this -> input -> post('professorID'));
+        $state =urldecode( $this -> input -> post('state'));
+        $collegeName = urldecode($this -> input -> post('collegeName'));
+        $firstName = urldecode($this -> input -> post('firstName'));
+        $lastName = urldecode($this -> input -> post('lastName'));
+        $department = urldecode($this -> input -> post('department'));
         $courses = $this -> Course_model -> getCoursesByProfessor($professorID);
 
         if (isset($courses) == FALSE || $courses == NULL || count($courses) < 1) {
@@ -27,8 +27,8 @@ class Professor extends CI_Controller {
             foreach ($courses as $course) :
 
                 echo '<div class="well" id="' . $course['CatalogNumber'] . '">
-		<div class="catalogNumber">' . anchor(base_url('course/view/' . $state . '/' . $collegeName . '/' . $firstName . '/' . $lastName . '/' . $department . '/' . $course['CatalogNumber']), $course['CatalogNumber']) . '</div>
-		<div class="courseName">' . anchor(base_url('course/view/' . $state . '/' . $collegeName . '/' . $firstName . '/' . $lastName . '/' . $department . '/' . $course['CatalogNumber']), $course['CourseName']) . '</div>
+		<div class="catalogNumber">' . anchor(site_url('course/view/' . $state . '/' . $collegeName . '/' . $firstName . '/' . $lastName . '/' . $department . '/' . $course['CatalogNumber']), $course['CatalogNumber']) . '</div>
+		<div class="courseName">' . anchor(site_url('course/view/' . $state . '/' . $collegeName . '/' . $firstName . '/' . $lastName . '/' . $department . '/' . $course['CatalogNumber']), $course['CourseName']) . '</div>
 
 	</div>';
             endforeach;
@@ -43,7 +43,12 @@ class Professor extends CI_Controller {
         $this -> load -> helper('url');
         $data = array();
         if ($college != null && $firstName != null && $lastName != null && $department != null && $state != null) {
-            $college = str_replace("%20", " ", $college);
+        	$college = urldecode($college);
+			$firstName = urldecode($firstName);
+			$lastName = urldecode($lastName);
+			$department = urldecode($department);
+			$state = urldecode($state);
+            //$college = str_replace("%20", " ", $college);
 
             if ($this -> State_model -> stateExists($state) == FALSE) {
                 $data['main_content'] = 'HomePage';
@@ -55,7 +60,7 @@ class Professor extends CI_Controller {
 
             } else if ($this -> Professor_model -> professorExists($firstName, $lastName, urldecode($department)) == FALSE) {
 
-                redirect(base_url("CollegePage/" . $state . "/" . $college));
+                redirect(site_url("CollegePage/" . $state . "/" . $college));
             } else {
                 $data['firstName'] = $firstName;
                 $data['lastName'] = $lastName;

@@ -16,7 +16,14 @@ class course extends CI_Controller {
 		$professorID;
 
 		if ($collegeName != null && $professorFirstName != null && $professorLastName != null && $department != null && $catalogNumber != null) {
-			$collegeName = str_replace("%20", " ", $collegeName);
+				$collegeName = urldecode($collegeName);
+			$professorFirstName = urldecode($professorFirstName);
+			$professorLastName = urldecode($professorLastName);
+			$department = urldecode($department);
+			$state = urldecode($state);
+			$catalogNumber = urldecode($catalogNumber);
+			
+			
 			if ($this -> State_model -> stateExists($state) == FALSE) {
 				$data['main_content'] = 'HomePage';
 				$this -> load -> view('includes/template', $data);
@@ -25,11 +32,11 @@ class course extends CI_Controller {
 				$this->session->set_flashdata('state', urldecode($state));
 				$this -> load -> view('includes/template', $data);
 			} else if ($this -> Professor_model -> professorExists($professorFirstName, $professorLastName, $department) == FALSE) {
-				redirect(base_url("CollegePage/" . urlencode($state) . "/" . urlencode($collegeName)));
+				redirect(site_url("CollegePage/" . urlencode($state) . "/" . urlencode($collegeName)));
 				//$courseID=$this->Course_model->getID();
 				//$professorID = $this->Professor_model->getID($professorFirstName,$professorLastName,$department);
 			} else if ($this -> Course_model -> courseProfessorExists($this -> Course_model -> getID($catalogNumber, $this -> College_model -> getID($collegeName, $state)), $this -> Professor_model -> getID($professorFirstName, $professorLastName, $department)) == FALSE) {
-				redirect(base_url("Professor/view/" . urlencode($state). "/" . urlencode($collegeName). "/" . urlencode($professorFirstName) . "/" . urlencode($professorLastName) . "/" . urlencode($department)));
+				redirect(site_url("Professor/view/" . urlencode($state). "/" . urlencode($collegeName). "/" . urlencode($professorFirstName) . "/" . urlencode($professorLastName) . "/" . urlencode($department)));
 			} else {
 				$data['professorFirstName'] = $professorFirstName;
 				$data['professorLastName'] = $professorLastName;
@@ -62,7 +69,7 @@ class course extends CI_Controller {
 		$this -> load -> model('Course_model');
 		$this -> load -> model('College_model');
 		$this -> load -> model('Professor_model');
-		$catalogNumber = $this -> input -> post('catalog_number');
+		$catalogNumber = urldecode($this -> input -> post('catalog_number'));
 		$response = "";
 
 		if ($catalogNumber === "" or $catalogNumber == null) {
@@ -174,9 +181,9 @@ class course extends CI_Controller {
 
 	function comment() {
 		$this -> load -> model('Course_model');
-		$comment =trim( $this -> input -> post('comment'));
-		$courseID = $this -> input -> post('courseID');
-		$professorID = $this -> input -> post('professorID');
+		$comment =urldecode(trim( $this -> input -> post('comment')));
+		$courseID = urldecode($this -> input -> post('courseID'));
+		$professorID = urldecode($this -> input -> post('professorID'));
 		if ($this -> Course_model -> courseProfessorExists($courseID, $professorID) == false) {
 			echo "Course and Professor combination do not exist.";
 			return;

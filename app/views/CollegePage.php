@@ -100,7 +100,7 @@
 	?>
 	<?php foreach($professors as $professor): // for each professor print out a well unit
 	?>
-	<div class="well raised" id="Professor1" onmouseover="divOnHover(this, 'Professor1');" onmousedown = "clickMouseDown('Professor1');" onmouseup = "clickMouseUp('Professor1');"OnClick="gotoThis('<?php echo  base_url("/Professor/view/".$collegeINFO -> State."/".$collegeINFO -> Name."/".$professor->FirstName.'/'.$professor->LastName.'/'.$professor->Department)?>');">
+	<div class="well raised" id="Professor1" onmouseover="divOnHover(this, 'Professor1');" onmousedown = "clickMouseDown('Professor1');" onmouseup = "clickMouseUp('Professor1');"OnClick="gotoThis('<?php echo  site_url("/Professor/view/".$collegeINFO -> State."/".$collegeINFO -> Name."/".$professor->FirstName.'/'.$professor->LastName.'/'.$professor->Department)?>');">
 		<td>
 		<tr>
 			<td align="right">DEPARTMENT:</td>

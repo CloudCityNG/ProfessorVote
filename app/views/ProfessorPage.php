@@ -57,11 +57,11 @@
 	    //echo $this->Pulse_model->getCoursePulseVotes($courses[1]['CourseID']);
 	    $courses[0]['Votes'] = '15';
 //print_r($courses);
-echo $courses[1]['CourseID'];
+//echo $courses[1]['CourseID'];
  foreach($courses as $course): 
 	?>
 	
-	<div class="well raised" id="<?php echo $course['CatalogNumber'] ?>" onmouseover="divOnHover(this, '<?php echo $course['CatalogNumber'] ?>');" onmousedown = "clickMouseDown('<?php echo $course['CatalogNumber'] ?>');" onmouseup = "clickMouseUp('<?php echo $course['CatalogNumber'] ?>');" OnClick="gotoThis('<?php echo base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']);?>');" >
+	<div class="well raised" id="<?php echo $course['CatalogNumber'] ?>" onmouseover="divOnHover(this, '<?php echo $course['CatalogNumber'] ?>');" onmousedown = "clickMouseDown('<?php echo $course['CatalogNumber'] ?>');" onmouseup = "clickMouseUp('<?php echo $course['CatalogNumber'] ?>');" OnClick="gotoThis('<?php echo site_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']);?>');" >
 	     <div class="pull-right" style="margin-right: 1em">
             <?php echo $coursePulse -> voteHTML($course['CourseID']);?>
         </div>
