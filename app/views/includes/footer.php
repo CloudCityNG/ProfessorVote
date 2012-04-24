@@ -29,7 +29,7 @@ $(document).ready(function() {
 				data : form_data,
 				success : function(msg) {
 					if(msg == 'true') {
-						location.reload(true)
+						location.reload(true);
 					} else {
 						$('#message').html(msg);
 					}
@@ -52,7 +52,7 @@ $(document).ready(function() {
 				data : form_data,
 				success : function(msg) {
 					if(msg == 'true') {
-						location.reload(true)
+						location.reload(true);
 					} else {
 						$('#message').html(msg);
 					}
@@ -79,7 +79,7 @@ $(document).ready(function() {
 				data : form_data,
 				success : function(msg) {
 					if(msg == 'true') {
-						location.reload(true)
+						location.reload(true);
 					} else {
 						$('#registerMessage').html(msg);
 					}
@@ -103,7 +103,7 @@ $(document).ready(function() {
                     data : form_data,
                     success : function(msg) {
                         if(msg == 'true') {
-                            location.reload(true)
+                            location.reload(true);
                         } else {
                             $('#createCollegeMessage').html(msg);
                         }

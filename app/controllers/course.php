@@ -25,11 +25,11 @@ class course extends CI_Controller {
 				$this->session->set_flashdata('state', urldecode($state));
 				$this -> load -> view('includes/template', $data);
 			} else if ($this -> Professor_model -> professorExists($professorFirstName, $professorLastName, $department) == FALSE) {
-				redirect(base_url("CollegePage/" . $state . "/" . $collegeName));
+				redirect(base_url("CollegePage/" . urlencode($state) . "/" . urlencode($collegeName)));
 				//$courseID=$this->Course_model->getID();
 				//$professorID = $this->Professor_model->getID($professorFirstName,$professorLastName,$department);
 			} else if ($this -> Course_model -> courseProfessorExists($this -> Course_model -> getID($catalogNumber, $this -> College_model -> getID($collegeName, $state)), $this -> Professor_model -> getID($professorFirstName, $professorLastName, $department)) == FALSE) {
-				redirect(base_url("Professor/view/" . $state . "/" . $collegeName . "/" . $professorFirstName . "/" . $professorLastName . "/" . $department));
+				redirect(base_url("Professor/view/" . urlencode($state). "/" . urlencode($collegeName). "/" . urlencode($professorFirstName) . "/" . urlencode($professorLastName) . "/" . urlencode($department)));
 			} else {
 				$data['professorFirstName'] = $professorFirstName;
 				$data['professorLastName'] = $professorLastName;
@@ -85,7 +85,7 @@ class course extends CI_Controller {
 				$response .= ('|' . "catalog_number_err#The course catalog number must not exceed 12 characters.");
 			}
 		}
-
+//TODO:sort by time or votes
 		//log_message('debug',"catalog_number: " . $catalogNumber);
 		$collegeName = $this -> input -> post('college_name');
 		$courseName = $this -> input -> post('course_name');
@@ -181,7 +181,7 @@ class course extends CI_Controller {
 			echo "Course and Professor combination do not exist.";
 			return;
 		}
-		if ($comment == null || $comment =="") {
+		else if ($comment == null || $comment =="") {
 			echo "null";
 			return;
 		}
@@ -199,7 +199,7 @@ class course extends CI_Controller {
 		$comments = $this -> Course_model -> getComments($courseID, $professorID);
 		$result = "";
 		foreach ($comments as $comment) {
-			$result .= '<div class="well">' . '<div class="comment_date"><h6>'.$comment -> DateString . $comment -> Comment .'</h6></div>'. '</div>';
+			$result .= '<div class="well">' . '<div style="float:right;display:block-inline;"><h6>'.$comment -> DateString .'</h6></div>'. $comment -> Comment .'</div>';
 		}
 		return $result;
 	}

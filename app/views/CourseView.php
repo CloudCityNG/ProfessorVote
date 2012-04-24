@@ -1,33 +1,25 @@
-<style type="text/css" media="screen">
-	.comment_date {
-		position: absolute;
-		right: 0;
-	}
-</style>
+
 <script type="text/javascript">
 	function addComment(){
+		
 var comment = $('#comment').val();
 $.ajax({
 type: "POST",
-data: "comment=" + comment + '&professorID=<?php echo $professorID ?>&courseID=<?php echo $courseID ?>
-	',
-	url: "
-<?php echo base_url("/index.php/course/comment");?>
-	",
-
-	success: function(msg){
-	if(msg!='null'){}
-	//show course added
+url: "<?php echo base_url('/index.php/course/comment');?>",
+data: "comment=" + comment + "&professorID=<?php echo $professorID; ?>&courseID=<?php echo $courseID; ?>",
+success: function(msg){
+	
+	if(msg!='null'){
 	$('#commentList').html(msg);
 	$('#successModal').modal('show');
-	$('#comment').val('');
-	}},
-	error:function(xhr,err,ex){
+	$('#comment').val('');}
+	},
+error:function(xhr,err,ex){
 
-	//  alert("exception: "+ex);
+	  alert("exception: "+ex);
 
-	document.getElementById('error_msg').innerText='Unknown error sending AJAX request for courselist.';
-	document.getElementById('error_msg').style.display='block';
+	//document.getElementById('error_msg').innerText='Unknown error sending AJAX request for courselist.';
+	//document.getElementById('error_msg').style.display='block';
 	}
 	});
 	}
@@ -44,27 +36,31 @@ data: "comment=" + comment + '&professorID=<?php echo $professorID ?>&courseID=<
 	</div>
 	<div class='well'>
 		<?php
-		$commentAttributes = array('id' => 'comment', 'class' => 'input-xlarge', 'style' => 'width:90%;resize:none', 'placeholder' => 'Comment...', 'name' => 'comment', 'autocomplete' => 'off');
+		$commentAttributes = array('id' => 'comment', 'class' => 'input-xlarge', 'style' => 'margin-left:3%;margin-right:3%;height:5em;width:94%;resize:none', 'placeholder' => 'Comment...', 'name' => 'comment', 'autocomplete' => 'off');
 		echo form_textarea($commentAttributes);
 		?>
-
-		<a href="javascript:addComment();" class="btn-large btn-primary">Comment</a>
+<br></br>
+		<a href="javascript:addComment();" class="btn-large btn-primary" style="3%">Comment</a>
+		
 	</div>
 	<div id='commentList'>
+		<table>		
+		
 		<?php
 		if (isset($comments)) {
 			foreach ($comments as $comment) {
 				echo '<div class="well">';
-				echo '<div class="comment_date"><h6>' . $comment -> DateString . '</h6></div>';
-				echo $comment -> Comment;
+				echo '<div style="float:right;display:block-inline;"><h6>' . $comment -> DateString . '</h6></div>';
+				echo '<p>'.$comment -> Comment.'</p>';
 				echo '</div>';
 			}
 		} else {
 			echo '<div class="well">';
-			echo "No comments found.  Have you taken this course?  Leave a comment!";
+			echo "<p>No comments found.  Have you taken this course?  Leave a comment!</p>";
 			echo '</div>';
 		}
 		?>
+		</table>
 	</div>
 	<div class="modal hide fade" id="errorModal">
 		<div class="modal-header">

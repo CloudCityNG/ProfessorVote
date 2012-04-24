@@ -53,13 +53,13 @@ class Professor extends CI_Controller {
 				$this->session->set_flashdata('state', urldecode($state));
                 $this -> load -> view('includes/template', $data);
 
-            } else if ($this -> Professor_model -> professorExists($firstName, $lastName, $department) == FALSE) {
+            } else if ($this -> Professor_model -> professorExists($firstName, $lastName, urldecode($department)) == FALSE) {
 
                 redirect(base_url("CollegePage/" . $state . "/" . $college));
             } else {
                 $data['firstName'] = $firstName;
                 $data['lastName'] = $lastName;
-                $data['department'] = $department;
+                $data['department'] = urldecode($department);
                 $data2 = array();
                 $data['collegeName'] = $college;
                 $data2['collegeName'] = $college;

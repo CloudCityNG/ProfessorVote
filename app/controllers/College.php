@@ -84,5 +84,11 @@ class College extends CI_Controller {
         }
 
     }
+	function getAllNames(){
+	$this -> load -> model('College_model');
+	$result = $this->College_model->getAllNames();
+	//echo implode(',', $result);
+	echo json_encode($result);
+	}
 
 }

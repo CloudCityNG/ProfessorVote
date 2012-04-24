@@ -10,6 +10,11 @@ class User_model extends CI_Model {
 		}
 
 	}
+	function getID($username){
+		$this -> db -> where('username', $username);
+		$query = $this -> db -> get('User');
+		return $query->row()->id;
+	}
 	
 	function create_user($first, $last, $email, $username, $password)
 	{

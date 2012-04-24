@@ -33,8 +33,7 @@
 							<li>
 								<a data-toggle="modal" href="#registerModal">Register</a>
 							</li>
-						</ul>
-						<ul class="nav">
+						
 							<li>
 								<a data-toggle="modal" href="#loginModal">Login</a>
 							</li>
@@ -45,8 +44,7 @@
 								<small class="navbar-text">User: <?php $username = $this -> session -> userdata('username'); 
 								echo anchor('profile/view_profile/'.$username, $username)?>
 							</li>
-						</ul>
-						<ul class="nav">
+						
 							<li>
 								<?php
 								$logoutAttributes = array('id' => 'logout', 'class' => 'btn');
