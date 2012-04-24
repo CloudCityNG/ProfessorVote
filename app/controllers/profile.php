@@ -11,9 +11,7 @@ class Profile extends CI_Controller {
     function is_logged_in() {
         $is_logged_in = $this -> session -> userdata('is_logged_in');
         $username = $this -> session -> userdata('username');
-        if ($username != $this -> uri -> segment(3)) {
-            redirect('');
-        }
+        
         if ((!isset($is_logged_in) || $is_logged_in != true)) {
             redirect('');
         }
@@ -30,7 +28,9 @@ class Profile extends CI_Controller {
         
         $this -> load -> model('User_model');
         $query = $this -> User_model -> fetch_user($username);
-
+        if ($username != $this -> uri -> segment(3)) {
+            redirect('');
+        }
         if ($query) {
             extract($query);
 
