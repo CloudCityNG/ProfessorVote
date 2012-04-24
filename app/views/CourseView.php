@@ -34,7 +34,10 @@ error:function(xhr,err,ex){
 		echo "<h3>" . anchor(site_url('Professor/view/' . $state . '/' . $collegeName . '/' . $professorFirstName . '/' . $professorLastName . '/' . $department), $professorName) . "</h3>";		
 		?>
 	</div>
-	<div class='well raised'>
+	
+	
+	<?php if($this->session->userdata('is_logged_in') == TRUE) {?>
+		<div class='well raised'>
 		<?php
 		$commentAttributes = array('id' => 'comment', 'class' => 'input-xlarge', 'style' => 'margin-left:3%;margin-right:3%;height:5em;width:94%;resize:none', 'placeholder' => 'Comment...', 'name' => 'comment', 'autocomplete' => 'off');
 		echo form_textarea($commentAttributes);
@@ -42,6 +45,13 @@ error:function(xhr,err,ex){
 	</br></br>
 		<a href="javascript:addComment();" class="btn-large btn-primary">Comment</a>
 	</div>
+	<?php }else{ ?>
+		<div class='well raised' style="text-align: center;">
+	 	<p><b>Log in to leave a comment!</b></p>
+	 </div>
+	 	<?php }?> 
+	
+	
 	<div id='commentList'>
 		<table>		
 		
