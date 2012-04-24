@@ -11,7 +11,6 @@
 	var courseNames=[<?php echo "'".implode("','",$courseNames)."'"?>].sort();
 	var catalogNumbers=[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort();
 function initAutoComplete(){
-	alert("test");
 
 	var courseNames=[<?php echo "'".implode("','",$courseNames)."'"?>].sort();
 	var catalogNumbers=[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort();
@@ -72,7 +71,6 @@ if(index>=0){
 
 
 function addCourse(){
-	alert('test!')
 $.ajax({
             type: "POST",
             url: "<?php echo base_url();?>index.php/course/add",

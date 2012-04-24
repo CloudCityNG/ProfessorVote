@@ -1,13 +1,13 @@
 
 <div class="container">
 	<ul class="breadcrumb">
-		<li>
-			<a href=<?php echo "/home"?>>Home</a><span class="divider">/</span>
-		</li>
-		<li class="active">
-			Profile
-		</li>
-	</ul>
+        <li>
+            <a href=<?php echo "/home"?>>Home</a><span class="divider">/</span>
+        </li>
+        <li class="active">
+            Profile
+        </li>
+    </ul>
 	<div class="hero-unit raised">
 		<div class="control-group">
 			<div class="page-header">

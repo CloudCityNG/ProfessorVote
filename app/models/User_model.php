@@ -44,46 +44,28 @@ class User_model extends CI_Model {
 	
 	function update_user($first_name, $last_name, $username, $password)
 	{
-        $query = $this -> User_model -> fetch_user($username);
-		
-		if ($query)
-		{
-			extract($query);
-			
-			$oldUserData['username'] = $old_username;
-			
-			$data = array('last_name' => $last_name, 'password' => md5($password), 'first_name' => $first_name);
-			$this -> db -> where('username', $old_username);
-			$update = $this -> db -> update('user', $data);
-			//echo $this -> db -> affected_rows();
-			return $update;
-		}
-		
-		else {
-			return $query;
-		}
-		
-        
+        $oldUserData = $this -> User_model -> fetch_user($username);
+       // print_r($oldUserData);
+        $data = array('last_name' => $last_name,'password' => md5($password),'first_name' => $first_name);
+		$this->db->where('id',$oldUserData[0]);
+		$update = $this -> db -> update('user',$data);
+        //echo $oldUserData;
+		return $update;
 	}
 	
 	function fetch_user($username)
 	{
-		if (isset($username))
-		{
-			$this -> db -> where('username', $username);
-		}	
-		
-		$query = $this -> db -> get('user');
-		
-		if ($query -> num_rows() == 0)
+	    $query = $this -> db -> query("SELECT * FROM user WHERE Username='$username'");
+        //print_r($username);  
+		//print_r($query->result());
+		if ($query -> num_rows() == 0 || $query -> num_rows() >1)
 		{
 			return NULL;
 		}
 		
-		else if ($query -> num_rows() == 1)
+		else
 		{
 			$row = $query -> row();
-
 			$data['last_name'] = $row -> last_name;
 			$data['id'] = $row -> id;
 			$data['username'] = $row -> username;
@@ -93,7 +75,6 @@ class User_model extends CI_Model {
 
 			return $data;
 		}
-// 		
 		// else if ($query -> num_rows() > 1)
 		// {
 			// return $query -> result();

@@ -10,7 +10,7 @@ class Profile extends CI_Controller {
 
     function is_logged_in() {
         $is_logged_in = $this -> session -> userdata('is_logged_in');
-        $username = $this -> session -> userdata('username');
+        $username = $this -> uri -> segment(3);
         
         if ((!isset($is_logged_in) || $is_logged_in != true)) {
             redirect('');
@@ -24,18 +24,13 @@ class Profile extends CI_Controller {
 
     function view_profile() {
         $this -> load -> helper('url');
-        $username = $this -> session -> userdata('username');
-        
+        $username = $this -> uri -> segment(3);
         $this -> load -> model('User_model');
-		if ($username != $this -> uri -> segment(3)) {
-            redirect('');
-        }
-		
+
         $query = $this -> User_model -> fetch_user($username);
-        
+		
         if ($query) {
             extract($query);
-
             $data['last_name'] = $last_name;
             $data['id'] = $id;
             $data['username'] = $username;
@@ -49,9 +44,8 @@ class Profile extends CI_Controller {
     }
 
     function edit_profile() {
-        $username = $this -> session -> userdata('username');
-		
-		echo $username;
+        $username = $this -> uri -> segment(3);
+
         if ($this -> input -> post('ajax') == '1') {
             $this -> load -> library('form_validation');
             $this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
@@ -74,6 +68,7 @@ class Profile extends CI_Controller {
 
                 if ($this -> User_model -> update_user($first_name, $last_name, $username, $password)) {
                     echo 'true';
+                    
                 } else {
                     //echo "<div class=\"alert alert-error\">Unknown Error occured.</div>";
 					echo $this -> User_model -> update_user($first_name, $last_name, $username, $password);
