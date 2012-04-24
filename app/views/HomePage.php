@@ -7,7 +7,7 @@
 			Please Pick Your State in the Drop Down Menu Below to Get Started.
 		</p>
 		<div class="btn-toolbar">
-			<div class="btn-group" style="display:inline-table">
+			<div class="btn-group raised" style:"style="display:inline-table">
 				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown" style="display:inline">
 					Select A State <span class="caret"></span>
 				</button>

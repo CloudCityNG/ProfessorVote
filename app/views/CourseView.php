@@ -25,23 +25,22 @@ error:function(xhr,err,ex){
 	}
 </script>
 <div class="container">
-	<div class="hero-unit">
+	<div class="hero-unit raised">
 		<?php
 		$this -> load -> helper('url');
 		$professorName = $professorFirstName . ' ' . $professorLastName;
-		echo "<h3>" . anchor(base_url('CollegePage/' . $state . '/' . $collegeName), $collegeName) . "</h3>";
-		echo "<h3>" . anchor(base_url('Professor/view/' . $state . '/' . $collegeName . '/' . $professorFirstName . '/' . $professorLastName . '/' . $department), $professorName) . "</h3>";
 		echo "<h2>" . $catalogNumber . ' - ' . $courseName . "</h2>";
+		echo "<h3>" . anchor(base_url('CollegePage/' . $state . '/' . $collegeName), $collegeName) . "</h3>";
+		echo "<h3>" . anchor(base_url('Professor/view/' . $state . '/' . $collegeName . '/' . $professorFirstName . '/' . $professorLastName . '/' . $department), $professorName) . "</h3>";		
 		?>
 	</div>
-	<div class='well'>
+	<div class='well raised'>
 		<?php
 		$commentAttributes = array('id' => 'comment', 'class' => 'input-xlarge', 'style' => 'margin-left:3%;margin-right:3%;height:5em;width:94%;resize:none', 'placeholder' => 'Comment...', 'name' => 'comment', 'autocomplete' => 'off');
 		echo form_textarea($commentAttributes);
 		?>
-<br></br>
-		<a href="javascript:addComment();" class="btn-large btn-primary" style="3%">Comment</a>
-		
+	</br></br>
+		<a href="javascript:addComment();" class="btn-large btn-primary">Comment</a>
 	</div>
 	<div id='commentList'>
 		<table>		
@@ -49,14 +48,14 @@ error:function(xhr,err,ex){
 		<?php
 		if (isset($comments)) {
 			foreach ($comments as $comment) {
-				echo '<div class="well">';
-				echo '<div style="float:right;display:block-inline;"><h6>' . $comment -> DateString . '</h6></div>';
-				echo '<p>'.$comment -> Comment.'</p>';
+				echo '<div class="well raised">';
+				echo '<div class="comment_date"><h6>' . $comment -> DateString . '</h6></div>';
+				echo $comment -> Comment;
 				echo '</div>';
 			}
 		} else {
-			echo '<div class="well">';
-			echo "<p>No comments found.  Have you taken this course?  Leave a comment!</p>";
+			echo '<div class="well raised">';
+			echo "No comments found.  Have you taken this course?  Leave a comment!";
 			echo '</div>';
 		}
 		?>

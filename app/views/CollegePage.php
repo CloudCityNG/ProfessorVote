@@ -1,3 +1,18 @@
+<script type="text/javascript">
+	function clickMouseDown(theID){
+		document.getElementById(theID).className= "well";
+	}
+	function clickMouseUp(theID){
+		document.getElementById(theID).className = "well raised";
+	}
+	function divOnHover(obj, theID){
+        obj.style.cursor = "pointer";
+        //document.getElementById(theID).className = "well raised";
+	}
+	function gotoThis(url){
+		window.location = url;
+	}
+</script>
 <?php $this -> load -> helper('url');?>
 <div class="container">
 	<!-- this is the about us page for ProfessorVote -->
@@ -9,7 +24,7 @@
 			School
 		</li>
 	</ul>
-	<div class="well">
+	<div class="well raised">
 		<h1><?php echo $collegeINFO -> Name;?></h1>
 		<table width="100%">
 			<tr>
@@ -85,15 +100,14 @@
 	?>
 	<?php foreach($professors as $professor): // for each professor print out a well unit
 	?>
-	<div class="well">
+	<div class="well raised" id="Professor1" onmouseover="divOnHover(this, 'Professor1');" onmousedown = "clickMouseDown('Professor1');" onmouseup = "clickMouseUp('Professor1');"OnClick="gotoThis('<?php echo  base_url("/Professor/view/".$collegeINFO -> State."/".$collegeINFO -> Name."/".$professor->FirstName.'/'.$professor->LastName.'/'.$professor->Department)?>');">
 		<td>
 		<tr>
 			<td align="right">DEPARTMENT:</td>
 			<?php echo $professor -> Department;?>
 		</tr>
 		<tr>
-			<strong><h4><a class="btn-large" href="<?php echo  base_url("/Professor/view/".$collegeINFO -> State."/".$collegeINFO -> Name."/".$professor->FirstName.'/'.$professor->LastName.'/'.$professor->Department)?>"><?php echo $professor->FirstName." ".$professor->LastName
-			?></a></h4></strong>
+			<strong><h4><?php echo $professor->FirstName." ".$professor->LastName?></h4></strong>
 		</tr>
 		<br />
 		</td>

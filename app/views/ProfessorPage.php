@@ -1,3 +1,18 @@
+<script type="text/javascript">
+	function clickMouseDown(theID){
+		document.getElementById(theID).className= "well";
+	}
+	function clickMouseUp(theID){
+		document.getElementById(theID).className = "well raised";
+	}
+	function divOnHover(obj, theID){
+        obj.style.cursor = "pointer";
+        //document.getElementById(theID).className = "well raised";
+	}
+	function gotoThis(url){
+		window.location = url;
+	}
+</script>
 <div class="container">
 	<div class="content">
 		<?php 
@@ -5,7 +20,7 @@
 			echo "<script type='text/javascript'>\$(document).ready(function(){\$('#addCourseModal').modal('show');});</script>";
 		}
 		?>
-		<div class ="hero-unit">
+		<div class ="hero-unit raised">
 			<h1><?php
 			if (isset($firstName)) {
 				echo $firstName;
@@ -34,25 +49,25 @@
 		<?php
 	if (isset($courses)==FALSE||$courses == NULL||count($courses)<1) {
 	?>
-	<div class="well">
+	<div class="well raised">
 	No courses were found for this professor.  Have you taken a course with this professor? Add that shit!
 	</div>
 	<?php
 	} else {
 	    //echo $this->Pulse_model->getCoursePulseVotes($courses[1]['CourseID']);
 	    $courses[0]['Votes'] = '15';
-print_r($courses);
+//print_r($courses);
 echo $courses[1]['CourseID'];
  foreach($courses as $course): 
 	?>
 	
-	<div class="well" id="<?php echo $course['CatalogNumber'] ?>">
+	<div class="well raised" id="<?php echo $course['CatalogNumber'] ?>" onmouseover="divOnHover(this, '<?php echo $course['CatalogNumber'] ?>');" onmousedown = "clickMouseDown('<?php echo $course['CatalogNumber'] ?>');" onmouseup = "clickMouseUp('<?php echo $course['CatalogNumber'] ?>');" OnClick="gotoThis('<?php echo base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']);?>');" >
 	     <div class="pull-right" style="margin-right: 1em">
             <?php echo $coursePulse -> voteHTML($course['CourseID']);?>
         </div>
 	    
-		<div class='catalogNumber'> <?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CatalogNumber']);?> </div>
-		<div class='courseName'><?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CourseName']);?></div>
+		<div class='catalogNumber'><strong><?php echo $course['CatalogNumber'];?> </strong></div>
+		<div class='courseName'><strong><?php echo  $course['CourseName'];?></strong></div>
 
 	</div>
 	<?php endforeach;?>
