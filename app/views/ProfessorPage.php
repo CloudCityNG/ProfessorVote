@@ -57,7 +57,7 @@
 	    //echo $this->Pulse_model->getCoursePulseVotes($courses[1]['CourseID']);
 	    $courses[0]['Votes'] = '15';
 //print_r($courses);
-echo $courses[1]['CourseID'];
+//echo $courses[1]['CourseID'];
  foreach($courses as $course): 
 	?>
 	

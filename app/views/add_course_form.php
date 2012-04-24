@@ -39,7 +39,7 @@ function tempFunct(){
             type: "POST",
             data: "collegeName=" + $("#college_name").val() + '&firstName=' + $("#professor_first_name").val() + '&state=<?php echo $state ?>'+
             '&lastName=' + $("#professor_last_name").val() + '&department=' + $("#professor_department").val()+'&professorID=<?php echo $professorID ?>',
-            url: "<?php echo site_url();?>index.php/Professor/getCourseListHTML",
+            url: "<?php echo site_url("Professor/getCourseListHTML");?>",
           
             success: function(msg){
 
@@ -59,7 +59,7 @@ function tempFunct(){
         });
 	
 }
-function typeahead_catalogNumber(){
+//function typeahead_catalogNumber(){
 //	if($('catalog_number').val()!='' or $('catalog_number').val();!=null){
 //var catnum= $('catalog_number').val();
 //int index = $.inArray(catnum,catalog_numbers);
@@ -67,17 +67,18 @@ function typeahead_catalogNumber(){
 //	$('course_name').val(courseNames[index]);
 //}
 //}
-}
+//}
 
 
 function addCourse(){
 $.ajax({
             type: "POST",
-            url: "<?php echo site_url();?>index.php/course/add",
+            url: "<?php echo site_url("course/add");?>",
             data: "catalog_number="+$("#catalog_number").val()+"&college_name="+$("#college_name").val()
             +'&course_name='+$("#course_name").val()+'&professor_first_name='+$("#professor_first_name").val()+
             '&professor_last_name='+$("#professor_last_name").val()+'&professor_department='+$("#professor_department").val(),
             success: function(msg){
+            	
             	if(msg=='success'){
 					//hide modal
 					$('#addCourseModal').modal('hide');		
@@ -86,6 +87,7 @@ $.ajax({
 					//clear addCourse panel
 					
 					$('.alert-error').hide();
+					tempFunct();
 					
 					
 					//TODO:repopulate page , highlight and scroll to new course
@@ -150,10 +152,10 @@ $.ajax({
             
         },
         error:function(xhr,err,ex){
-    //    	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-  //alert("responseText: "+xhr.responseText);
-    //alert("exception: "+err);
-  //  alert("exception: "+ex);
+       	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+  alert("responseText: "+xhr.responseText);
+    alert("exception: "+err);
+    alert("exception: "+ex);
 
     document.getElementById('error_msg').innerText='Unknown error sending AJAX request.';
      document.getElementById('error_msg').style.display='block';
