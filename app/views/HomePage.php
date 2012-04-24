@@ -1,8 +1,70 @@
 <script type="text/javascript">
-	function hideRoot(){
-		$('.root').hide();
+var typeaheadStarted = false;
+var populated =false;
+var schoolNames;
+function populateSchoolNames(){
+	if(populated==false){
+		populated=true;
+	
+	$.ajax({
+            type: "POST",            
+            url: "<?php echo base_url();?>index.php/College/getAllNames",
+          
+            success: function(msg){
+            	//alert("eppp");
+schoolNames = ($.parseJSON(msg)).toString().split(',');
+var i;
+for(i=0;i<schoolNames.length;i++){
+	schoolNames[i]=schoolNames[i].substring(1,schoolNames[i].length-1);
+	//alert(schoolNames[i]);
+}
+startTypeahead();
+//alert(schoolNames);
+            //	$('#courseList').html(msg);
+            	//$(document.body).animate({scrollTop: $(newCourseDiv).offset().top}, 1200);
+            	//$.scrollTo(newCourseDiv, 800, {easing:'elasout'});            
+        },
+        error:function(xhr,err,ex){
+     //   	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+  //  alert("responseText: "+xhr.responseText);
+  //  alert("exception: "+err);
+  //  alert("exception: "+ex);
+
+    document.getElementById('error_msg').innerText='Unknown error sending AJAX request for courselist.';
+     document.getElementById('error_msg').style.display='block';
+        }
+        });
+       }
+}
+function startTypeahead(){
+	
+	
+	if(typeaheadStarted==false){
+		typeaheadStarted=true;
+		alert("starting");
+		//alert(schoolNames[0]);
+		
+		
+	//	for(name in schoolNames){
+		//	alert(name);
+		//}
+		//var src = ['Kennesaw State University','Kasdaedawdeawdawd'].sort();
+		$('school_name_tb').typeahead({
+			source:schoolNames,
+			items:8
+		});
+		$('school_name_tb').live("focus",
+		typeahead({
+			source:schoolNames,
+			items:8
+		});
+		
+		);
 	}
+}
+
 	function chooseSchool(){
+		//alert("chosen");
 		var school_tb = $.trim($('#school_name_tb').val());
 		alert(school_tb);
 		if($.inArray(school_tb,window.schoolNames)>=0){
@@ -12,24 +74,24 @@
 		alert('notfound');
 	}
 	
-</script><div="container"></div="container">
+</script>
 	<!-- Main hero unit for a primary marketing message or call to action -->
-	<div class="hero-unit raised root">
+	<div class="hero-unit raised">
 		<h1>Welcome!</h1>
 		<p>
 			ProfessorVote.com is a new and unique way of rating your College professors and getting a quick and easy view of the best professors at your school.
 			Please Pick Your State in the Drop Down Menu Below to Get Started.
 		</p>
 		<div class="btn-toolbar">
-			<div class="btn-group" style:"style="display:inline-table">
+			<div class="btn-group" style="display:inline-table">
 				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown" style="display:inline">
 					Select A State <span class="caret"></span>
 				</button>
 				<p style="align:left">
 				<?php
-					$typeaheadSchoolNameAttributes = array('id' => 'school_name_tb', 'class' => 'input-xlarge', 'placeholder' => 'or start typing your school name here:', 'type' => 'text', 'name' => 'school_name_tb','data-provide'=>'typeahead','autocomplete'=>'off','style'=>'display:inline;align:right;margin-right:0','onChange'=>'javascript:chooseSchool();');
+					//$typeaheadSchoolNameAttributes = array('id' => 'school_name_tb', 'class' => 'input-xlarge', 'placeholder' => 'or start typing your school name here:', 'type' => 'text', 'name' => 'school_name_tb','data-provide'=>'typeahead','autocomplete'=>'off','style'=>'display:inline;align:right;margin-right:0','onChange'=>'javascript:chooseSchool();','onFocus'=>'javascript:populateSchoolNames();');
 
-					echo form_input($typeaheadSchoolNameAttributes);
+					//echo form_input($typeaheadSchoolNameAttributes);
 					?>	
 					
 				</p>
@@ -40,7 +102,7 @@
 						$states = $this -> State_model -> getAllStates();
 					foreach ($states as $row):
 					?>
-					<li onclick="javascript:hideRoot();">
+					<li>
 						<?php
 
 						$state = $row -> state;

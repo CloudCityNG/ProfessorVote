@@ -2,12 +2,12 @@
 	<?php
 	echo form_open('login/create_user');
 	?>
-	<form class="form-horizontal">
 		<fieldset>
-			<div class="control-group">
-				<legend>
+			<legend>
 					Personal Information
 				</legend>
+			<div class="control-group">
+				
 				<div id="registerMessage"></div>
 				<div class="controls" style="margin-bottom: 1em">
 					<?php
@@ -33,10 +33,11 @@
 			</div>
 		</fieldset>
 		<fieldset>
-			<div class="control-group">
-				<legend>
+			<legend>
 					Login Info
 				</legend>
+			<div class="control-group">
+				
 				<div class="controls" style="margin-bottom: 1em">
 					<?php
 					echo form_error('username');
@@ -68,8 +69,7 @@
 				</div>
 			</div>
 		</fieldset>
-	</form>
 	<?php
-	form_close();
+	echo form_close();
 	?>
 </div>

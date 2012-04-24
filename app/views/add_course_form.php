@@ -11,16 +11,15 @@
 	var courseNames=[<?php echo "'".implode("','",$courseNames)."'"?>].sort();
 	var catalogNumbers=[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort();
 function initAutoComplete(){
-	alert("test");
 
 	var courseNames=[<?php echo "'".implode("','",$courseNames)."'"?>].sort();
 	var catalogNumbers=[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort();
 	$('#course_name').typeahead({
-		source:[<?php echo "'".implode("','",$courseNames)."'"?>].sort(),
+		source:courseNames,
 		items:6
 	});
 	$('#catalog_number').typeahead({
-		source:[<?php echo "'".implode("','",$catalogNumbers)."'"?>].sort(),
+		source:catalogNumbers,
 		items:6
 	});
 	$('#successModal').on('hidden', function () { 
@@ -43,7 +42,7 @@ function tempFunct(){
             url: "<?php echo base_url();?>index.php/Professor/getCourseListHTML",
           
             success: function(msg){
-            	//alert(msg);
+
             	$('#courseList').html(msg);
             	$(document.body).animate({scrollTop: $(newCourseDiv).offset().top}, 1200);
             	//$.scrollTo(newCourseDiv, 800, {easing:'elasout'});            
@@ -61,18 +60,17 @@ function tempFunct(){
 	
 }
 function typeahead_catalogNumber(){
-	if($('catalog_number').val()!='' or $('catalog_number').val();!=null){
-var catnum= $('catalog_number').val();
-int index = $.inArray(catnum,catalog_numbers);
-if(index>=0){
-	$('course_name').val(courseNames[index]);
-}
-}
+//	if($('catalog_number').val()!='' or $('catalog_number').val();!=null){
+//var catnum= $('catalog_number').val();
+//int index = $.inArray(catnum,catalog_numbers);
+//if(index>=0){
+//	$('course_name').val(courseNames[index]);
+//}
+//}
 }
 
 
 function addCourse(){
-	alert('test!')
 $.ajax({
             type: "POST",
             url: "<?php echo base_url();?>index.php/course/add",
@@ -80,7 +78,6 @@ $.ajax({
             +'&course_name='+$("#course_name").val()+'&professor_first_name='+$("#professor_first_name").val()+
             '&professor_last_name='+$("#professor_last_name").val()+'&professor_department='+$("#professor_department").val(),
             success: function(msg){
-            //	alert(msg);
             	if(msg=='success'){
 					//hide modal
 					$('#addCourseModal').modal('hide');		
@@ -153,9 +150,9 @@ $.ajax({
             
         },
         error:function(xhr,err,ex){
-     //   	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+    //    	alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
   //alert("responseText: "+xhr.responseText);
-  //  alert("exception: "+err);
+    //alert("exception: "+err);
   //  alert("exception: "+ex);
 
     document.getElementById('error_msg').innerText='Unknown error sending AJAX request.';

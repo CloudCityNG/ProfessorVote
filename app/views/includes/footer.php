@@ -16,18 +16,6 @@
 <script src="/CoursePulse/assets/js/pulse.core.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-<?php
-$this->load->model('College_model');
- $schoolNames=$this->College_model->getAllNames(); ?>
-
-	var schoolNames=[<?php echo implode(",",$schoolNames)?>].sort();
-	$('#school_name_tb').typeahead({
-		source:schoolNames,
-		items:6
-	});
-});
-
-$(document).ready(function() {
 		$('#submitLogin').click(function() {
 			var form_data = {
 				username : $('#username').val(),
@@ -41,7 +29,7 @@ $(document).ready(function() {
 				data : form_data,
 				success : function(msg) {
 					if(msg == 'true') {
-						location.reload(true)
+						location.reload(true);
 					} else {
 						$('#message').html(msg);
 					}
@@ -64,7 +52,7 @@ $(document).ready(function() {
 				data : form_data,
 				success : function(msg) {
 					if(msg == 'true') {
-						location.reload(true)
+						location.reload(true);
 					} else {
 						$('#message').html(msg);
 					}
@@ -91,7 +79,7 @@ $(document).ready(function() {
 				data : form_data,
 				success : function(msg) {
 					if(msg == 'true') {
-						location.reload(true)
+						location.reload(true);
 					} else {
 						$('#registerMessage').html(msg);
 					}
@@ -115,7 +103,7 @@ $(document).ready(function() {
                     data : form_data,
                     success : function(msg) {
                         if(msg == 'true') {
-                            location.reload(true)
+                            location.reload(true);
                         } else {
                             $('#createCollegeMessage').html(msg);
                         }

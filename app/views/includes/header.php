@@ -18,7 +18,7 @@
 			}
 		</style>
 	</head>
-	<body onload="init();">
+	<body>
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
@@ -34,8 +34,7 @@
 							<li>
 								<a data-toggle="modal" href="#registerModal">Register</a>
 							</li>
-						</ul>
-						<ul class="nav">
+						
 							<li>
 								<a data-toggle="modal" href="#loginModal">Login</a>
 							</li>
@@ -43,11 +42,9 @@
 						<?php } else {?>
 						<ul class="nav">
 							<li>
-								<small class="navbar-text">User: <?php echo anchor('profile', $this->session->userdata('username'))
-									?>
+								<small class="navbar-text">User: <?php echo anchor('profile', $this->session->userdata('username')); ?></small>
 							</li>
-						</ul>
-						<ul class="nav">
+						
 							<li>
 								<?php
 								$logoutAttributes = array('id' => 'logout', 'class' => 'btn');

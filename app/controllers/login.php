@@ -26,7 +26,8 @@ class Login extends CI_Controller {
 			$query = $this -> User_model -> validate($username, $password);
 			if ($query)// if the user's credentials validated...
 			{
-				$data = array('username' => $this -> input -> post('username'), 'is_logged_in' => true);
+				$id = $this->User_model->getID($username);
+				$data = array('username' => $this -> input -> post('username'), 'is_logged_in' => true, 'userid'=>$id);
 				$this -> session -> set_userdata($data);
 				redirect('home');
 			} else// incorrect username or password
@@ -66,6 +67,7 @@ class Login extends CI_Controller {
 
 			if ($this -> User_model -> create_user($first_name, $last_name, $email_address, $username, $password)) {
 				redirect('home');
+				//TODO:log in user
 			} else {
 				$data['main_content'] = 'signup_form';
 				$this -> load -> view('includes/template', $data);
@@ -94,7 +96,8 @@ class Login extends CI_Controller {
 				$query = $this -> User_model -> validate($username, $password);
 				if ($query)// if the user's credentials validated...
 				{
-					$data = array('username' => $this -> input -> post('username'), 'is_logged_in' => true);
+					$id = $this->User_model->getID($username);
+					$data = array('username' => $this -> input -> post('username'), 'is_logged_in' => true, 'userid'=>$id);
 					$this -> session -> set_userdata($data);
 					echo 'true';
 				} else// incorrect username or password
