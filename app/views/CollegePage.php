@@ -76,7 +76,7 @@
 	</div>
 	<?php if($this->session->userdata('is_logged_in') == TRUE) {?>
         <button class="bt btn-large btn-primary pull-right" data-toggle="modal" href="#createCollegeModal">
-               <i class="icon-plus icon-white"></i> Add that shit!
+               <i class="icon-plus icon-white"></i> Add It!
             </button>
             <?php } Else{?>
             <p class="pull-right" style="margin-right: 1em">

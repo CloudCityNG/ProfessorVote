@@ -20,7 +20,7 @@ class Professor extends CI_Controller {
         if (isset($courses) == FALSE || $courses == NULL || count($courses) < 1) {
 
             echo '<div class="well">
-	No courses were found for this professor.  Have you taken a course with this professor? Add that shit!
+	No courses were found for this professor.  Have you taken a course with this professor? Add It!
 	</div>';
         } else {
 
