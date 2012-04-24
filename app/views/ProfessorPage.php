@@ -29,7 +29,7 @@
 	 	
 		</br></br>
 
-
+<?php $coursePulse = new CoursePulse();?>
 <div id="courseList">
 		<?php
 	if (isset($courses)==FALSE||$courses == NULL||count($courses)<1) {
@@ -42,7 +42,12 @@
 
  foreach($courses as $course): 
 	?>
+	
 	<div class="well" id="<?php echo $course['CatalogNumber'] ?>">
+	     <div class="pull-right" style="margin-right: 1em">
+            <?php echo $coursePulse -> voteHTML($course['CourseID']);?>
+        </div>
+	    
 		<div class='catalogNumber'> <?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CatalogNumber']);?> </div>
 		<div class='courseName'><?php echo anchor(base_url('course/view/'.$state.'/'.$collegeName.'/'.$firstName.'/'.$lastName.'/'.$department.'/'.$course['CatalogNumber']), $course['CourseName']);?></div>
 

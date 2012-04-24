@@ -61,9 +61,9 @@ function tempFunct(){
 	
 }
 function typeahead_catalogNumber(){
-	if($('catalog_number').val()!='' or $('catalog_number').val();!=null){
-var catnum= $('catalog_number').val();
-int index = $.inArray(catnum,catalog_numbers);
+	if($('catalog_number').val()!='' || $('catalog_number').val()!=null){
+        var catnum = $('catalog_number').val();
+        var index = $.inArray(catnum,catalog_numbers);
 if(index>=0){
 	$('course_name').val(courseNames[index]);
 }

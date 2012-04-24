@@ -1,5 +1,5 @@
 <?php
-
+include('CoursePulse/Pulse.vote.class.php');
 class Professor extends CI_Controller {
 
     function index() {

@@ -154,7 +154,7 @@ class Course_model extends CI_Model {
 			return NULL;
 		} else {
 			foreach ($q->result() as $row) {
-				$info =array('CourseName'=>$row -> CourseName, 'CatalogNumber'=>$row->CatalogNumber);
+				$info =array('CourseName'=>$row -> CourseName, 'CatalogNumber'=>$row->CatalogNumber, 'CourseID' => $row->CourseID);
 				$courses[] = $info;
 				// now we have the list of all the professor ID's. We have to to do one final query to get all the professors.
 			}
