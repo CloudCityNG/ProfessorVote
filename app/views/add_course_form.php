@@ -39,7 +39,7 @@ function tempFunct(){
             type: "POST",
             data: "collegeName=" + $("#college_name").val() + '&firstName=' + $("#professor_first_name").val() + '&state=<?php echo $state ?>'+
             '&lastName=' + $("#professor_last_name").val() + '&department=' + $("#professor_department").val()+'&professorID=<?php echo $professorID ?>',
-            url: "<?php echo base_url();?>index.php/Professor/getCourseListHTML",
+            url: "<?php echo site_url();?>index.php/Professor/getCourseListHTML",
           
             success: function(msg){
 
@@ -73,7 +73,7 @@ function typeahead_catalogNumber(){
 function addCourse(){
 $.ajax({
             type: "POST",
-            url: "<?php echo base_url();?>index.php/course/add",
+            url: "<?php echo site_url();?>index.php/course/add",
             data: "catalog_number="+$("#catalog_number").val()+"&college_name="+$("#college_name").val()
             +'&course_name='+$("#course_name").val()+'&professor_first_name='+$("#professor_first_name").val()+
             '&professor_last_name='+$("#professor_last_name").val()+'&professor_department='+$("#professor_department").val(),

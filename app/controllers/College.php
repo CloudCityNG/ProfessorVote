@@ -10,6 +10,7 @@ class College extends CI_Controller {
         if ($name == null) {
             $this -> browse();
         } else {
+        	$name = urldecode($name);
             $data['college_name'] = $name;
             $data['main_content'] = 'CollegeView';
             $this -> load -> view('includes/template', $data);

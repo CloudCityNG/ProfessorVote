@@ -11,7 +11,7 @@ class Util {
 
 				$type = $link[type];
 				$name = $link [name];
-				$url = base_url('/index.php/' . $type . '/view/' . $name);
+				$url = site_url('/index.php/' . $type . '/view/' . $name);
 				$out = $out . anchor($url, $name);
 
 			

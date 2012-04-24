@@ -30,8 +30,8 @@ error:function(xhr,err,ex){
 		$this -> load -> helper('url');
 		$professorName = $professorFirstName . ' ' . $professorLastName;
 		echo "<h2>" . $catalogNumber . ' - ' . $courseName . "</h2>";
-		echo "<h3>" . anchor(base_url('CollegePage/' . $state . '/' . $collegeName), $collegeName) . "</h3>";
-		echo "<h3>" . anchor(base_url('Professor/view/' . $state . '/' . $collegeName . '/' . $professorFirstName . '/' . $professorLastName . '/' . $department), $professorName) . "</h3>";		
+		echo "<h3>" . anchor(site_url('CollegePage/' . $state . '/' . $collegeName), $collegeName) . "</h3>";
+		echo "<h3>" . anchor(site_url('Professor/view/' . $state . '/' . $collegeName . '/' . $professorFirstName . '/' . $professorLastName . '/' . $department), $professorName) . "</h3>";		
 		?>
 	</div>
 	<div class='well raised'>
