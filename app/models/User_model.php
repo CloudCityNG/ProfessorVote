@@ -44,29 +44,12 @@ class User_model extends CI_Model {
 	
 	function update_user($first_name, $last_name, $username, $password)
 	{
-		if (isset($username))
-		{
-			$this -> db -> where('username', $username);
-			
-			if (isset($password))
-			{
-				$this -> db -> set('password', md5($password));
-			}
-			
-			if (isset($first))
-			{
-				$this -> db -> set('first_name', $first);
-			}
-			
-			if (isset($last))
-			{
-				$this -> db -> set('last_name', $last);
-			}
-		}
-			
-		$this -> db -> update('user');
-		
-		return $this -> db -> affected_rows();
+        $oldUserData = $this -> User_model -> fetch_user($username);
+        $data = array('last_name' => $last_name,'password' => md5($password),'first_name' => $first_name);
+		$this->db->where('id',$oldUserData['id']);
+		$update = $this -> db -> update('user',$data);
+		//echo $this -> db -> affected_rows();
+		return $update;
 	}
 	
 	function fetch_user($username)
@@ -96,10 +79,10 @@ class User_model extends CI_Model {
 
 			return $data;
 		}
-		
-		else if ($query -> num_rows() > 1)
-		{
-			return $query -> result();
-		}
+// 		
+		// else if ($query -> num_rows() > 1)
+		// {
+			// return $query -> result();
+		// }
 	}
 }

@@ -16,18 +16,6 @@
 <script src="/CoursePulse/assets/js/pulse.core.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-<?php
-$this->load->model('College_model');
- $schoolNames=$this->College_model->getAllNames(); ?>
-
-	var schoolNames=[<?php echo implode(",",$schoolNames)?>].sort();
-	$('#school_name_tb').typeahead({
-		source:schoolNames,
-		items:6
-	});
-});
-
-$(document).ready(function() {
 		$('#submitLogin').click(function() {
 			var form_data = {
 				username : $('#username').val(),
@@ -151,6 +139,33 @@ $(document).ready(function() {
                 return false;
             });
         });
+        
+      $(document).ready(function() {
+            $('#saveProfileEdit').click(function() {
+                var form_data = {
+                    first_name : $('#edit_first_name').val(),
+                    last_name : $('#edit_last_name').val(),
+                    password : $('#edit_password').val(),
+                    password2 : $('#edit_password_confirm').val(),
+                    ajax : '1'
+                };
+                $.ajax({
+                    url : "<?php echo site_url('profile/edit_profile'); ?>",
+                    type : 'POST',
+                    async : false,
+                    data : form_data,
+                    success : function(msg) {
+                        if(msg == 'true') {
+                            location.reload(true);
+                        } else {
+                            $('#profileEditMessage').html(msg);
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+       
        
 
 </script>

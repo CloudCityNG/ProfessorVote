@@ -2,17 +2,17 @@
 	<?php echo form_open('profile/edit_profile');?>
 		<form class="form-horizontal">
 			<fieldset>
-				<div id="profileEditMessage"></div>
+				
 				<div class="control-group">
 					<legend>
 						Personal Information
 					</legend>
-					
+					<div id="profileEditMessage"></div>
 					<h4>First Name:</h4>
 					<div class="controls" style="margin-bottom: 1em">
 						<?php
 						echo form_error('first_name');
-						$firstNameAttributes = array('id' => 'first_name', 'name' => 'first_name', 'class' => 'input-xlarge', 'placeholder' => $first_name, 'type' => 'text');
+						$firstNameAttributes = array('id' => 'edit_first_name', 'name' => 'first_name', 'class' => 'input-xlarge', 'placeholder' => $first_name, 'type' => 'text');
 						echo form_input($firstNameAttributes);
 						?>				
 					</div>
@@ -21,7 +21,7 @@
 					<div class="controls" style="margin-bottom: 1em">
 						<?php
 						echo form_error('last_name');
-						$lastNameAttributes = array('id' => 'last_name', 'name' => 'last_name', 'class' => 'input-xlarge', 'placeholder' => $last_name, 'type' => 'text');
+						$lastNameAttributes = array('id' => 'edit_last_name', 'name' => 'last_name', 'class' => 'input-xlarge', 'placeholder' => $last_name, 'type' => 'text');
 						echo form_input($lastNameAttributes);
 						?>
 					</div>
@@ -55,7 +55,7 @@
 						<div class="controls" style="margin-bottom: 1em">
 							<?php
 							echo form_error('password');
-							$passwordAttributes = array('id' => 'password', 'name' => 'password', 'class' => 'input-xlarge', 'value' => (isset($this -> validation -> {'password'}) ? $this -> validation -> {'password'} : ''), 'type' => 'text');
+							$passwordAttributes = array('id' => 'edit_password', 'name' => 'password', 'class' => 'input-xlarge', 'value' => (isset($this -> validation -> {'password'}) ? $this -> validation -> {'password'} : ''), 'type' => 'text');
 							echo form_password($passwordAttributes);
 							?>
 						</div>
@@ -64,7 +64,7 @@
 						<div class="controls" style="margin-bottom: 1em">
 							<?php
 							echo form_error('password_confirm');
-							$passwordAttributes2 = array('id' => 'password_confirm', 'name' => 'password_confirm', 'class' => 'input-xlarge', 'value' => (isset($this -> validation) ? $this -> validation -> {'password_confirm'} : ''), 'type' => 'text');
+							$passwordAttributes2 = array('id' => 'edit_password_confirm', 'name' => 'password_confirm', 'class' => 'input-xlarge', 'value' => (isset($this -> validation) ? $this -> validation -> {'password_confirm'} : ''), 'type' => 'text');
 							echo form_password($passwordAttributes2);
 							?>
 						</div>
@@ -73,14 +73,16 @@
 					<div class="form-actions">
 						<div>
 							<?php
-							$saveAttributes = array('id' => 'save', 'name' => 'save', 'class' => 'btn btn-large btn-primary', 'value' => 'Save', 'type' => 'submit');
+							$saveAttributes = array('id' => 'saveProfileEdit', 'name' => 'save', 'class' => 'btn btn-large btn-primary', 'value' => 'Save', 'type' => 'submit');
 							echo form_submit($saveAttributes);
 							?>    
 						</div>
 					</div>
 				</fieldset>
 			</form>
-		<?=form_close()?>
+		<?php
+        echo form_close();
+        ?>
 	</div>
 </div>
 

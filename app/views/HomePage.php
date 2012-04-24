@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	function hideRoot(){
 		$('.root').hide();
 	}
@@ -12,7 +12,8 @@
 		alert('notfound');
 	}
 	
-</script><div="container"></div="container">
+</script> -->
+    <div class="container">
 	<!-- Main hero unit for a primary marketing message or call to action -->
 	<div class="hero-unit raised root">
 		<h1>Welcome!</h1>
@@ -25,14 +26,14 @@
 				<button class="btn btn-large dropdown-toggle" data-toggle="dropdown" style="display:inline">
 					Select A State <span class="caret"></span>
 				</button>
-				<p style="align:left">
+				<!-- <p style="align:left">
 				<?php
 					$typeaheadSchoolNameAttributes = array('id' => 'school_name_tb', 'class' => 'input-xlarge', 'placeholder' => 'or start typing your school name here:', 'type' => 'text', 'name' => 'school_name_tb','data-provide'=>'typeahead','autocomplete'=>'off','style'=>'display:inline;align:right;margin-right:0','onChange'=>'javascript:chooseSchool();');
 
 					echo form_input($typeaheadSchoolNameAttributes);
 					?>	
 					
-				</p>
+				</p> -->
 				
 				<ul class="dropdown-menu">
 					<?php 
@@ -40,13 +41,13 @@
 						$states = $this -> State_model -> getAllStates();
 					foreach ($states as $row):
 					?>
-					<li onclick="javascript:hideRoot();">
+					<!-- <li onclick="javascript:hideRoot();"> -->
 						<?php
 
 						$state = $row -> state;
 					?>
 						<a href="<?php echo htmlentities("home/showCollegesFromState/" . $state);?>"><?php echo $state;?></a>
-					</li>
+					<!-- </li> -->
 					<?php endforeach;?>
 				</ul>
 				
