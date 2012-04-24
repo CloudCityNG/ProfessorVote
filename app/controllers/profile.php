@@ -26,7 +26,9 @@ class Profile extends CI_Controller {
         $this -> load -> helper('url');
         $username = $this -> uri -> segment(3);
         $this -> load -> model('User_model');
+
         $query = $this -> User_model -> fetch_user($username);
+		
         if ($query) {
             extract($query);
             $data['last_name'] = $last_name;
@@ -42,15 +44,17 @@ class Profile extends CI_Controller {
     }
 
     function edit_profile() {
-        $username = $this -> uri -> segment(3);
+        //$username = $this -> uri -> segment(3);
+        $username = $this -> session -> userdata('username');
+		//var_dump($username);
         if ($this -> input -> post('ajax') == '1') {
             $this -> load -> library('form_validation');
             $this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
             // field name, error message, validation rules
-            $this -> form_validation -> set_rules('first_name', 'Name', 'trim|required');
+            $this -> form_validation -> set_rules('first_name', 'First Name', 'trim|required');
             $this -> form_validation -> set_rules('last_name', 'Last Name', 'trim|required');
             //$this -> form_validation -> set_rules('email_address', 'Email Address', 'trim|required|valid_email|is_unique[user.email_address]');
-            //$this -> form_validation -> set_rules('username', 'Username', 'trim|required|min_length[4]|is_unique[user.username]');
+            //$this -> form_validation -> set_rules('username', 'Username', 'trim|required|min_length[4]');
             $this -> form_validation -> set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
             $this -> form_validation -> set_rules('password2', 'Password Confirmation', 'trim|required|matches[password]');
 
@@ -58,14 +62,19 @@ class Profile extends CI_Controller {
                 echo validation_errors();
             } else {
                 $this -> load -> model('User_model');
+				//var_dump($first_name);
                 $first_name = $this -> input -> post('first_name');
+                //var_dump($first_name);
+				//var_dump($last_name);
                 $last_name = $this -> input -> post('last_name');
-                $username = $this -> input -> post('username');
+				//var_dump($last_name);
+				//var_dump($username);
+                //$username = $this -> input -> post('username');
+				//var_dump($username);
                 $password = $this -> input -> post('password');
 
                 if ($this -> User_model -> update_user($first_name, $last_name, $username, $password)) {
-                    echo 'true';
-                    
+                    echo 'true';  
                 } else {
                     echo "<div class=\"alert alert-error\">Unknown Error occured.</div>";
                 }
