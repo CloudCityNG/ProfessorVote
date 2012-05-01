@@ -1,12 +1,17 @@
 <?php
 
 class course extends CI_Controller {
-
+/*
+ * if no method is called from the coure controller the homepage is returned
+ */
 	function index() {
 		$data['main_content'] = 'HomePage';		
 		$this -> load -> view('includes/template', $data);
 	}
-
+/*
+ * loads a single course view. If any of the parameters are invalid, the user is
+ * returned to the most appropriate page.
+ */
 	function view($state, $collegeName, $professorFirstName, $professorLastName, $department, $catalogNumber) {
 		$this -> load -> model("College_model");
 		$this -> load -> model("Course_model");
@@ -64,6 +69,10 @@ class course extends CI_Controller {
 		}
 
 	}
+/*
+ * AJAX method to add a course to the database.  
+ * All validation and error messages are handled in this message.
+ */
 
 	public function add() {
 		$this -> load -> model('Course_model');
@@ -178,7 +187,11 @@ class course extends CI_Controller {
 		}
 
 	}
-
+/*
+ * AJAX method to add a comment to a course. Validation and error messages are
+ * handled in this method.  If a comment is added, the most current comment
+ * data for a course is returned to the page.
+ */
 	function comment() {
 		$this -> load -> model('Course_model');
 		$comment =urldecode(trim( $this -> input -> post('comment')));
@@ -201,7 +214,9 @@ class course extends CI_Controller {
 		}
 
 	}
-
+/*
+ * method to return a string of HTML of all comments in a given course
+ */
 	private function getCommentHtml($courseID, $professorID) {
 		$comments = $this -> Course_model -> getComments($courseID, $professorID);
 		$result = "";

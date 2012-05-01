@@ -6,7 +6,9 @@ class Professor extends CI_Controller {
         $data['main_content'] = 'ProfessorPage';
         $this -> load -> view('includes/template', $data);
     }
-
+/*
+ * AJAX method to return HTML code for all a professor's courses
+ */
     public function getCourseListHTML() {
         $this -> load -> model("Course_model");
         $professorID = urldecode($this -> input -> post('professorID'));
@@ -34,7 +36,9 @@ class Professor extends CI_Controller {
             endforeach;
         }
     }
-
+/*
+ * loads a view of a single professor
+ */
     function view($state = null, $college = null, $firstName = null, $lastName = null, $department = null) {
         $this -> load -> model('Professor_model');
         $this -> load -> model('Course_model');
@@ -96,7 +100,9 @@ class Professor extends CI_Controller {
             $this -> load -> view('includes/template', $data);
         }
     }
-
+/*
+ * AJAX method to add a professor to the DB
+ */
     function addProfessor_Ajax() {
         if ($this -> input -> post('ajax') == '1') {
             $this -> load -> library('form_validation');

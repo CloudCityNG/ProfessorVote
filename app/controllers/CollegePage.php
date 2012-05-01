@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * handles loading and reloading of the view college page
+ */
 class CollegePage extends CI_Controller {
 
     public function _remap($method,$params = array()) {

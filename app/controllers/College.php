@@ -5,7 +5,10 @@ class College extends CI_Controller {
     function index() {
         $this -> browse();
     }
-
+/*
+ * Loads a view to see a single college.  
+ * If the name is null, the user is returned to the college browse page
+ */
     function view($name = null) {
         if ($name == null) {
             $this -> browse();
@@ -17,7 +20,10 @@ class College extends CI_Controller {
 
         }
     }
-
+/*
+ * Loads a view where the user can browse all the schools in the database
+ * sorted by letter.
+ */
     function browse($letter = NULL) {
         $this -> load -> model('College_model');
         $data['main_content'] = 'BrowseCollegesPage';
@@ -39,14 +45,18 @@ class College extends CI_Controller {
         $this -> load -> view('includes/template', $data);
 
     }
-
+/*
+ * basic search function for college
+ */
     function search() {
         $this -> load -> model('College_model');
         $data['records'] = $this -> College_model -> getAll();
         $data['main_content'] = 'CollegeSearchPage';
         $this -> load -> view('includes/template', $data);
     }
-
+/*
+ * Ajax function to add a college.  All validation and error messages are handled in this message.
+ */
     function addCollege_Ajax() {
         if ($this -> input -> post('ajax') == '1') {
             $this -> load -> library('form_validation');
@@ -73,7 +83,9 @@ class College extends CI_Controller {
             }
         }
     }
-
+/*
+ * method to check if a college exists in a certain state
+ */
     function college_state_check($str) {
         $this -> load -> model('College_model');
         $result = $this -> College_model -> collegeStateExists($str, $this -> input -> post('state'));
@@ -85,6 +97,9 @@ class College extends CI_Controller {
         }
 
     }
+	/*
+	 * returns a json encoded array of all college names in the database
+	 */
 	function getAllNames(){
 	$this -> load -> model('College_model');
 	$result = $this->College_model->getAllNames();

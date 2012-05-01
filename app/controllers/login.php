@@ -9,7 +9,11 @@ class Login extends CI_Controller {
 		$data['main_content'] = 'login_form';
 		$this -> load -> view('includes/template', $data);
 	}
-
+/*
+ * validates a users credentials.  If they are corrent, the user is logged in 
+ * and returned to the home page.  If they are incorrect, they are redirected 
+ * back to the login page with the appprorate error message.
+ */
 	function validate_credentials() {
 		$this -> load -> library('form_validation');
 		$this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
@@ -37,12 +41,17 @@ class Login extends CI_Controller {
 			}
 		}
 	}
-
+/*
+ * loads the sign up page
+ */
 	function signup() {
 		$data['main_content'] = 'signup_form';
 		$this -> load -> view('includes/template', $data);
 	}
-
+/*
+ * validates users input for registration.  If successfull, the user is redirected home.
+ * If unsucessful, the user is redirected to the create user form.
+ */
 	function create_user() {
 		$this -> load -> library('form_validation');
 		$this -> form_validation -> set_error_delimiters('<div class="alert alert-error">', '</div>');
@@ -77,12 +86,16 @@ class Login extends CI_Controller {
 		}
 
 	}
-
+/*
+ * logs the user out.
+ */
 	function logout() {
 		$this -> session -> sess_destroy();
 		redirect('home');
 	}
-
+/*
+ * AJAX method to validate a users credentials
+ */
 	function ajax_check() {
 		if ($this -> input -> post('ajax') == '1') {
 			$this -> load -> library('form_validation');
@@ -109,7 +122,9 @@ class Login extends CI_Controller {
 			}
 		}
 	}
-
+/*
+ * AJAX method to validate create user input
+ */
 	function create_user_ajax() {
 		if ($this -> input -> post('ajax') == '1') {
 			$this -> load -> library('form_validation');

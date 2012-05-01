@@ -1,13 +1,17 @@
 <?php
 
 class Profile extends CI_Controller {
-
+/*
+ * constructor that is called automatically when object is instantiated
+ */
     function __construct() {
         parent::__construct();
         $this -> is_logged_in();
 
     }
-
+/*
+ * method returns true or false if the user is currently logged in.
+ */
     function is_logged_in() {
         $is_logged_in = $this -> session -> userdata('is_logged_in');
         $username = $this -> uri -> segment(3);
@@ -21,7 +25,9 @@ class Profile extends CI_Controller {
         $data['main_content'] = 'ProfilePageView';
         $this -> load -> view('includes/template', $data);
     }
-
+/*
+ * method that loads the profile page for the logged in user
+ */
     function view_profile() {
         $this -> load -> helper('url');
         $username = $this -> uri -> segment(3);
@@ -42,7 +48,9 @@ class Profile extends CI_Controller {
         $data['main_content'] = 'ProfilePageView';
         $this -> load -> view('includes/template', $data);
     }
-
+/*
+ * method to validate and process changes to a users profile
+ */
     function edit_profile() {
         //$username = $this -> uri -> segment(3);
         $username = $this -> session -> userdata('username');
