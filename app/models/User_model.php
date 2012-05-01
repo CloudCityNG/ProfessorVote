@@ -1,5 +1,8 @@
 <?php
 class User_model extends CI_Model {
+	/*
+	 * checks if the password is correct for a given username
+	 */
 	function validate($username, $password) {
 
 		$this -> db -> where('username', $username);
@@ -10,12 +13,17 @@ class User_model extends CI_Model {
 		}
 
 	}
+	/*
+	 * gets the user ID given the user name
+	 */
 	function getID($username){
 		$this -> db -> where('username', $username);
 		$query = $this -> db -> get('User');
 		return $query->row()->id;
 	}
-	
+	/*
+	 * method to create a user and add it to the DB
+	 */
 	function create_user($first, $last, $email, $username, $password)
 	{
 		
@@ -30,7 +38,9 @@ class User_model extends CI_Model {
 		$insert = $this->db->insert('User', $new_user_insert_data);
 		return $insert;
 	}
-	
+	/*
+	 * checks if an email is already assosiated with a user
+	 */
 	function checkUniqueEmail($email){
 		$this -> db -> where('email_address',$email);
 		$query = $this->db->get('User');
@@ -38,7 +48,9 @@ class User_model extends CI_Model {
 			return TRUE;
 		}
 	}
-	
+	/*
+	 * checks if a username is already used
+	 */
 	function checkUniqueUser($user){
 		$this -> db -> where('username',$user);
 		$query = $this->db->get('User');
@@ -46,7 +58,9 @@ class User_model extends CI_Model {
 			return TRUE;
 		}
 	}
-	
+	/*
+	 * method to update a user information
+	 */
 	function update_user($first_name, $last_name, $username, $password)
 	{
 		//var_dump($username);
@@ -59,7 +73,9 @@ class User_model extends CI_Model {
 		$update = $this -> db -> update('user',$data);
 		return $update;
 	}
-	
+	/*
+	 * gets user information from a username
+	 */
 	function fetch_user($username)
 	{
 	    $query = $this -> db -> query("SELECT * FROM user WHERE Username='$username'");

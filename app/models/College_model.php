@@ -1,7 +1,9 @@
 <?php
 
 class College_model extends CI_Model {
-
+/*
+ * returns all of the colleges in the database
+ */
     function getAll() {
         $q = $this -> db -> get('college');
         if ($q -> num_rows() > 0) {
@@ -11,6 +13,9 @@ class College_model extends CI_Model {
             return $data;
         }
     }
+	/*
+	 * returns JSON encoded array of all college names.
+	 */
 	    function getAllNames() {
         $q = $this -> db -> get('college');
         if ($q -> num_rows() > 0) {
@@ -21,7 +26,9 @@ class College_model extends CI_Model {
         }
     }
 	
-
+/*
+ * returns all colleges in a given state
+ */
     function getCollegeByState($state) {
         $q = $this -> db -> query("SELECT * FROM College WHERE State='$state'");
         if ($q -> num_rows() > 0) {
@@ -33,7 +40,10 @@ class College_model extends CI_Model {
             return NULL;
         }
     }
-
+/*
+ * returns a collegeID if a college exists in a state.  
+ * returns null else
+ */
     public function collegeByStateAndName($state, $college) {
         $q = $this -> db -> query("SELECT * FROM COLLEGE WHERE State='$state' AND Name='$college'");
         if ($q -> num_rows() == 0 || $q -> num_rows() > 1) {
@@ -45,7 +55,9 @@ class College_model extends CI_Model {
         }
 
     }
-
+/*
+ * returns all professors in a given college
+ */
     function loadProfessorByCollege($state, $college) {
 
         // First part hits the ProfessorList lookup table. We need to find the College ID so we can find all professors ID's that belong to that college

@@ -1,6 +1,8 @@
 <?php
 class Course_model extends CI_Model {
-
+/*
+ * method to add a a coure to the database.
+ */
 	function create_course($catalog_number, $course_name, $collegeID) {
 
 		$new_course_insert_data = array('CourseName' => $course_name, 'CatalogNumber' => $catalog_number, 'CollegeID' => $collegeID);
@@ -8,7 +10,9 @@ class Course_model extends CI_Model {
 		$insert = $this -> db -> insert('course', $new_course_insert_data);
 		return $insert;
 	}
-
+/*
+ * method to add a course to the database
+ */
 	function add_course($catalog_number, $course_name, $collegeID, $professorID) {
 		$continue = TRUE;
 		if ($this -> courseExists($catalog_number, $collegeID) != TRUE) {
@@ -32,7 +36,9 @@ class Course_model extends CI_Model {
 		return $insert;
 
 	}
-
+/*
+ * returns true if course exists, false if not
+ */
 	function courseExists($catalog_number, $college_ID) {
 		log_message("debug", "***********");
 		log_message("debug", "ENTERING COURSEXISTS");
@@ -49,6 +55,10 @@ class Course_model extends CI_Model {
 			return FALSE;
 		}
 	}
+	/*
+	 * returns the courseName from an ID if it exists.
+	 * else returns null
+	 */
 	function getCourseName($courseID){
 		$this -> db -> select('*');
 		$this -> db -> where('CourseID', $courseID);	
@@ -64,6 +74,11 @@ class Course_model extends CI_Model {
 			return $q->row()->CourseName;
 		}
 	}
+	/*
+	 * returns the course ID from a college and catalog number.
+	 * error returns "error" string
+	 * no results returns null;
+	 */
 	function getCourseID($collegeID,$catalogNumber){
 		log_message("debug","****COllegeID:".$collegeID);
 		$this->db->where('CollegeID',$collegeID);
@@ -79,7 +94,11 @@ class Course_model extends CI_Model {
 			return NULL;
 		}
 	}
-	
+	/*
+	 * function to add a comment to DB.
+	 * Success returns "success"
+	 * else returns  "error"
+	 */
 	function addComment($comment,$professorID,$courseID){
 		$mysqldate = date( 'Y-m-d H:i:s');
 		log_message("debug",'::::::::::::::::::::::::::::::');
@@ -95,13 +114,11 @@ class Course_model extends CI_Model {
 		}
 		
 	}
+	/*
+	 * returns all the comments given a coure ID and professor ID
+	 */
 	function getComments($courseID,$professorID){
-	//	$this->db->select("*,DATE_FORMAT(c.`Date`,'%W, %M %D, %Y') as DateString");
-	//	$this -> db -> where('CourseID', $courseID);
-		//$this -> db -> where('ProfessorID', $professorID);
-//log_message("debug","7777777777 profID ".$professorID);
-//log_message("debug","989797 COURSEID ".$courseID);
-		//$q = $this -> db -> get('comments');
+
 		$q=$this->db->query("SELECT *,DATE_FORMAT(c.`Date`,'%W, %M %D, %Y') as DateString FROM comments c where c.CourseID = '".$courseID."' and c.ProfessorID= '".$professorID."'order by DateString asc;");
 
 		if ($q -> num_rows() < 1) {
@@ -113,7 +130,10 @@ class Course_model extends CI_Model {
 			return $comments;
 		}
 	}
-
+/*
+ * checks whether or not a course exists for a given courseID and professorID
+ * return true or false
+ */
 	function courseProfessorExists($courseID, $professorID) {
 		
 		$this -> db -> select('*');
@@ -128,7 +148,11 @@ class Course_model extends CI_Model {
 			return FALSE;
 		}
 	}
-
+/*
+ * given a catalog number and college id, this method
+ * returns the ID of a course if it exists.
+ *
+ */
 	function getID($catalog_number, $college_ID) {
 		$this -> db -> where('CatalogNumber', $catalog_number);
 		$this -> db -> where('CollegeID', $college_ID);
@@ -146,7 +170,9 @@ class Course_model extends CI_Model {
 			return 'error';
 		}
 	}
-
+/*
+ * returns all courses tought be a professor
+ */
 	function getCoursesByProfessor($professorID) {
 		$this -> db -> where('ProfessorID', $professorID);
 		$this -> db -> join('courselist', 'courselist.CourseID=course.courseID');
@@ -164,6 +190,10 @@ class Course_model extends CI_Model {
 		return $courses;
 
 	}
+	/*
+	 * returns all catalog numbers for a certain collegeID.
+	 * this is used for autopopulating text boxes
+	 */
 	function getCatalogNumbersArray($collegeID = null) {
 		if ($collegeID != null) {
 			$this -> db -> where('CollegeID', $collegeID);
@@ -190,7 +220,10 @@ class Course_model extends CI_Model {
 			}
 		}
 	}
-
+/*
+ * returns all course names for a given college ID
+ * this is for auto populating text boxes
+ */
 	function getCourseNameArray($collegeID = null) {
 		if ($collegeID != null) {
 			$this -> db -> where('CollegeID', $collegeID);
