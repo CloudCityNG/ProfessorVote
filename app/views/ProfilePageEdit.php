@@ -2,7 +2,6 @@
 	<?php echo form_open('profile/edit_profile');?>
 		<form class="form-horizontal">
 			<fieldset>
-				
 				<div class="control-group">
 					<legend>
 						Personal Information
@@ -80,10 +79,6 @@
 					</div>
 				</fieldset>
 			</form>
-		<?php
-        echo form_close();
-        ?>
+		<?php echo form_close();?>
 	</div>
 </div>
-
-
