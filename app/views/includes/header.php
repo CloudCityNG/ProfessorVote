@@ -82,7 +82,7 @@
 				<fieldset>
 					<div class="control-group">
 						<div class="modal-body">
-							<?php $headerLogin = $this -> load -> view("signup_form", TRUE);?>
+							<?php $headerLogin = $this -> load -> view("auth/register_form", TRUE);?>
 						</div>
 					</div>
 				</fieldset>

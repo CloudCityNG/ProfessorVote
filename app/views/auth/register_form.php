@@ -1,5 +1,5 @@
 <?php
-if ($use_username) {
+if (isset($use_username)) {
 	$username = array(
 		'name'	=> 'username',
 		'id'	=> 'username',
@@ -37,7 +37,7 @@ $captcha = array(
 ?>
 <?php echo form_open($this->uri->uri_string()); ?>
 <table>
-	<?php if ($use_username) { ?>
+	<?php if (isset($use_username)) { ?>
 	<tr>
 		<td><?php echo form_label('Username', $username['id']); ?></td>
 		<td><?php echo form_input($username); ?></td>
@@ -60,7 +60,7 @@ $captcha = array(
 		<td style="color: red;"><?php echo form_error($confirm_password['name']); ?></td>
 	</tr>
 
-	<?php if ($captcha_registration) {
+	<?php if (isset($captcha_registration)) {
 		if ($use_recaptcha) { ?>
 	<tr>
 		<td colspan="2">
@@ -96,5 +96,5 @@ $captcha = array(
 	<?php }
 	} ?>
 </table>
-<?php echo form_submit('register', 'Register'); ?>
+<?php echo form_submit('submitRegistration', 'Register'); ?>
 <?php echo form_close(); ?>

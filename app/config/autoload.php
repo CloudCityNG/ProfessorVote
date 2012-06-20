@@ -51,7 +51,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','session');
+$autoload['libraries'] = array('database','session','tank_auth');
 
 /*
 | -------------------------------------------------------------------
@@ -107,7 +107,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('Pulse_model');
+$autoload['model'] = array('Pulse_model','College_model','Course_model', 'Professor_model','State_model','User_model');
 
 
 /* End of file autoload.php */
